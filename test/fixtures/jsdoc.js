@@ -7,4 +7,12 @@ function quux (a) {
   console.log(a);
 }
 
-export default quux;
+/**
+ * @returns {void}
+ */
+function noArgs () {
+  // eslint-disable-next-line no-console -- Testing
+  console.log('No args');
+}
+
+export {quux, noArgs};
