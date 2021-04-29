@@ -6,5 +6,9 @@ module.exports = {
     requireConfigFile: false
   },
   rules: {
+    'no-restricted-syntax': [
+      'error',
+      'FunctionDeclaration > JSDocBlock.param[0] > JSDocType[value="string"]'
+    ]
   }
 };
