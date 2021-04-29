@@ -14,7 +14,8 @@
     "cover 100%"
   ],
   "scripts": {
-    "eslint": "eslint --ext=jd,md,html",
+    "lint-test": "eslint --config .eslintrc-test.js test/fixtures",
+    "eslint": "eslint --ext=jd,md,html .",
     "lint": "npm run eslint",
     "mocha": "mocha",
     "test": "nyc npm run mocha"

@@ -1,6 +1,6 @@
 'use strict';
 
-const babelParser = require('@babel/eslint-parser');
+const {parseForESLint: babelParser} = require('@babel/eslint-parser');
 
 const commentParser = require('comment-parser');
 
