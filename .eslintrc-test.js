@@ -4,7 +4,10 @@ module.exports = {
   plugins: ['jsdoc'],
   parser: './src/index.js',
   parserOptions: {
-    requireConfigFile: false
+    sourceType: 'module',
+    babelOptions: {
+
+    }
   },
   rules: {
     'no-restricted-syntax': [
