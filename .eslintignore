@@ -1,0 +1,4 @@
+bot_response_sample.js
+coverage
+node_modules
+!.*.js
