@@ -3,6 +3,7 @@
 const {parseForESLint: babelParser} = require('@babel/eslint-parser');
 const commentParser = require('comment-parser');
 const jsdoctypeparser = require('jsdoctypeparser');
+const {getJSDocComment} = require('@es-joy/jsdoccomment');
 const {SourceCode} = require('eslint/lib/source-code/index.js');
 
 // eslint-disable-next-line node/exports-style -- Required by ESLint
@@ -23,8 +24,10 @@ exports.parseForESLint = function (code, options) {
   // Todo: Add visitorKeys for comments and comment types both
   commentParser;
   jsdoctypeparser;
-  // Need to utilize with extracted version of `eslint-plugin-jsdoc`'s
-  //   `getJSDocComment` (ESLint's is deprecated).
+  // Todo: Need to utilize together with this `getJSDocComment`
+  //  (ESLint's is deprecated). For now, might just traverse and run on
+  //  each node
+  getJSDocComment;
   SourceCode;
 
   console.log('ast', ast);
