@@ -3,6 +3,7 @@
 const {parseForESLint: babelParser} = require('@babel/eslint-parser');
 const commentParser = require('comment-parser');
 const jsdoctypeparser = require('jsdoctypeparser');
+const estraverse = require('estraverse');
 const {getJSDocComment} = require('@es-joy/jsdoccomment');
 const {SourceCode} = require('eslint/lib/source-code/index.js');
 
@@ -22,13 +23,18 @@ exports.parseForESLint = function (code, options) {
 
   // Todo: Add comments and comment types! (ensure passing in comment option)
   // Todo: Add visitorKeys for comments and comment types both
+  // Filed https://github.com/jsdoctypeparser/jsdoctypeparser/issues/139
+  //  and commented at https://github.com/syavorsky/comment-parser/issues/99
+  //  regarding jsdoctypeparser and comment-parser supporting this AST
+  //  out of the box
   commentParser;
   jsdoctypeparser;
   // Todo: Need to utilize together with this `getJSDocComment`
   //  (ESLint's is deprecated). For now, might just traverse and run on
-  //  each node
+  //  each node (could use `estraverse`)
   getJSDocComment;
   SourceCode;
+  estraverse;
 
   console.log('ast', ast);
   return {

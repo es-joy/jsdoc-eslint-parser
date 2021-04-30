@@ -22,6 +22,7 @@ specifiers:
   eslint-plugin-promise: ^5.1.0
   eslint-plugin-radar: ^0.2.1
   eslint-plugin-unicorn: ^31.0.0
+  estraverse: ^5.2.0
   jsdoctypeparser: ^9.0.0
 
 dependencies:
@@ -30,6 +31,7 @@ dependencies:
   '@es-joy/jsdoccomment': 0.1.0
   comment-parser: 1.1.5
   eslint: 7.25.0
+  estraverse: 5.2.0
   jsdoctypeparser: 9.0.0
 
 devDependencies:
