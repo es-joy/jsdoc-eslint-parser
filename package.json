@@ -33,15 +33,15 @@
   },
   "devDependencies": {
     "@brettz9/eslint-plugin": "^1.0.3",
-    "eslint-config-ash-nazg": "29.12.1",
+    "eslint-config-ash-nazg": "29.13.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-array-func": "^3.1.7",
     "eslint-plugin-compat": "^3.9.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-html": "^6.1.2",
     "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsdoc": "^32.3.1",
-    "eslint-plugin-markdown": "^2.0.1",
+    "eslint-plugin-jsdoc": "^33.0.0",
+    "eslint-plugin-markdown": "^2.1.0",
     "eslint-plugin-no-unsanitized": "^3.1.5",
     "eslint-plugin-no-use-extend-native": "^0.5.0",
     "eslint-plugin-node": "^11.1.0",
@@ -50,12 +50,11 @@
     "eslint-plugin-unicorn": "^31.0.0"
   },
   "dependencies": {
-    "@babel/core": "^7.13.16",
+    "@babel/core": "^7.14.0",
     "@babel/eslint-parser": "^7.13.14",
-    "@es-joy/jsdoccomment": "^0.1.0",
+    "@es-joy/jsdoccomment": "^0.3.0",
     "comment-parser": "^1.1.5",
     "eslint": "^7.25.0",
-    "estraverse": "^5.2.0",
-    "jsdoctypeparser": "^9.0.0"
+    "esquery": "^1.4.0"
   }
 }
