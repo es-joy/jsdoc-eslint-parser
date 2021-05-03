@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+  root: true,
   plugins: ['jsdoc'],
   parser: './src/index.js',
   parserOptions: {
@@ -12,16 +13,17 @@ module.exports = {
   rules: {
     'no-restricted-syntax': [
       'error',
-      'FunctionDeclaration > JSDocBlock > JSDocTag[name="param"] > JSDocType[value="string"]'
+      'FunctionDeclaration:has(JSDocBlock > ' +
+        'JSDocTag:has([rawType=/string/]) > JSDocTypeUnion)',
+      'FunctionDeclaration:has(JSDocBlock:has(' +
+        'JSDocTypeUnion[right.name="number"]))'
     ],
-    'jsdoc/require-jsdoc': [
+    'jsdoc/require-description': [
       'error',
       {
-        require: {
-          FunctionDeclaration: false
-        },
         contexts: [
-          'FunctionDeclaration:has(JSDocBlock > JSDocTag[name="param"])'
+          'FunctionDeclaration:has(JSDocBlock:has(' +
+            'JSDocTypeUnion[right.name="number"]))'
         ]
       }
     ]
