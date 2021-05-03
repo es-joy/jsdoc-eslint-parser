@@ -12,7 +12,7 @@ module.exports = {
   rules: {
     'no-restricted-syntax': [
       'error',
-      'FunctionDeclaration > JSDocBlock.param[0] > JSDocType[value="string"]'
+      'FunctionDeclaration > JSDocBlock > JSDocTag[name="param"] > JSDocType[value="string"]'
     ],
     'jsdoc/require-jsdoc': [
       'error',
@@ -21,7 +21,7 @@ module.exports = {
           FunctionDeclaration: false
         },
         contexts: [
-          'FunctionDeclaration:has(JSDocBlock.param[0])'
+          'FunctionDeclaration:has(JSDocBlock > JSDocTag[name="param"])'
         ]
       }
     ]

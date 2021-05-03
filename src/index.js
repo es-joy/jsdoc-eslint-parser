@@ -1,21 +1,32 @@
 'use strict';
 
 const {parseForESLint: babelParser} = require('@babel/eslint-parser');
-const commentParser = require('comment-parser');
 const esquery = require('esquery');
 const {
-  getJSDocComment, jsdocVisitorKeys, jsdocTypeVisitorKeys,
-  commentParserToESTree, toCamelCase
+  jsdocVisitorKeys, jsdocTypeVisitorKeys,
+  getJSDocComment,
+  parseComment, commentParserToESTree
 } = require('@es-joy/jsdoccomment');
 const {SourceCode} = require('eslint/lib/source-code/index.js');
 
+const jsdocCommentProperty = 'jsdoc';
+
 // eslint-disable-next-line node/exports-style -- Required by ESLint
 exports.parseForESLint = function (code, options) {
+  const {
+    mode = 'jsdoc',
+    maxLines = 1,
+    minLines = 0,
+    indent = '',
+    sourceType,
+    babelOptions
+  } = options;
+
   // console.log('options', options, code);
   const {ast, scopeManager, visitorKeys} = babelParser(code, {
     // Grab if not within `babelOptions`
-    sourceType: options.sourceType,
-    ...options.babelOptions,
+    sourceType,
+    ...babelOptions,
 
     // Required by ESLint on `Program`
     tokens: true,
@@ -23,7 +34,15 @@ exports.parseForESLint = function (code, options) {
     ranges: true
   });
 
-  // Todo: Add comments and comment types! (ensure passing in comment option)
+  // Todo: Expose comment or type parsing utilities?
+  const parserServices = {
+    /*
+    foo () {
+      // eslint-disable-next-line no-console -- Testing
+      console.log('test');
+    }
+    */
+  };
 
   // Filed https://github.com/jsdoctypeparser/jsdoctypeparser/issues/139
   //  and commented at https://github.com/syavorsky/comment-parser/issues/99
@@ -31,35 +50,57 @@ exports.parseForESLint = function (code, options) {
   //  out of the box
 
   // Todo: Need to utilize together with this `getJSDocComment`
-  //  (ESLint's is deprecated). For now, might just traverse and run on
-  //  each node (could use `estraverse`)
-  SourceCode;
+  //  (ESLint's is deprecated). Should really be building this as building
+  //  AST rather than traversing and running on each node
+  const sourceCode = new SourceCode(
+    {
+      ast,
+      scopeManager,
+      visitorKeys,
+      text: code,
+      parserServices
+    }
+  );
 
   const sel = esquery.parse('*[type]');
-  esquery.traverse(ast, sel, (node) => {
-    const {type} = node;
-    node.jsdoc = getJSDocComment(node);
-    node.type = `JSDocType${toCamelCase(type)}`;
+  esquery.traverse(ast, sel, (node, parent) => {
+    // `parent` not available by default, so we add; must not be
+    //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
+    node.parent = parent;
+    node.loc = {start: {line: 0}, end: {line: 0}};
+    node.range = [0, 0];
+
+    const commentToken = getJSDocComment(sourceCode, node, {
+      minLines,
+      maxLines
+    });
+
+    let commentAST = null;
+    if (commentToken) {
+      const jsdoc = parseComment(
+        commentToken,
+        indent
+      );
+      commentAST = commentParserToESTree(jsdoc, mode);
+    }
+
+    node[jsdocCommentProperty] = commentAST;
   });
 
-  const jsdoc = commentParser.parse(comment);
-  ast = commentParserToESTree(jsdoc, options.mode);
+  const modifiedVisitorKeys = JSON.parse(JSON.stringify(visitorKeys));
+  Object.entries(modifiedVisitorKeys).forEach(([key, value]) => {
+    modifiedVisitorKeys[key] = Array.isArray(value)
+      ? [jsdocCommentProperty, ...value]
+      : value;
+  });
+  // console.log('modifiedVisitorKeys', modifiedVisitorKeys);
 
-  console.log('ast', ast);
   return {
     ast,
-    // Expose comment or type parsing utilities?
-    /*
-    services: {
-      foo () {
-        // eslint-disable-next-line no-console -- Testing
-        console.log('test');
-      }
-    },
-    */
+    services: parserServices,
     scopeManager,
     visitorKeys: {
-      ...visitorKeys,
+      ...modifiedVisitorKeys,
       ...jsdocVisitorKeys,
       ...jsdocTypeVisitorKeys
     }

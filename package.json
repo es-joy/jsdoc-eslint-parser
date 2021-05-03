@@ -52,8 +52,7 @@
   "dependencies": {
     "@babel/core": "^7.14.0",
     "@babel/eslint-parser": "^7.13.14",
-    "@es-joy/jsdoccomment": "^0.3.0",
-    "comment-parser": "^1.1.5",
+    "@es-joy/jsdoccomment": "^0.4.0",
     "eslint": "^7.25.0",
     "esquery": "^1.4.0"
   }
