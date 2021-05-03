@@ -14,7 +14,7 @@
     "cover 100%"
   ],
   "scripts": {
-    "lint-test": "eslint --no-eslintrc --config .eslintrc-test.js test/fixtures",
+    "lint-test": "echo \"Getting \\`Cannot read property 'start' of undefined\\` errors without no-eslintrc but this works at least\" && eslint --no-eslintrc --config .eslintrc-test.js test/fixtures",
     "eslint": "eslint --ext=jd,md,html .",
     "lint": "npm run eslint",
     "mocha": "mocha",
