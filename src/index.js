@@ -67,8 +67,11 @@ exports.parseForESLint = function (code, options) {
     // `parent` not available by default, so we add; must not be
     //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
     node.parent = parent;
-    node.loc = {start: {line: 0}, end: {line: 0}};
-    node.range = [0, 0];
+    // Have must `range` and `loc` per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
+    // We've specified `ranges` above and seem to be getting `loc` set.
+    // const [start, end] = node.range;
+    // node.loc = {start: {line: 0}, end: {line: 0}};
+    // node.loc = {start: {line: start}, end: {line: end}};
 
     const commentToken = getJSDocComment(sourceCode, node, {
       minLines,
@@ -93,7 +96,9 @@ exports.parseForESLint = function (code, options) {
       ? [jsdocCommentProperty, ...value]
       : value;
   });
+
   // console.log('modifiedVisitorKeys', modifiedVisitorKeys);
+  // console.log('ast', ast.jsdoc.tags[0]);
 
   return {
     ast,
