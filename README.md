@@ -1,6 +1,7 @@
 # @es-joy/jsdoc-eslint-parser
 
-***This project is not yet functional.***
+***This project has not been well-tested and should be considered
+experimental.***
 
 This project aims to allow full `@babel/eslint-parser` configuration, but with
 `comment-parser`-based AST for JSDoc blocks and `jsdoctypeparser` AST for
@@ -8,6 +9,8 @@ JSDoc types within those blocks.
 
 It is hoped that this may spur development of official ESTree acceptance of
 such AST.
+
+You can run our `lint-test` script for an example.
 
 ## Use cases
 
