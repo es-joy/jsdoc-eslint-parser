@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.1.4
+
+- npm: Bump dep. `@es-joy/jsdoccomment`
+
 ## 0.1.3
 
 - Docs: Refer to `jsdoccomment` for AST structure
