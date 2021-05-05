@@ -26,12 +26,14 @@ exports.parseForESLint = function (code, options) {
   const {ast, scopeManager, visitorKeys} = babelParser(code, {
     // Grab if not within `babelOptions`
     sourceType,
-    ...babelOptions,
+    ...babelOptions
 
+    // These would be needed by the regular Babel parser, but apparently
+    //   this Babel ESLint parser properly adds them for us:
     // Required by ESLint on `Program`
-    tokens: true,
+    // tokens: true,
     // Required by ESLint on each Node
-    ranges: true
+    // ranges: true
   });
 
   // Todo: Expose comment or type parsing utilities?
