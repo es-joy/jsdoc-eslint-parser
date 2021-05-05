@@ -36,7 +36,8 @@ And we add a `parent` for each Node so that our `getJSDocComment` method can
 find its way around (see below).
 
 The tricky part with the `jsdoc` property comes in with determining
-*which* JSDoc should be associated with a given Node. In `jsdoccomment`,
+*which* JSDoc should be associated with a given Node. In
+[`jsdoccomment`](https://github.com/es-joy/jsdoccomment),
 we have a `getJSDocComment` method, originally begun by ESLint itself to
 determine where that should be expected.
 
@@ -56,6 +57,9 @@ repeated on two different nodes, e.g., if there is no JSDoc block at point B or
 C, the node for the `aFunc` `Identifier` node should get the JSDoc Block at
 point A added just as the `FunctionExpression` will get the same JSDoc Block
 added.
+
+Note that the AST produces is described in the
+[jsdoccomment](https://github.com/es-joy/jsdoccomment) project.
 
 ## Installation
 

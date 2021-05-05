@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.1.3
+
+- Docs: Refer to `jsdoccomment` for AST structure
+
 ## 0.1.2
 
 - Docs: Indicate options and AST approach
