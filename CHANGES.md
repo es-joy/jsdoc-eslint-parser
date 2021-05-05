@@ -3,6 +3,8 @@
 ## 0.1.2
 
 - Docs: Indicate options and AST approach
+- Refactoring: Comment out unnecessary arguments
+- npm: Update `@es-joy/jsdoccomment` dep. (just doc changes)
 
 ## 0.1.1
 
