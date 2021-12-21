@@ -7,7 +7,7 @@ const {
   getJSDocComment,
   parseComment, commentParserToESTree
 } = require('@es-joy/jsdoccomment');
-const {SourceCode} = require('eslint/lib/source-code/index.js');
+const {SourceCode} = require('eslint');
 
 const jsdocCommentProperty = 'jsdoc';
 
