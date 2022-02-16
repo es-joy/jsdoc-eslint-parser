@@ -1,5 +1,12 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.4.0
+
+- npm: Bump dep. `@es-joy/jsdoccomment`, `@babel/core`,
+    `@babel/eslint-parser`, `eslint`
+- npm: Update devDeps.
+- chore: allow `lint` script to be passed `--fix`
+
 ## 0.3.0
 
 - npm: Bump dep. `@es-joy/jsdoccomment`, `@babel/core`,
