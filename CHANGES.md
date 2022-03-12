@@ -5,6 +5,7 @@
 - feat: support `jsdocBlocks` property (on `Program`)
 - fix: Replace any non-array key values with array
 - chore: add `.idea` to `.gitignore`
+- chore: Update devDeps.
 
 ## 0.4.1
 
