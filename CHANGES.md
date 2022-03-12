@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.6.3
+
+- fix: attach `parent` to JSDoc nodes
+
 ## 0.6.2
 
 - fix: ensure tags, etc. get attached to `jsdocBlocks` blocks

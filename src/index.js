@@ -70,6 +70,7 @@ exports.parseForESLint = function (code, options) {
     // `parent` not available by default, so we add; must be
     //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
     node.parent = parent;
+
     // Have must `range` and `loc` per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
     // We've specified `ranges` above and seem to be getting `loc` set.
     // const [start, end] = node.range;
@@ -88,6 +89,11 @@ exports.parseForESLint = function (code, options) {
         indent
       );
       commentAST = commentParserToESTree(jsdoc, mode);
+      esquery.traverse(commentAST, sel, (node, parent) => {
+        // `parent` not available by default, so we add; must be
+        //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
+        node.parent = parent;
+      });
     }
 
     node[jsdocCommentProperty] = commentAST;
@@ -109,6 +115,12 @@ exports.parseForESLint = function (code, options) {
 
       commentAST.loc = loc;
       commentAST.range = range;
+
+      esquery.traverse(commentAST, sel, (node, parent) => {
+        // `parent` not available by default, so we add; must be
+        //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
+        node.parent = parent;
+      });
 
       return commentAST;
     }).filter((ast) => {
