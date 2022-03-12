@@ -66,7 +66,7 @@ exports.parseForESLint = function (code, options) {
 
   const sel = esquery.parse('*[type]');
   esquery.traverse(ast, sel, (node, parent) => {
-    // `parent` not available by default, so we add; must not be
+    // `parent` not available by default, so we add; must be
     //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
     node.parent = parent;
     // Have must `range` and `loc` per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
