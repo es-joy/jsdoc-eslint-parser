@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.6.0
+
+- feat: add `loc` and `range` to individual `jsdocBlocks`
+
 ## 0.5.0
 
 - feat: support `jsdocBlocks` property (on `Program`)

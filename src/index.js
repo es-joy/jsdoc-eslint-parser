@@ -94,7 +94,7 @@ exports.parseForESLint = function (code, options) {
   });
 
   if (ast.comments) {
-    ast[jsdocBlocksProperty] = ast.comments.map(({value: comment}) => {
+    ast[jsdocBlocksProperty] = ast.comments.map(({value: comment, range, loc}) => {
       let jsdoc;
       try {
         // Todo: detect leading whitespace for indent argument?
@@ -102,7 +102,12 @@ exports.parseForESLint = function (code, options) {
       } catch (err) {
         return null;
       }
-      return commentParserToESTree(jsdoc, mode);
+      const commentAST = commentParserToESTree(jsdoc, mode);
+
+      commentAST.loc = loc;
+      commentAST.range = range;
+
+      return commentAST;
     }).filter((ast) => {
       return ast;
     });
