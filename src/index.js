@@ -94,7 +94,10 @@ exports.parseForESLint = function (code, options) {
   });
 
   if (ast.comments) {
-    ast[jsdocBlocksProperty] = ast.comments.map(({value: comment, range, loc}) => {
+    ast[jsdocBlocksProperty] = ast.comments.map(({type, value: comment, range, loc}) => {
+      if (type !== 'Block') {
+        return null;
+      }
       let jsdoc;
       try {
         // Todo: detect leading whitespace for indent argument?
