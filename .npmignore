@@ -3,3 +3,4 @@ pnpm-lock.yaml
 coverage
 .nyc_output
 .eslintrc-test.js
+.idea
