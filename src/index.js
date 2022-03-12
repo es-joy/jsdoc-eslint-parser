@@ -10,6 +10,7 @@ const {
 const {SourceCode} = require('eslint');
 
 const jsdocCommentProperty = 'jsdoc';
+const jsdocBlocksProperty = 'jsdocBlocks';
 
 // eslint-disable-next-line node/exports-style -- Required by ESLint
 exports.parseForESLint = function (code, options) {
@@ -92,11 +93,26 @@ exports.parseForESLint = function (code, options) {
     node[jsdocCommentProperty] = commentAST;
   });
 
+  if (ast.comments) {
+    ast[jsdocBlocksProperty] = ast.comments.map(({value: comment}) => {
+      let jsdoc;
+      try {
+        // Todo: detect leading whitespace for indent argument?
+        jsdoc = parseComment(comment);
+      } catch (err) {
+        return null;
+      }
+      return commentParserToESTree(jsdoc, mode);
+    }).filter((ast) => {
+      return ast;
+    });
+  }
+
   const modifiedVisitorKeys = JSON.parse(JSON.stringify(visitorKeys));
   Object.entries(modifiedVisitorKeys).forEach(([key, value]) => {
     modifiedVisitorKeys[key] = Array.isArray(value)
-      ? [jsdocCommentProperty, ...value]
-      : value;
+      ? [jsdocCommentProperty, jsdocBlocksProperty, ...value]
+      : [jsdocCommentProperty, jsdocBlocksProperty];
   });
 
   // console.log('modifiedVisitorKeys', modifiedVisitorKeys);

@@ -1,5 +1,11 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.5.0
+
+- feat: support `jsdocBlocks` property (on `Program`)
+- fix: Replace any non-array key values with array
+- chore: add `.idea` to `.gitignore`
+
 ## 0.4.1
 
 - chore: bump `@es-joy/jsdoccomment`, `@babel/core`, `eslint`
