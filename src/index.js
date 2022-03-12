@@ -101,7 +101,7 @@ exports.parseForESLint = function (code, options) {
       let jsdoc;
       try {
         // Todo: detect leading whitespace for indent argument?
-        jsdoc = parseComment(comment);
+        jsdoc = parseComment({value: comment}, indent);
       } catch (err) {
         return null;
       }

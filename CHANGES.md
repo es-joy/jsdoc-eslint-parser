@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.6.2
+
+- fix: ensure tags, etc. get attached to `jsdocBlocks` blocks
+
 ## 0.6.1
 
 - fix: avoid chance for `Line` comments beginning with asterisk being parsed
