@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': ^7.17.5
   '@babel/eslint-parser': ^7.17.0
   '@brettz9/eslint-plugin': ^1.0.4
-  '@es-joy/jsdoccomment': 0.21.0
+  '@es-joy/jsdoccomment': 0.21.2
   eslint: ^8.11.0
   eslint-config-ash-nazg: 32.6.0
   eslint-config-standard: ^16.0.3
@@ -26,7 +26,7 @@ specifiers:
 dependencies:
   '@babel/core': 7.17.5
   '@babel/eslint-parser': 7.17.0_@babel+core@7.17.5+eslint@8.11.0
-  '@es-joy/jsdoccomment': 0.21.0
+  '@es-joy/jsdoccomment': 0.21.2
   eslint: 8.11.0
   esquery: 1.4.0
 
@@ -281,8 +281,8 @@ packages:
       jsdoc-type-pratt-parser: 2.2.3
     dev: true
 
-  /@es-joy/jsdoccomment/0.21.0:
-    resolution: {integrity: sha512-trUrEozR9vLtPA1/ZBlDxsiIDX25tKOum/XSeAj1K6i5JKFj2H5br8e634CfazjhSElAY8YZXiNkwrQLpw3Ngw==}
+  /@es-joy/jsdoccomment/0.21.2:
+    resolution: {integrity: sha512-k8NwNnnYgUR/hyC/JdAbKvaIzTgnT5XJeCeVFo5tpT/4Fu5WiXmhdi6M/c4diqXSDf3ZENyrCtgzCUhIbfT8Zg==}
     engines: {node: ^12 || ^14 || ^16 || ^17}
     dependencies:
       comment-parser: 1.3.0

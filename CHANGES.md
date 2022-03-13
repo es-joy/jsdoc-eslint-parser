@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.7.2
+
+- chore: update jsdoccomment
+
 ## 0.7.1
 
 - chore: update jsdoccomment
