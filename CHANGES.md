@@ -1,5 +1,10 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.7.0
+
+- feat: `throwOnTypeParsingErrors` option
+- chore: update jsdoccomment and devDeps.
+
 ## 0.6.3
 
 - fix: attach `parent` to JSDoc nodes

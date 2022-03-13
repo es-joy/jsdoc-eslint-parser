@@ -19,6 +19,7 @@ exports.parseForESLint = function (code, options) {
     maxLines = 1,
     minLines = 0,
     indent = '',
+    throwOnTypeParsingErrors = false,
     sourceType,
     babelOptions
   } = options;
@@ -88,7 +89,9 @@ exports.parseForESLint = function (code, options) {
         commentToken,
         indent
       );
-      commentAST = commentParserToESTree(jsdoc, mode);
+      commentAST = commentParserToESTree(jsdoc, mode, {
+        throwOnTypeParsingErrors
+      });
       esquery.traverse(commentAST, sel, (node, parent) => {
         // `parent` not available by default, so we add; must be
         //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
@@ -111,7 +114,9 @@ exports.parseForESLint = function (code, options) {
       } catch (err) {
         return null;
       }
-      const commentAST = commentParserToESTree(jsdoc, mode);
+      const commentAST = commentParserToESTree(jsdoc, mode, {
+        throwOnTypeParsingErrors
+      });
 
       commentAST.loc = loc;
       commentAST.range = range;
