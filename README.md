@@ -7,6 +7,9 @@ This project aims to allow full `@babel/eslint-parser` configuration, but with
 `comment-parser`-based AST for JSDoc blocks and `jsdoctypeparser` AST for
 JSDoc types within those blocks.
 
+There is also a `@es-joy/jsdoc-eslint-parser/typescript` parser which builds on
+`@typescript-eslint/parser`.
+
 It is hoped that this may spur development of official ESTree acceptance of
 such AST.
 
@@ -91,7 +94,11 @@ For indicating `script` or `module`
 
 ### `babelOptions` (default: none)
 
-Extra options to pass on to Babel.
+Extra options to pass on to Babel (if not using the `typescript` parser).
+
+### `...parserOptions` (default: none)
+
+Any other options are passed onto the parser.
 
 ## Changelog
 

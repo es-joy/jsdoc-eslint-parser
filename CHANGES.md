@@ -1,5 +1,12 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.8.0
+
+- BREAKING CHANGE: require Node 12
+- feat: support `@es-joy/jsdoc-eslint-parser/typescript` parser
+- fix: pass on comment visitor keys upon traversal for `parent` attachment
+- fix: add `loc` and `range` (used by ESLint in error reporting)
+
 ## 0.7.2
 
 - chore: update jsdoccomment
