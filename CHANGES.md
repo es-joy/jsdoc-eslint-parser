@@ -1,5 +1,11 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.8.2
+
+- fix: avoid erring out on non-JSDoc result (since
+    `comment-parser` simplification)
+- chore: update lock file
+
 ## 0.8.1
 
 - chore: update `@es-joy/jsdoccomment` (minor), `@babel/core` (patch),

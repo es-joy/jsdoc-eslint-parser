@@ -134,6 +134,9 @@ module.exports = function (parser) {
         try {
           // Todo: detect leading whitespace for indent argument?
           jsdoc = parseComment({value: comment}, indent);
+          if (!jsdoc) {
+            return null;
+          }
         } catch (err) {
           return null;
         }
@@ -156,9 +159,7 @@ module.exports = function (parser) {
         }, {visitorKeys: newVisitorKeys});
 
         return commentAST;
-      }).filter((_ast) => {
-        return _ast;
-      });
+      }).filter(Boolean);
     }
 
     // console.log('modifiedVisitorKeys', modifiedVisitorKeys);
