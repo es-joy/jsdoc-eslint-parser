@@ -1,5 +1,10 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.8.1
+
+- chore: update `@es-joy/jsdoccomment` (minor), `@babel/core` (patch),
+    `eslint` (minor) and devDeps.
+
 ## 0.8.0
 
 - BREAKING CHANGE: require Node 12
