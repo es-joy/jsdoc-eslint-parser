@@ -3,6 +3,8 @@
 ## 0.9.0
 
 - feat: add `commentsIndex` integer property
+- chore: update babel/core, typescript-eslint/parser, and eslint; update
+    devDeps.
 
 ## 0.8.2
 
