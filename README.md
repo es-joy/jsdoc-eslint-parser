@@ -61,8 +61,11 @@ C, the node for the `aFunc` `Identifier` node should get the JSDoc Block at
 point A added just as the `FunctionExpression` will get the same JSDoc Block
 added.
 
-Note that the AST produces is described in the
-[jsdoccomment](https://github.com/es-joy/jsdoccomment) project.
+Note that the AST produced is described in the
+[jsdoccomment](https://github.com/es-joy/jsdoccomment) project. Additionally,
+this parser adds `jsdocBlocks` (corresponding to `comments`), along with a
+`commentsIndex` integer proprerty to reflect the index to which this JSDoc
+block corresponds with the `comments` array.
 
 ## Installation
 

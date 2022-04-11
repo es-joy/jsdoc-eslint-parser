@@ -126,7 +126,7 @@ module.exports = function (parser) {
     if (ast.comments) {
       ast[jsdocBlocksProperty] = ast.comments.map(({
         type, value: comment, range, loc
-      }) => {
+      }, idx) => {
         if (type !== 'Block') {
           return null;
         }
@@ -146,6 +146,7 @@ module.exports = function (parser) {
 
         commentAST.loc = loc;
         commentAST.range = range;
+        commentAST.commentsIndex = idx;
 
         esquery.traverse(commentAST, sel, (node, parent) => {
           // `parent` not available by default, so we add; must be

@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.9.0
+
+- feat: add `commentsIndex` integer property
+
 ## 0.8.2
 
 - fix: avoid erring out on non-JSDoc result (since
