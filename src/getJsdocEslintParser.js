@@ -66,9 +66,8 @@ const getJsdocEslintParser = (parser) => {
     //  regarding jsdoctypeparser and comment-parser supporting this AST
     //  out of the box
 
-    // Todo: Need to utilize together with this `getJSDocComment`
-    //  (ESLint's is deprecated). Should really be building this as building
-    //  AST rather than traversing and running on each node
+    // Todo: Should really be building this as building AST rather than
+    //   traversing and running on each node
     const sourceCode = new SourceCode(
       {
         ast,
