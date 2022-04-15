@@ -1,197 +1,115 @@
 import visitorKeys from './visitorKeys.js';
 
-const body = {
-  declarations: [
-    {
-      type: 'VariableDeclarator',
-      start: 13,
-      end: 52,
-      jsdoc: null,
-      loc: {
-        filename: undefined,
-        identifierName: undefined,
-        start: {
-          line: 2,
-          column: 12
-        },
-        end: {
-          line: 2,
-          column: 51
-        }
-      },
-      range: [
-        13,
-        52
-      ],
-      id: {
-        type: 'Identifier',
-        start: 13,
-        end: 17,
-        jsdoc: null,
-        loc: {
-          start: {
-            line: 2,
-            column: 12
-          },
-          filename: undefined,
-          end: {
-            line: 2,
-            column: 16
-          }
-        },
-        range: [
-          13,
-          17
-        ],
-        name: 'func'
-      },
-      init: {
-        type: 'FunctionExpression',
-        start: 36,
-        end: 52,
-        jsdoc: null,
-        loc: {
-          start: {
-            line: 2,
-            column: 35
-          },
-          filename: undefined,
-          identifierName: undefined,
-          end: {
-            line: 2,
-            column: 51
-          }
-        },
-        range: [
-          36,
-          52
-        ],
-        id: {
-          type: 'Identifier',
-          start: 45,
-          end: 46,
-          jsdoc: null,
-          loc: {
-            filename: undefined,
-            start: {
-              line: 2,
-              column: 44
-            },
-            end: {
-              line: 2,
-              column: 45
-            }
-          },
-          range: [
-            45,
-            46
-          ],
-          name: 'a'
-        },
-        generator: false,
-        async: false,
-        expression: false,
-        params: [],
-        body: {
-          type: 'BlockStatement',
-          start: 50,
-          end: 52,
-          jsdoc: null,
-          loc: {
-            filename: undefined,
-            identifierName: undefined,
-            start: {
-              line: 2,
-              column: 49
-            },
-            end: {
-              line: 2,
-              column: 51
-            }
-          },
-          range: [
-            50,
-            52
-          ],
-          body: []
-        }
-      }
-    }
-  ],
-  end: 52,
-  jsdoc: null,
-  kind: 'const',
-  loc: {
-    end: {
-      column: 51,
-      line: 2
-    },
-    filename: undefined,
-    identifierName: undefined,
-    start: {
-      column: 6,
-      line: 2
-    }
-  },
-  range: [
-    7,
-    52
-  ],
-  start: 7,
-  type: 'VariableDeclaration'
-};
-
 const jsdoc = {
   delimiter: '/**',
   description: '',
   descriptionLines: [],
   end: '*/',
-  endLine: 2,
-  lastDescriptionLine: 1,
+  endLine: 0,
+  lastDescriptionLine: 0,
   lineEnd: '',
   loc: {
     end: {
-      column: 34,
+      column: 21,
       line: 2
     },
     start: {
-      column: 19,
+      column: 6,
       line: 2
     }
   },
-  postDelimiter: '',
+  postDelimiter: ' ',
   range: [
-    20,
-    35
+    7,
+    22
   ],
   tags: [
     {
-      delimiter: '*',
+      delimiter: '',
       description: '',
       descriptionLines: [],
       lineEnd: '',
       loc: {
         end: {
-          column: 34,
+          column: 21,
           line: 2
         },
         start: {
-          column: 19,
+          column: 6,
           line: 2
         }
       },
       name: '',
       parsedType: null,
-      postDelimiter: ' ',
+      postDelimiter: '',
       postName: '',
-      postTag: '',
+      postTag: ' ',
       postType: '',
       range: [
-        20,
-        35
+        7,
+        22
       ],
       rawType: '',
-      start: '       ',
+      start: '',
+      tag: 'someTag',
+      type: 'JsdocTag',
+      typeLines: []
+    }
+  ],
+  type: 'JsdocBlock'
+};
+
+const jsdoc2 = {
+  delimiter: '/**',
+  description: '',
+  descriptionLines: [],
+  end: '*/',
+  endLine: 0,
+  lastDescriptionLine: 0,
+  lineEnd: '',
+  loc: {
+    end: {
+      column: 21,
+      line: 2
+    },
+    start: {
+      column: 6,
+      line: 2
+    }
+  },
+  postDelimiter: ' ',
+  range: [
+    7,
+    22
+  ],
+  tags: [
+    {
+      delimiter: '',
+      description: '',
+      descriptionLines: [],
+      lineEnd: '',
+      loc: {
+        end: {
+          column: 21,
+          line: 2
+        },
+        start: {
+          column: 6,
+          line: 2
+        }
+      },
+      name: '',
+      parsedType: null,
+      postDelimiter: '',
+      postName: '',
+      postTag: ' ',
+      postType: '',
+      range: [
+        7,
+        22
+      ],
+      rawType: '',
+      start: '',
       tag: 'someTag',
       type: 'JsdocTag',
       typeLines: []
@@ -259,6 +177,143 @@ const jsdocBlock = {
     }
   ],
   type: 'JsdocBlock'
+};
+
+const body = {
+  kind: 'const',
+  declarations: [
+    {
+      type: 'VariableDeclarator',
+      start: 13,
+      end: 52,
+      range: [
+        13,
+        52
+      ],
+      loc: {
+        start: {
+          line: 2,
+          column: 12
+        },
+        end: {
+          line: 2,
+          column: 51
+        }
+      },
+      id: {
+        type: 'Identifier',
+        start: 13,
+        end: 17,
+        jsdoc: null,
+        loc: {
+          start: {
+            line: 2,
+            column: 12
+          },
+          end: {
+            line: 2,
+            column: 16
+          },
+          filename: undefined
+        },
+        range: [
+          13,
+          17
+        ],
+        name: 'func'
+      },
+      jsdoc: null,
+      init: {
+        type: 'FunctionExpression',
+        start: 36,
+        end: 52,
+        generator: false,
+        async: false,
+        expression: false,
+        params: [],
+        loc: {
+          start: {
+            line: 2,
+            column: 35
+          },
+          end: {
+            line: 2,
+            column: 51
+          }
+        },
+        range: [
+          36,
+          52
+        ],
+        jsdoc: null,
+        id: {
+          type: 'Identifier',
+          start: 45,
+          end: 46,
+          loc: {
+            start: {
+              line: 2,
+              column: 44
+            },
+            end: {
+              line: 2,
+              column: 45
+            },
+            filename: undefined
+          },
+          range: [
+            45,
+            46
+          ],
+          name: 'a',
+          jsdoc: null
+        },
+        body: {
+          type: 'BlockStatement',
+          start: 50,
+          end: 52,
+          loc: {
+            start: {
+              line: 2,
+              column: 49
+            },
+            end: {
+              line: 2,
+              column: 51
+            },
+            filename: undefined,
+            identifierName: undefined
+          },
+          range: [
+            50,
+            52
+          ],
+          body: [],
+          jsdoc: null
+        }
+      }
+    }
+  ],
+  end: 52,
+  jsdoc: null,
+  loc: {
+    end: {
+      column: 51,
+      line: 2
+    },
+    filename: undefined,
+    identifierName: undefined,
+    start: {
+      column: 6,
+      line: 2
+    }
+  },
+  range: [
+    7,
+    52
+  ],
+  start: 7,
+  type: 'VariableDeclaration'
 };
 
 const jsdocSomeTag = {
@@ -379,7 +434,6 @@ const jsdocSomeTag = {
         ],
         start: 18,
         type: 'Punctuator',
-
         value: '='
       },
       {
@@ -449,70 +503,70 @@ const jsdocSomeTag = {
         value: '('
       },
       {
+        type: 'Punctuator',
+        value: ')',
+        start: 48,
         end: 49,
         loc: {
+          start: {
+            line: 2,
+            column: 47
+          },
           end: {
-            column: 48,
-            line: 2
+            line: 2,
+            column: 48
           },
           filename: undefined,
-          identifierName: undefined,
-          start: {
-            column: 47,
-            line: 2
-          }
+          identifierName: undefined
         },
         range: [
           48,
           49
-        ],
-        start: 48,
-        type: 'Punctuator',
-        value: ')'
+        ]
       },
       {
+        type: 'Punctuator',
+        value: '{',
+        start: 50,
         end: 51,
         loc: {
+          start: {
+            line: 2,
+            column: 49
+          },
           end: {
-            column: 50,
-            line: 2
+            line: 2,
+            column: 50
           },
           filename: undefined,
-          identifierName: undefined,
-          start: {
-            column: 49,
-            line: 2
-          }
+          identifierName: undefined
         },
         range: [
           50,
           51
-        ],
-        start: 50,
-        type: 'Punctuator',
-        value: '{'
+        ]
       },
       {
+        type: 'Punctuator',
+        value: '}',
+        start: 51,
         end: 52,
         loc: {
+          start: {
+            line: 2,
+            column: 50
+          },
           end: {
-            column: 51,
-            line: 2
+            line: 2,
+            column: 51
           },
           filename: undefined,
-          identifierName: undefined,
-          start: {
-            column: 50,
-            line: 2
-          }
+          identifierName: undefined
         },
         range: [
           51,
           52
-        ],
-        start: 51,
-        type: 'Punctuator',
-        value: '}'
+        ]
       }
     ],
     type: 'Program'
@@ -521,19 +575,20 @@ const jsdocSomeTag = {
   visitorKeys
 };
 
-// body.jsdoc.tags[0].parent = body.jsdoc;
-// body.jsdoc.parent = body;
-body.declarations[0].parent = body;
 body.declarations[0].id.parent = body.declarations[0];
 body.declarations[0].init.parent = body.declarations[0];
 body.declarations[0].init.id.parent = body.declarations[0].init;
 body.declarations[0].init.body.parent = body.declarations[0].init;
-// body.body.parent = body;
-// body.id.parent = body;
+// body.declarations[0].init.jsdoc.parent = body.declarations[0].init;
+body.declarations[0].parent = body;
+// body.jsdoc.tags[0].parent = body.jsdoc;
+// body.jsdoc.parent = body;
 body.parent = jsdocSomeTag.ast;
 
 jsdocBlock.tags[0].parent = jsdocBlock;
+jsdoc2.tags[0].parent = jsdoc2;
+jsdoc2.parent = jsdocSomeTag.ast;
 jsdoc.tags[0].parent = jsdoc;
-jsdoc.parent = jsdocSomeTag.ast;
+jsdoc.parent = body.declarations[0].init;
 
 export default jsdocSomeTag;

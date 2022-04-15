@@ -1,167 +1,38 @@
 import visitorKeys from './visitorKeys.js';
 
-const body = {
-  async: false,
-  body: {
-    body: [],
-    end: 61,
-    jsdoc: null,
-    loc: {
-      end: {
-        column: 22,
-        line: 5
-      },
-      filename: undefined,
-      identifierName: undefined,
-      start: {
-        column: 20,
-        line: 5
-      }
-    },
-    range: [
-      59,
-      61
-    ],
-    start: 59,
-    type: 'BlockStatement'
-  },
-  end: 61,
-  expression: false,
-  generator: false,
-  id: {
-    end: 55,
-    jsdoc: null,
-    loc: {
-      end: {
-        column: 16,
-        line: 5
-      },
-      filename: undefined,
-      start: {
-        column: 15,
-        line: 5
-      }
-    },
-    name: 'a',
-    range: [
-      54,
-      55
-    ],
-    start: 54,
-    type: 'Identifier'
-  },
-  jsdoc: {
-    delimiter: '/**',
-    description: '',
-    descriptionLines: [],
-    end: '*/',
-    endLine: 2,
-    lastDescriptionLine: 1,
-    lineEnd: '',
-    loc: {
-      end: {
-        column: 9,
-        line: 4
-      },
-      start: {
-        column: 6,
-        line: 2
-      }
-    },
-    postDelimiter: '',
-    range: [
-      7,
-      38
-    ],
-    tags: [
-      {
-        delimiter: '*',
-        description: '',
-        descriptionLines: [],
-        lineEnd: '',
-        loc: {
-          end: {
-            column: 9,
-            line: 4
-          },
-          start: {
-            column: 6,
-            line: 2
-          }
-        },
-        name: '',
-        parsedType: null,
-        postDelimiter: ' ',
-        postName: '',
-        postTag: '',
-        postType: '',
-        range: [
-          7,
-          38
-        ],
-        rawType: '',
-        start: '       ',
-        tag: 'someTag',
-        type: 'JsdocTag',
-        typeLines: []
-      }
-    ],
-    type: 'JsdocBlock'
-  },
-  loc: {
-    end: {
-      column: 22,
-      line: 5
-    },
-    filename: undefined,
-    identifierName: undefined,
-    start: {
-      column: 6,
-      line: 5
-    }
-  },
-  params: [],
-  range: [
-    7,
-    61
-  ],
-  start: 7,
-  type: 'FunctionDeclaration'
-};
-
 const jsdoc = {
   delimiter: '/**',
   description: '',
   descriptionLines: [],
   end: '*/',
-  endLine: 2,
-  lastDescriptionLine: 1,
+  endLine: 0,
+  lastDescriptionLine: 0,
   lineEnd: '',
   loc: {
     end: {
-      column: 9,
-      line: 4
+      column: 21,
+      line: 2
     },
     start: {
       column: 6,
       line: 2
     }
   },
-  postDelimiter: '',
+  postDelimiter: ' ',
   range: [
     7,
-    38
+    22
   ],
   tags: [
     {
-      delimiter: '*',
+      delimiter: '',
       description: '',
       descriptionLines: [],
       lineEnd: '',
       loc: {
         end: {
-          column: 9,
-          line: 4
+          column: 21,
+          line: 2
         },
         start: {
           column: 6,
@@ -170,16 +41,75 @@ const jsdoc = {
       },
       name: '',
       parsedType: null,
-      postDelimiter: ' ',
+      postDelimiter: '',
       postName: '',
-      postTag: '',
+      postTag: ' ',
       postType: '',
       range: [
         7,
-        38
+        22
       ],
       rawType: '',
-      start: '       ',
+      start: '',
+      tag: 'someTag',
+      type: 'JsdocTag',
+      typeLines: []
+    }
+  ],
+  type: 'JsdocBlock'
+};
+
+const jsdoc2 = {
+  delimiter: '/**',
+  description: '',
+  descriptionLines: [],
+  end: '*/',
+  endLine: 0,
+  lastDescriptionLine: 0,
+  lineEnd: '',
+  loc: {
+    end: {
+      column: 21,
+      line: 2
+    },
+    start: {
+      column: 6,
+      line: 2
+    }
+  },
+  postDelimiter: ' ',
+  range: [
+    7,
+    22
+  ],
+  tags: [
+    {
+      delimiter: '',
+      description: '',
+      descriptionLines: [],
+      lineEnd: '',
+      loc: {
+        end: {
+          column: 21,
+          line: 2
+        },
+        start: {
+          column: 6,
+          line: 2
+        }
+      },
+      name: '',
+      parsedType: null,
+      postDelimiter: '',
+      postName: '',
+      postTag: ' ',
+      postType: '',
+      range: [
+        7,
+        22
+      ],
+      rawType: '',
+      start: '',
       tag: 'someTag',
       type: 'JsdocTag',
       typeLines: []
@@ -194,13 +124,13 @@ const jsdocBlock = {
   description: '',
   descriptionLines: [],
   end: '*/',
-  endLine: 2,
-  lastDescriptionLine: 1,
+  endLine: 0,
+  lastDescriptionLine: 0,
   lineEnd: '',
   loc: {
     end: {
-      column: 9,
-      line: 4
+      column: 21,
+      line: 2
     },
     start: {
       column: 6,
@@ -208,21 +138,21 @@ const jsdocBlock = {
     }
   },
   parent: null,
-  postDelimiter: '',
+  postDelimiter: ' ',
   range: [
     7,
-    38
+    22
   ],
   tags: [
     {
-      delimiter: '*',
+      delimiter: '',
       description: '',
       descriptionLines: [],
       lineEnd: '',
       loc: {
         end: {
-          column: 9,
-          line: 4
+          column: 21,
+          line: 2
         },
         start: {
           column: 6,
@@ -231,22 +161,216 @@ const jsdocBlock = {
       },
       name: '',
       parsedType: null,
-      postDelimiter: ' ',
+      postDelimiter: '',
       postName: '',
-      postTag: '',
+      postTag: ' ',
       postType: '',
       range: [
         7,
-        38
+        22
       ],
       rawType: '',
-      start: '       ',
+      start: '',
       tag: 'someTag',
       type: 'JsdocTag',
       typeLines: []
     }
   ],
   type: 'JsdocBlock'
+};
+
+const body = {
+  kind: 'const',
+  declarations: [
+    {
+      type: 'VariableDeclarator',
+      start: 35,
+      end: 58,
+      range: [
+        35,
+        58
+      ],
+      loc: {
+        start: {
+          line: 3,
+          column: 12
+        },
+        end: {
+          line: 3,
+          column: 35
+        }
+      },
+      id: {
+        type: 'Identifier',
+        start: 35,
+        end: 39,
+        jsdoc: null,
+        loc: {
+          start: {
+            line: 3,
+            column: 12
+          },
+          end: {
+            line: 3,
+            column: 16
+          },
+          filename: undefined
+        },
+        range: [
+          35,
+          39
+        ],
+        name: 'func'
+      },
+      jsdoc: null,
+      init: {
+        type: 'FunctionExpression',
+        start: 42,
+        end: 58,
+        generator: false,
+        async: false,
+        expression: false,
+        params: [],
+        loc: {
+          start: {
+            line: 3,
+            column: 19
+          },
+          end: {
+            line: 3,
+            column: 35
+          }
+        },
+        range: [
+          42,
+          58
+        ],
+        jsdoc,
+        id: {
+          type: 'Identifier',
+          start: 51,
+          end: 52,
+          loc: {
+            start: {
+              line: 3,
+              column: 28
+            },
+            end: {
+              line: 3,
+              column: 29
+            },
+            filename: undefined
+          },
+          range: [
+            51,
+            52
+          ],
+          name: 'a',
+          jsdoc: null
+        },
+        body: {
+          type: 'BlockStatement',
+          start: 56,
+          end: 58,
+          loc: {
+            start: {
+              line: 3,
+              column: 33
+            },
+            end: {
+              line: 3,
+              column: 35
+            },
+            filename: undefined,
+            identifierName: undefined
+          },
+          range: [
+            56,
+            58
+          ],
+          body: [],
+          jsdoc: null
+        }
+      }
+    }
+  ],
+  end: 58,
+  jsdoc: {
+    delimiter: '/**',
+    description: '',
+    descriptionLines: [],
+    end: '*/',
+    endLine: 0,
+    lastDescriptionLine: 0,
+    lineEnd: '',
+    loc: {
+      end: {
+        column: 21,
+        line: 2
+      },
+      start: {
+        column: 6,
+        line: 2
+      }
+    },
+    postDelimiter: ' ',
+    range: [
+      7,
+      22
+    ],
+    tags: [
+      {
+        delimiter: '',
+        description: '',
+        descriptionLines: [],
+        lineEnd: '',
+        loc: {
+          end: {
+            column: 21,
+            line: 2
+          },
+          start: {
+            column: 6,
+            line: 2
+          }
+        },
+        name: '',
+        parsedType: null,
+        postDelimiter: '',
+        postName: '',
+        postTag: ' ',
+        postType: '',
+        range: [
+          7,
+          22
+        ],
+        rawType: '',
+        start: '',
+        tag: 'someTag',
+        type: 'JsdocTag',
+        typeLines: []
+      }
+    ],
+    type: 'JsdocBlock'
+  },
+  loc: {
+    end: {
+      column: 35,
+      line: 3
+    },
+    filename: undefined,
+    identifierName: undefined,
+    start: {
+      column: 6,
+      line: 3
+    }
+  },
+  range: [
+    29,
+    58
+  ],
+  start: 29,
+  type: 'VariableDeclaration'
 };
 
 const jsdocSomeTag = {
@@ -256,11 +380,11 @@ const jsdocSomeTag = {
     ],
     comments: [
       {
-        end: 38,
+        end: 22,
         loc: {
           end: {
-            column: 9,
-            line: 4
+            column: 21,
+            line: 2
           },
           filename: undefined,
           identifierName: undefined,
@@ -271,169 +395,235 @@ const jsdocSomeTag = {
         },
         range: [
           7,
-          38
+          22
         ],
         start: 7,
         type: 'Block',
-        value: '*\n       * @someTag\n       '
+        value: '* @someTag '
       }
     ],
-    end: 66,
-    jsdoc,
+    end: 63,
+    jsdoc: jsdoc2,
     jsdocBlocks: [
       jsdocBlock
     ],
     loc: {
       end: {
         column: 4,
-        line: 6
+        line: 4
       },
       filename: undefined,
       identifierName: undefined,
       start: {
         column: 0,
-        line: 5
+        line: 3
       }
     },
     parent: null,
     range: [
-      7,
-      66
+      29,
+      63
     ],
     sourceType: 'module',
-    start: 7,
+    start: 29,
     tokens: [
       {
-        end: 53,
+        end: 34,
         loc: {
           end: {
-            column: 14,
-            line: 5
+            column: 11,
+            line: 3
           },
           filename: undefined,
           identifierName: undefined,
           start: {
             column: 6,
-            line: 5
+            line: 3
           }
         },
         range: [
-          7,
-          53
+          29,
+          34
         ],
-        start: 7,
+        start: 29,
         type: 'Keyword',
-        value: 'function'
+        value: 'const'
       },
       {
-        end: 55,
+        end: 39,
         loc: {
           end: {
             column: 16,
-            line: 5
+            line: 3
           },
           filename: undefined,
           identifierName: undefined,
           start: {
-            column: 15,
-            line: 5
+            column: 12,
+            line: 3
           }
         },
         range: [
-          54,
-          55
+          35,
+          39
         ],
-        start: 54,
+        start: 35,
         type: 'Identifier',
-        value: 'a'
+        value: 'func'
       },
       {
-        end: 57,
+        end: 41,
         loc: {
           end: {
             column: 18,
-            line: 5
+            line: 3
           },
           filename: undefined,
           identifierName: undefined,
           start: {
             column: 17,
-            line: 5
+            line: 3
           }
         },
         range: [
-          56,
-          57
+          40,
+          41
         ],
-        start: 56,
+        start: 40,
+        type: 'Punctuator',
+        value: '='
+      },
+      {
+        end: 50,
+        loc: {
+          end: {
+            column: 27,
+            line: 3
+          },
+          filename: undefined,
+          identifierName: undefined,
+          start: {
+            column: 19,
+            line: 3
+          }
+        },
+        range: [
+          42,
+          50
+        ],
+        start: 42,
+        type: 'Keyword',
+        value: 'function'
+      },
+      {
+        end: 52,
+        loc: {
+          end: {
+            column: 29,
+            line: 3
+          },
+          filename: undefined,
+          identifierName: undefined,
+          start: {
+            column: 28,
+            line: 3
+          }
+        },
+        range: [
+          51,
+          52
+        ],
+        start: 51,
+        type: 'Identifier',
+        value: 'a'
+      },
+      {
+        end: 54,
+        loc: {
+          end: {
+            column: 31,
+            line: 3
+          },
+          filename: undefined,
+          identifierName: undefined,
+          start: {
+            column: 30,
+            line: 3
+          }
+        },
+        range: [
+          53,
+          54
+        ],
+        start: 53,
         type: 'Punctuator',
         value: '('
       },
       {
-        end: 58,
+        type: 'Punctuator',
+        value: ')',
+        start: 54,
+        end: 55,
         loc: {
+          start: {
+            line: 3,
+            column: 31
+          },
           end: {
-            column: 19,
-            line: 5
+            line: 3,
+            column: 32
           },
           filename: undefined,
-          identifierName: undefined,
+          identifierName: undefined
+        },
+        range: [
+          54,
+          55
+        ]
+      },
+      {
+        type: 'Punctuator',
+        value: '{',
+        start: 56,
+        end: 57,
+        loc: {
           start: {
-            column: 18,
-            line: 5
-          }
+            line: 3,
+            column: 33
+          },
+          end: {
+            line: 3,
+            column: 34
+          },
+          filename: undefined,
+          identifierName: undefined
+        },
+        range: [
+          56,
+          57
+        ]
+      },
+      {
+        type: 'Punctuator',
+        value: '}',
+        start: 57,
+        end: 58,
+        loc: {
+          start: {
+            line: 3,
+            column: 34
+          },
+          end: {
+            line: 3,
+            column: 35
+          },
+          filename: undefined,
+          identifierName: undefined
         },
         range: [
           57,
           58
-        ],
-        start: 57,
-        type: 'Punctuator',
-        value: ')'
-      },
-      {
-        end: 60,
-        loc: {
-          end: {
-            column: 21,
-            line: 5
-          },
-          filename: undefined,
-          identifierName: undefined,
-          start: {
-            column: 20,
-            line: 5
-          }
-        },
-        range: [
-          59,
-          60
-        ],
-        start: 59,
-        type: 'Punctuator',
-        value: '{'
-      },
-      {
-        end: 61,
-        loc: {
-          end: {
-            column: 22,
-            line: 5
-          },
-          filename: undefined,
-          identifierName: undefined,
-          start: {
-            column: 21,
-            line: 5
-          }
-        },
-        range: [
-          60,
-          61
-        ],
-        start: 60,
-        type: 'Punctuator',
-        value: '}'
+        ]
       }
     ],
     type: 'Program'
@@ -442,14 +632,20 @@ const jsdocSomeTag = {
   visitorKeys
 };
 
+body.declarations[0].id.parent = body.declarations[0];
+body.declarations[0].init.parent = body.declarations[0];
+body.declarations[0].init.id.parent = body.declarations[0].init;
+body.declarations[0].init.body.parent = body.declarations[0].init;
+body.declarations[0].init.jsdoc.parent = body.declarations[0].init;
+body.declarations[0].parent = body;
 body.jsdoc.tags[0].parent = body.jsdoc;
 body.jsdoc.parent = body;
-body.body.parent = body;
-body.id.parent = body;
 body.parent = jsdocSomeTag.ast;
 
 jsdocBlock.tags[0].parent = jsdocBlock;
+jsdoc2.tags[0].parent = jsdoc2;
+jsdoc2.parent = jsdocSomeTag.ast;
 jsdoc.tags[0].parent = jsdoc;
-jsdoc.parent = jsdocSomeTag.ast;
+jsdoc.parent = body.declarations[0].init;
 
 export default jsdocSomeTag;

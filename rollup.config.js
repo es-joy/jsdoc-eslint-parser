@@ -1,17 +1,18 @@
 import resolve from '@rollup/plugin-node-resolve';
 
+/* eslint-disable jsdoc/require-property -- not proper TypeScript */
 /**
- * @external RollupConfig
- * @type {PlainObject}
+ * @typedef {object} RollupConfig
  * @see {@link https://rollupjs.org/guide/en#big-list-of-options}
  */
+/* eslint-enable jsdoc/require-property -- not proper TypeScript */
 
 /**
  * @param {PlainObject} config
  * @param {string} config.input
  * @param {string} [config.format="umd"]
  * @param {boolean} [config.minifying=false]
- * @returns {external:RollupConfig}
+ * @returns {RollupConfig}
  */
 function getRollupObject ({input, minifying, format = 'umd'} = {}) {
   const nonMinified = {
