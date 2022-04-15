@@ -32,6 +32,7 @@
     "cover 100%"
   ],
   "scripts": {
+    "prepublishOnly": "pnpm i",
     "rollup": "rollup -c",
     "lint-test": "echo \"Getting \\`Cannot read property 'start' of undefined\\` errors without no-eslintrc but this works at least\" && eslint --no-eslintrc --config .eslintrc-test.cjs test/fixtures",
     "eslint": "eslint --ext=js,cjs,md,html .",
