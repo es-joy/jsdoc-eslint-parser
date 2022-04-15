@@ -46,7 +46,7 @@ describe('`parseForESLint`', function () {
         Object.keys(val).forEach((p) => {
           if (p === 'tags') {
             Object.keys(val[p][0]).forEach((pp) => {
-              if (!['parent', 'range', 'loc'].includes(pp)) {
+              if (pp !== 'parent') {
                 if (pp === 'parsedType' && val[p][0][pp] === null) {
                   return;
                 }

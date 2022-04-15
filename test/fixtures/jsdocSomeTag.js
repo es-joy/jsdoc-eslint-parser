@@ -63,8 +63,6 @@ const body = {
         column: 9,
         line: 4
       },
-      filename: undefined,
-      identifierName: undefined,
       start: {
         column: 6,
         line: 2
@@ -86,8 +84,6 @@ const body = {
             column: 9,
             line: 4
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 6,
             line: 2
@@ -146,8 +142,6 @@ const jsdoc = {
       column: 9,
       line: 4
     },
-    filename: undefined,
-    identifierName: undefined,
     start: {
       column: 6,
       line: 2
@@ -169,8 +163,6 @@ const jsdoc = {
           column: 9,
           line: 4
         },
-        filename: undefined,
-        identifierName: undefined,
         start: {
           column: 6,
           line: 2
@@ -210,8 +202,6 @@ const jsdocBlock = {
       column: 9,
       line: 4
     },
-    filename: undefined,
-    identifierName: undefined,
     start: {
       column: 6,
       line: 2
@@ -234,8 +224,6 @@ const jsdocBlock = {
           column: 9,
           line: 4
         },
-        filename: undefined,
-        identifierName: undefined,
         start: {
           column: 6,
           line: 2

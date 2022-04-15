@@ -9,6 +9,10 @@ import {
 const jsdocCommentProperty = 'jsdoc';
 const jsdocBlocksProperty = 'jsdocBlocks';
 
+const clone = (obj) => {
+  return JSON.parse(JSON.stringify(obj));
+};
+
 const getJsdocEslintParser = (parser) => {
   return function (code, options) {
     const {
@@ -104,8 +108,8 @@ const getJsdocEslintParser = (parser) => {
         commentAST = commentParserToESTree(jsdoc, mode, {
           throwOnTypeParsingErrors
         });
-        commentAST.loc = commentToken.loc;
-        commentAST.range = commentToken.range;
+        commentAST.loc = clone(commentToken.loc);
+        commentAST.range = clone(commentToken.range);
         esquery.traverse(commentAST, sel, (_node, parent) => {
           // `parent` not available by default, so we add; must be
           //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
@@ -113,8 +117,8 @@ const getJsdocEslintParser = (parser) => {
 
           // For now, we are just fudging these by using the comment block's
           //   location
-          _node.loc = commentToken.loc;
-          _node.range = commentToken.range;
+          _node.loc = clone(commentToken.loc);
+          _node.range = clone(commentToken.range);
         }, {visitorKeys: newVisitorKeys});
       }
 
@@ -146,8 +150,8 @@ const getJsdocEslintParser = (parser) => {
           throwOnTypeParsingErrors
         });
 
-        commentAST.loc = loc;
-        commentAST.range = range;
+        commentAST.loc = clone(loc);
+        commentAST.range = clone(range);
         commentAST.commentsIndex = idx;
 
         esquery.traverse(commentAST, sel, (node, parent) => {
@@ -157,8 +161,8 @@ const getJsdocEslintParser = (parser) => {
 
           // For now, we are just fudging these by using the comment block's
           //   location
-          node.loc = loc;
-          node.range = range;
+          node.loc = clone(loc);
+          node.range = clone(range);
         }, {visitorKeys: newVisitorKeys});
 
         return commentAST;

@@ -4,6 +4,7 @@
 
 - BREAKING feat: ESM
 - fix: avoid attaching `jsdoc` to `jsdoc` nodes
+- fix: clone `range` and `SourceLocation` rather than reusing
 - chore: fix linting
 - test: Get 100% coverage
 
