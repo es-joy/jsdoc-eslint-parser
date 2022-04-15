@@ -1,10 +1,7 @@
-'use strict';
+import {
+  parseForESLint as typescriptEslintParser
+} from '@typescript-eslint/parser';
 
-const {
-  parseForESLint: typescriptEslintParser
-} = require('@typescript-eslint/parser');
+import getJsdocEslintParser from './src/getJsdocEslintParser.js';
 
-const getJsdocEslintParser = require('./src/getJsdocEslintParser.js');
-
-// eslint-disable-next-line node/exports-style -- Required by ESLint
-exports.parseForESLint = getJsdocEslintParser(typescriptEslintParser);
+export const parseForESLint = getJsdocEslintParser(typescriptEslintParser);

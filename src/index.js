@@ -1,8 +1,5 @@
-'use strict';
+import {parseForESLint as babelParser} from '@babel/eslint-parser';
 
-const {parseForESLint: babelParser} = require('@babel/eslint-parser');
+import getJsdocEslintParser from './getJsdocEslintParser.js';
 
-const getJsdocEslintParser = require('./getJsdocEslintParser.js');
-
-// eslint-disable-next-line node/exports-style -- Required by ESLint
-exports.parseForESLint = getJsdocEslintParser(babelParser);
+export const parseForESLint = getJsdocEslintParser(babelParser);

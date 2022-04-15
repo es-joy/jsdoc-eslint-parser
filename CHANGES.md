@@ -1,5 +1,12 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.10.0
+
+- BREAKING feat: ESM
+- fix: avoid attaching `jsdoc` to `jsdoc` nodes
+- chore: fix linting
+- test: Get 100% coverage
+
 ## 0.9.0
 
 - feat: add `commentsIndex` integer property

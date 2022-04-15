@@ -2,5 +2,5 @@ test
 pnpm-lock.yaml
 coverage
 .nyc_output
-.eslintrc-test.js
+.eslintrc-test.cjs
 .idea

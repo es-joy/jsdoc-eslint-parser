@@ -1,17 +1,15 @@
-'use strict';
-
-const esquery = require('esquery');
-const {
+import {SourceCode} from 'eslint';
+import esquery from 'esquery';
+import {
   jsdocVisitorKeys, jsdocTypeVisitorKeys,
   getJSDocComment,
   parseComment, commentParserToESTree
-} = require('@es-joy/jsdoccomment');
-const {SourceCode} = require('eslint');
+} from '@es-joy/jsdoccomment';
 
 const jsdocCommentProperty = 'jsdoc';
 const jsdocBlocksProperty = 'jsdocBlocks';
 
-module.exports = function (parser) {
+const getJsdocEslintParser = (parser) => {
   return function (code, options) {
     const {
       mode = 'jsdoc',
@@ -43,6 +41,7 @@ module.exports = function (parser) {
     Object.entries(modifiedVisitorKeys).forEach(([key, value]) => {
       modifiedVisitorKeys[key] = Array.isArray(value)
         ? [jsdocCommentProperty, jsdocBlocksProperty, ...value]
+        /* c8 ignore next 1 */
         : [jsdocCommentProperty, jsdocBlocksProperty];
     });
 
@@ -120,7 +119,9 @@ module.exports = function (parser) {
         }, {visitorKeys: newVisitorKeys});
       }
 
-      node[jsdocCommentProperty] = commentAST;
+      if (!node.type.startsWith('Jsdoc')) {
+        node[jsdocCommentProperty] = commentAST;
+      }
     }, {visitorKeys: newVisitorKeys});
 
     if (ast.comments) {
@@ -137,6 +138,8 @@ module.exports = function (parser) {
           if (!jsdoc) {
             return null;
           }
+        // Unreachable?
+        /* c8 ignore next 3 */
         } catch (err) {
           return null;
         }
@@ -174,3 +177,5 @@ module.exports = function (parser) {
     };
   };
 };
+
+export default getJsdocEslintParser;
