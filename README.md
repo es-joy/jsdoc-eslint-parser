@@ -120,3 +120,7 @@ Everyone is welcome to contribute. Please take a moment to review the [contribut
 [contributors](https://github.com/es-joy/jsdoc-eslint-parser/graphs/contributors).
 
 MIT License, see the included [LICENSE-MIT.md](LICENSE-MIT.md) file.
+
+## To-dos
+
+1. Add tests for typescript parser (as we have for `@babel/eslint-parser`).
