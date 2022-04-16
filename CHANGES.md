@@ -3,6 +3,7 @@
 ## 0.10.0
 
 - BREAKING feat: ESM
+- BREAKING fix: avoid setting `jsdoc` on `Program` or `Jsdoc` nodes themselves
 - fix: avoid attaching `jsdoc` to `jsdoc` nodes
 - fix: clone `range` and `SourceLocation` rather than reusing
 - chore: fix linting

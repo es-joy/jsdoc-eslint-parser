@@ -59,65 +59,6 @@ const jsdoc = {
   type: 'JsdocBlock'
 };
 
-const jsdoc2 = {
-  delimiter: '/**',
-  description: '',
-  descriptionLines: [],
-  end: '*/',
-  endLine: 0,
-  lastDescriptionLine: 0,
-  lineEnd: '',
-  loc: {
-    end: {
-      column: 21,
-      line: 2
-    },
-    start: {
-      column: 6,
-      line: 2
-    }
-  },
-  postDelimiter: ' ',
-  range: [
-    7,
-    22
-  ],
-  tags: [
-    {
-      delimiter: '',
-      description: '',
-      descriptionLines: [],
-      lineEnd: '',
-      loc: {
-        end: {
-          column: 21,
-          line: 2
-        },
-        start: {
-          column: 6,
-          line: 2
-        }
-      },
-      name: '',
-      parsedType: null,
-      postDelimiter: '',
-      postName: '',
-      postTag: ' ',
-      postType: '',
-      range: [
-        7,
-        22
-      ],
-      rawType: '',
-      start: '',
-      tag: 'someTag',
-      type: 'JsdocTag',
-      typeLines: []
-    }
-  ],
-  type: 'JsdocBlock'
-};
-
 const jsdocBlock = {
   commentsIndex: 0,
   delimiter: '/**',
@@ -403,7 +344,7 @@ const jsdocSomeTag = {
       }
     ],
     end: 63,
-    jsdoc: jsdoc2,
+    jsdoc: null,
     jsdocBlocks: [
       jsdocBlock
     ],
@@ -643,8 +584,6 @@ body.jsdoc.parent = body;
 body.parent = jsdocSomeTag.ast;
 
 jsdocBlock.tags[0].parent = jsdocBlock;
-jsdoc2.tags[0].parent = jsdoc2;
-jsdoc2.parent = jsdocSomeTag.ast;
 jsdoc.tags[0].parent = jsdoc;
 jsdoc.parent = body.declarations[0].init;
 

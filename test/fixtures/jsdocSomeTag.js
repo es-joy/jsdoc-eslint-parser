@@ -279,7 +279,7 @@ const jsdocSomeTag = {
       }
     ],
     end: 66,
-    jsdoc,
+    jsdoc: null,
     jsdocBlocks: [
       jsdocBlock
     ],
