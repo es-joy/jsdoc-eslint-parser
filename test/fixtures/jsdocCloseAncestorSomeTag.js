@@ -316,7 +316,7 @@ const body = {
   type: 'VariableDeclaration'
 };
 
-const jsdocSomeTag = {
+const jsdocCloseAncestorSomeTag = {
   ast: {
     body: [
       body
@@ -583,12 +583,12 @@ body.declarations[0].init.body.parent = body.declarations[0].init;
 body.declarations[0].parent = body;
 // body.jsdoc.tags[0].parent = body.jsdoc;
 // body.jsdoc.parent = body;
-body.parent = jsdocSomeTag.ast;
+body.parent = jsdocCloseAncestorSomeTag.ast;
 
 jsdocBlock.tags[0].parent = jsdocBlock;
 jsdoc2.tags[0].parent = jsdoc2;
-jsdoc2.parent = jsdocSomeTag.ast;
+jsdoc2.parent = jsdocCloseAncestorSomeTag.ast;
 jsdoc.tags[0].parent = jsdoc;
 jsdoc.parent = body.declarations[0].init;
 
-export default jsdocSomeTag;
+export default jsdocCloseAncestorSomeTag;

@@ -1,6 +1,65 @@
-import visitorKeys from './visitorKeys.js';
+import visitorKeys from './visitorKeysTS.js';
 
 const jsdoc = {
+  delimiter: '/**',
+  description: '',
+  descriptionLines: [],
+  end: '*/',
+  endLine: 0,
+  lastDescriptionLine: 0,
+  lineEnd: '',
+  loc: {
+    end: {
+      column: 21,
+      line: 2
+    },
+    start: {
+      column: 6,
+      line: 2
+    }
+  },
+  postDelimiter: ' ',
+  range: [
+    7,
+    22
+  ],
+  tags: [
+    {
+      delimiter: '',
+      description: '',
+      descriptionLines: [],
+      lineEnd: '',
+      loc: {
+        end: {
+          column: 21,
+          line: 2
+        },
+        start: {
+          column: 6,
+          line: 2
+        }
+      },
+      name: '',
+      parsedType: null,
+      postDelimiter: '',
+      postName: '',
+      postTag: ' ',
+      postType: '',
+      range: [
+        7,
+        22
+      ],
+      rawType: '',
+      start: '',
+      tag: 'someTag',
+      type: 'JsdocTag',
+      typeLines: []
+    }
+  ],
+  type: 'JsdocBlock'
+};
+
+const jsdoc2 = {
   delimiter: '/**',
   description: '',
   descriptionLines: [],
@@ -70,19 +129,19 @@ const jsdocBlock = {
   lineEnd: '',
   loc: {
     end: {
-      column: 21,
+      column: 34,
       line: 2
     },
     start: {
-      column: 6,
+      column: 19,
       line: 2
     }
   },
   parent: null,
   postDelimiter: ' ',
   range: [
-    7,
-    22
+    20,
+    35
   ],
   tags: [
     {
@@ -92,11 +151,11 @@ const jsdocBlock = {
       lineEnd: '',
       loc: {
         end: {
-          column: 21,
+          column: 34,
           line: 2
         },
         start: {
-          column: 6,
+          column: 19,
           line: 2
         }
       },
@@ -107,8 +166,8 @@ const jsdocBlock = {
       postTag: ' ',
       postType: '',
       range: [
-        7,
-        22
+        20,
+        35
       ],
       rawType: '',
       start: '',
@@ -125,109 +184,99 @@ const body = {
   declarations: [
     {
       type: 'VariableDeclarator',
-      start: 35,
-      end: 58,
       range: [
-        35,
-        58
+        13,
+        52
       ],
       loc: {
         start: {
-          line: 3,
+          line: 2,
           column: 12
         },
         end: {
-          line: 3,
-          column: 35
+          line: 2,
+          column: 51
         }
       },
       id: {
         type: 'Identifier',
-        start: 35,
-        end: 39,
         jsdoc: null,
         loc: {
           start: {
-            line: 3,
+            line: 2,
             column: 12
           },
           end: {
-            line: 3,
+            line: 2,
             column: 16
           },
           filename: undefined
         },
         range: [
-          35,
-          39
+          13,
+          17
         ],
         name: 'func'
       },
       jsdoc: null,
       init: {
         type: 'FunctionExpression',
-        start: 42,
-        end: 58,
         generator: false,
         async: false,
         expression: false,
         params: [],
         loc: {
           start: {
-            line: 3,
-            column: 19
+            line: 2,
+            column: 35
           },
           end: {
-            line: 3,
-            column: 35
+            line: 2,
+            column: 51
           }
         },
         range: [
-          42,
-          58
+          36,
+          52
         ],
         jsdoc: null,
         id: {
           type: 'Identifier',
-          start: 51,
-          end: 52,
           loc: {
             start: {
-              line: 3,
-              column: 28
+              line: 2,
+              column: 44
             },
             end: {
-              line: 3,
-              column: 29
+              line: 2,
+              column: 45
             },
             filename: undefined
           },
           range: [
-            51,
-            52
+            45,
+            46
           ],
           name: 'a',
           jsdoc: null
         },
         body: {
           type: 'BlockStatement',
-          start: 56,
-          end: 58,
           loc: {
             start: {
-              line: 3,
-              column: 33
+              line: 2,
+              column: 49
             },
             end: {
-              line: 3,
-              column: 35
+              line: 2,
+              column: 51
             },
             filename: undefined,
             identifierName: undefined
           },
           range: [
-            56,
-            58
+            50,
+            52
           ],
           body: [],
           jsdoc: null
@@ -235,115 +284,53 @@ const body = {
       }
     }
   ],
-  end: 58,
-  jsdoc: {
-    delimiter: '/**',
-    description: '',
-    descriptionLines: [],
-    end: '*/',
-    endLine: 0,
-    lastDescriptionLine: 0,
-    lineEnd: '',
-    loc: {
-      end: {
-        column: 21,
-        line: 2
-      },
-      start: {
-        column: 6,
-        line: 2
-      }
-    },
-    postDelimiter: ' ',
-    range: [
-      7,
-      22
-    ],
-    tags: [
-      {
-        delimiter: '',
-        description: '',
-        descriptionLines: [],
-        lineEnd: '',
-        loc: {
-          end: {
-            column: 21,
-            line: 2
-          },
-          start: {
-            column: 6,
-            line: 2
-          }
-        },
-        name: '',
-        parsedType: null,
-        postDelimiter: '',
-        postName: '',
-        postTag: ' ',
-        postType: '',
-        range: [
-          7,
-          22
-        ],
-        rawType: '',
-        start: '',
-        tag: 'someTag',
-        type: 'JsdocTag',
-        typeLines: []
-      }
-    ],
-    type: 'JsdocBlock'
-  },
+  jsdoc: null,
   loc: {
     end: {
-      column: 35,
-      line: 3
+      column: 51,
+      line: 2
     },
     filename: undefined,
     identifierName: undefined,
     start: {
       column: 6,
-      line: 3
+      line: 2
     }
   },
   range: [
-    29,
-    58
+    7,
+    52
   ],
-  start: 29,
   type: 'VariableDeclaration'
 };
 
-const jsdocAncestorSomeTag = {
+const jsdocCloseAncestorSomeTagTS = {
   ast: {
     body: [
       body
     ],
     comments: [
       {
-        end: 22,
         loc: {
           end: {
-            column: 21,
+            column: 34,
             line: 2
           },
           filename: undefined,
           identifierName: undefined,
           start: {
-            column: 6,
+            column: 19,
             line: 2
           }
         },
         range: [
-          7,
-          22
+          20,
+          35
         ],
-        start: 7,
         type: 'Block',
         value: '* @someTag '
       }
     ],
-    end: 63,
     jsdoc: null,
     jsdocBlocks: [
       jsdocBlock
@@ -351,219 +338,200 @@ const jsdocAncestorSomeTag = {
     loc: {
       end: {
         column: 4,
-        line: 4
+        line: 3
       },
       filename: undefined,
       identifierName: undefined,
       start: {
-        column: 0,
-        line: 3
+        column: 6,
+        line: 2
       }
     },
     parent: null,
     range: [
-      29,
-      63
+      7,
+      57
     ],
     sourceType: 'module',
-    start: 29,
     tokens: [
       {
-        end: 34,
         loc: {
           end: {
             column: 11,
-            line: 3
+            line: 2
           },
           filename: undefined,
           identifierName: undefined,
           start: {
             column: 6,
-            line: 3
+            line: 2
           }
         },
         range: [
-          29,
-          34
+          7,
+          12
         ],
-        start: 29,
         type: 'Keyword',
         value: 'const'
       },
       {
-        end: 39,
         loc: {
           end: {
             column: 16,
-            line: 3
+            line: 2
           },
           filename: undefined,
           identifierName: undefined,
           start: {
             column: 12,
-            line: 3
+            line: 2
           }
         },
         range: [
-          35,
-          39
+          13,
+          17
         ],
-        start: 35,
         type: 'Identifier',
         value: 'func'
       },
       {
-        end: 41,
         loc: {
           end: {
             column: 18,
-            line: 3
+            line: 2
           },
           filename: undefined,
           identifierName: undefined,
           start: {
             column: 17,
-            line: 3
+            line: 2
           }
         },
         range: [
-          40,
-          41
+          18,
+          19
         ],
-        start: 40,
         type: 'Punctuator',
         value: '='
       },
       {
-        end: 50,
         loc: {
           end: {
-            column: 27,
-            line: 3
+            column: 43,
+            line: 2
           },
           filename: undefined,
           identifierName: undefined,
           start: {
-            column: 19,
-            line: 3
+            column: 35,
+            line: 2
           }
         },
         range: [
-          42,
-          50
+          36,
+          44
         ],
-        start: 42,
         type: 'Keyword',
         value: 'function'
       },
       {
-        end: 52,
         loc: {
           end: {
-            column: 29,
-            line: 3
+            column: 45,
+            line: 2
           },
           filename: undefined,
           identifierName: undefined,
           start: {
-            column: 28,
-            line: 3
+            column: 44,
+            line: 2
           }
         },
         range: [
-          51,
-          52
+          45,
+          46
         ],
-        start: 51,
         type: 'Identifier',
         value: 'a'
       },
       {
-        end: 54,
         loc: {
           end: {
-            column: 31,
-            line: 3
+            column: 47,
+            line: 2
           },
           filename: undefined,
           identifierName: undefined,
           start: {
-            column: 30,
-            line: 3
+            column: 46,
+            line: 2
           }
         },
         range: [
-          53,
-          54
+          47,
+          48
         ],
-        start: 53,
         type: 'Punctuator',
         value: '('
       },
       {
         type: 'Punctuator',
         value: ')',
-        start: 54,
-        end: 55,
         loc: {
           start: {
-            line: 3,
-            column: 31
+            line: 2,
+            column: 47
           },
           end: {
-            line: 3,
-            column: 32
+            line: 2,
+            column: 48
           },
           filename: undefined,
           identifierName: undefined
         },
         range: [
-          54,
-          55
+          48,
+          49
         ]
       },
       {
         type: 'Punctuator',
         value: '{',
-        start: 56,
-        end: 57,
         loc: {
           start: {
-            line: 3,
-            column: 33
+            line: 2,
+            column: 49
           },
           end: {
-            line: 3,
-            column: 34
+            line: 2,
+            column: 50
           },
           filename: undefined,
           identifierName: undefined
         },
         range: [
-          56,
-          57
+          50,
+          51
         ]
       },
       {
         type: 'Punctuator',
         value: '}',
-        start: 57,
-        end: 58,
         loc: {
           start: {
-            line: 3,
-            column: 34
+            line: 2,
+            column: 50
           },
           end: {
-            line: 3,
-            column: 35
+            line: 2,
+            column: 51
           },
           filename: undefined,
           identifierName: undefined
         },
         range: [
-          57,
-          58
+          51,
+          52
         ]
       }
     ],
@@ -579,12 +547,14 @@ body.declarations[0].init.id.parent = body.declarations[0].init;
 body.declarations[0].init.body.parent = body.declarations[0].init;
 // body.declarations[0].init.jsdoc.parent = body.declarations[0].init;
 body.declarations[0].parent = body;
-body.jsdoc.tags[0].parent = body.jsdoc;
-body.jsdoc.parent = body;
-body.parent = jsdocAncestorSomeTag.ast;
+// body.jsdoc.tags[0].parent = body.jsdoc;
+// body.jsdoc.parent = body;
+body.parent = jsdocCloseAncestorSomeTagTS.ast;
 
 jsdocBlock.tags[0].parent = jsdocBlock;
+jsdoc2.tags[0].parent = jsdoc2;
+jsdoc2.parent = jsdocCloseAncestorSomeTagTS.ast;
 jsdoc.tags[0].parent = jsdoc;
 jsdoc.parent = body.declarations[0].init;
 
-export default jsdocAncestorSomeTag;
+export default jsdocCloseAncestorSomeTagTS;

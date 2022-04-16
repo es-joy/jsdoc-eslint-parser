@@ -1,4 +1,4 @@
-import visitorKeys from './visitorKeys.js';
+import visitorKeys from './visitorKeysTS.js';
 
 const jsdoc = {
   delimiter: '/**',
@@ -125,8 +125,6 @@ const body = {
   declarations: [
     {
       type: 'VariableDeclarator',
-      start: 35,
-      end: 58,
       range: [
         35,
         58
@@ -143,8 +141,6 @@ const body = {
       },
       id: {
         type: 'Identifier',
-        start: 35,
-        end: 39,
         jsdoc: null,
         loc: {
           start: {
@@ -166,8 +162,6 @@ const body = {
       jsdoc: null,
       init: {
         type: 'FunctionExpression',
-        start: 42,
-        end: 58,
         generator: false,
         async: false,
         expression: false,
@@ -189,8 +183,6 @@ const body = {
         jsdoc: null,
         id: {
           type: 'Identifier',
-          start: 51,
-          end: 52,
           loc: {
             start: {
               line: 3,
@@ -211,8 +203,6 @@ const body = {
         },
         body: {
           type: 'BlockStatement',
-          start: 56,
-          end: 58,
           loc: {
             start: {
               line: 3,
@@ -235,7 +225,6 @@ const body = {
       }
     }
   ],
-  end: 58,
   jsdoc: {
     delimiter: '/**',
     description: '',
@@ -310,18 +299,16 @@ const body = {
     29,
     58
   ],
-  start: 29,
   type: 'VariableDeclaration'
 };
 
-const jsdocAncestorSomeTag = {
+const jsdocSomeTagTS = {
   ast: {
     body: [
       body
     ],
     comments: [
       {
-        end: 22,
         loc: {
           end: {
             column: 21,
@@ -338,12 +325,10 @@ const jsdocAncestorSomeTag = {
           7,
           22
         ],
-        start: 7,
         type: 'Block',
         value: '* @someTag '
       }
     ],
-    end: 63,
     jsdoc: null,
     jsdocBlocks: [
       jsdocBlock
@@ -356,7 +341,7 @@ const jsdocAncestorSomeTag = {
       filename: undefined,
       identifierName: undefined,
       start: {
-        column: 0,
+        column: 6,
         line: 3
       }
     },
@@ -366,10 +351,8 @@ const jsdocAncestorSomeTag = {
       63
     ],
     sourceType: 'module',
-    start: 29,
     tokens: [
       {
-        end: 34,
         loc: {
           end: {
             column: 11,
@@ -386,12 +369,10 @@ const jsdocAncestorSomeTag = {
           29,
           34
         ],
-        start: 29,
         type: 'Keyword',
         value: 'const'
       },
       {
-        end: 39,
         loc: {
           end: {
             column: 16,
@@ -408,12 +389,10 @@ const jsdocAncestorSomeTag = {
           35,
           39
         ],
-        start: 35,
         type: 'Identifier',
         value: 'func'
       },
       {
-        end: 41,
         loc: {
           end: {
             column: 18,
@@ -430,12 +409,10 @@ const jsdocAncestorSomeTag = {
           40,
           41
         ],
-        start: 40,
         type: 'Punctuator',
         value: '='
       },
       {
-        end: 50,
         loc: {
           end: {
             column: 27,
@@ -452,12 +429,10 @@ const jsdocAncestorSomeTag = {
           42,
           50
         ],
-        start: 42,
         type: 'Keyword',
         value: 'function'
       },
       {
-        end: 52,
         loc: {
           end: {
             column: 29,
@@ -474,12 +449,10 @@ const jsdocAncestorSomeTag = {
           51,
           52
         ],
-        start: 51,
         type: 'Identifier',
         value: 'a'
       },
       {
-        end: 54,
         loc: {
           end: {
             column: 31,
@@ -496,15 +469,12 @@ const jsdocAncestorSomeTag = {
           53,
           54
         ],
-        start: 53,
         type: 'Punctuator',
         value: '('
       },
       {
         type: 'Punctuator',
         value: ')',
-        start: 54,
-        end: 55,
         loc: {
           start: {
             line: 3,
@@ -525,8 +495,6 @@ const jsdocAncestorSomeTag = {
       {
         type: 'Punctuator',
         value: '{',
-        start: 56,
-        end: 57,
         loc: {
           start: {
             line: 3,
@@ -547,8 +515,6 @@ const jsdocAncestorSomeTag = {
       {
         type: 'Punctuator',
         value: '}',
-        start: 57,
-        end: 58,
         loc: {
           start: {
             line: 3,
@@ -581,10 +547,10 @@ body.declarations[0].init.body.parent = body.declarations[0].init;
 body.declarations[0].parent = body;
 body.jsdoc.tags[0].parent = body.jsdoc;
 body.jsdoc.parent = body;
-body.parent = jsdocAncestorSomeTag.ast;
+body.parent = jsdocSomeTagTS.ast;
 
 jsdocBlock.tags[0].parent = jsdocBlock;
 jsdoc.tags[0].parent = jsdoc;
 jsdoc.parent = body.declarations[0].init;
 
-export default jsdocAncestorSomeTag;
+export default jsdocSomeTagTS;

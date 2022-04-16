@@ -13,7 +13,7 @@ const clone = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
-const getJsdocEslintParser = (parser) => {
+const getJsdocEslintParser = (parser, bakedInOptions) => {
   return function (code, options) {
     const {
       mode = 'jsdoc',
@@ -31,7 +31,8 @@ const getJsdocEslintParser = (parser) => {
       // Grab if not within `babelOptions`
       sourceType,
       ...babelOptions,
-      ...parserOptions
+      ...parserOptions,
+      ...bakedInOptions
 
       // These would be needed by the regular Babel parser, but apparently
       //   this Babel ESLint parser properly adds them for us:

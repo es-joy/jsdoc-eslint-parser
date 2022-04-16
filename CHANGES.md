@@ -1,5 +1,10 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.10.1
+
+- fix: ensure TS parser passing in tokens, comment, loc, range, sourceType:
+    module info
+
 ## 0.10.0
 
 - BREAKING feat: ESM
