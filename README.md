@@ -7,8 +7,8 @@ This project aims to allow full `@babel/eslint-parser` configuration, but with
 `comment-parser`-based AST for JSDoc blocks and `jsdoctypeparser` AST for
 JSDoc types within those blocks.
 
-There is also a `@es-joy/jsdoc-eslint-parser/typescript` parser which builds on
-`@typescript-eslint/parser`.
+There is also a `@es-joy/jsdoc-eslint-parser/typescript.js` parser which
+builds on `@typescript-eslint/parser`.
 
 It is hoped that this may spur development of official ESTree acceptance of
 such AST.
