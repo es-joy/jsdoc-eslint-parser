@@ -96,10 +96,29 @@ const getJsdocEslintParser = (parser) => {
 
       let commentAST = null;
       if (node.type !== 'Program' && !node.type.startsWith('Jsdoc')) {
-        const commentToken = getJSDocComment(sourceCode, node, {
+        let commentToken = getJSDocComment(sourceCode, node, {
           minLines,
           maxLines
         });
+
+        let ancestor = parent;
+        do {
+          if (ancestor.type === 'Program') {
+            break;
+          }
+          const ancestorCommenToken = getJSDocComment(sourceCode, ancestor, {
+            minLines,
+            maxLines
+          });
+
+          if (ancestorCommenToken && ancestorCommenToken === commentToken) {
+            // Ancestor has handled instead
+            commentToken = null;
+            break;
+          }
+
+          ancestor = ancestor.parent;
+        } while (ancestor);
 
         if (commentToken) {
           const jsdoc = parseComment(

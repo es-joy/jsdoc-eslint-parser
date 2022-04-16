@@ -186,7 +186,7 @@ const body = {
           42,
           58
         ],
-        jsdoc,
+        jsdoc: null,
         id: {
           type: 'Identifier',
           start: 51,
@@ -577,7 +577,7 @@ body.declarations[0].id.parent = body.declarations[0];
 body.declarations[0].init.parent = body.declarations[0];
 body.declarations[0].init.id.parent = body.declarations[0].init;
 body.declarations[0].init.body.parent = body.declarations[0].init;
-body.declarations[0].init.jsdoc.parent = body.declarations[0].init;
+// body.declarations[0].init.jsdoc.parent = body.declarations[0].init;
 body.declarations[0].parent = body;
 body.jsdoc.tags[0].parent = body.jsdoc;
 body.jsdoc.parent = body;

@@ -29,7 +29,8 @@ In using the Babel ESLint parser, AST is produced which has the `tokens` on
 Node.
 
 We add comment AST--or, rather, `JSDocBlock` AST--by adding a `jsdoc` property
-to each item of the `@babel/eslint-parser`-parsed code. We correspondingly
+to each item of the `@babel/eslint-parser`-parsed code which does not have a
+suitable ancestor to hold the comment block. We correspondingly
 update the visitor keys to ensure that for every key's array of visitable
 properties, `jsdoc` is added, so it can be separately traversable. We also
 ensure the `comment-parser` and `jsdoctypeparser` visitor keys are added to
@@ -53,13 +54,16 @@ const /* B */ aFunc = /* C */ function () {};
 ```
 
 ... for the function expression, we might look for the JSDoc Block at point C
-first, but then if not present, look for it at point A. The `getJSDocComment`
-method uses such an algorithm, and we call this in our parser currently on
-each node such that this may currently result in the same `jsdoc` being
-repeated on two different nodes, e.g., if there is no JSDoc block at point B or
-C, the node for the `aFunc` `Identifier` node should get the JSDoc Block at
-point A added just as the `FunctionExpression` will get the same JSDoc Block
-added.
+or B first, but then if not present, look for it at point A. The
+`getJSDocComment` method uses such an algorithm, and we call this in our
+parser currently on each node. If there is no JSDoc block at point B or
+C, the node for the `aFunc` `VariableDeclaration` node should get the JSDoc
+Block at point A added instead of the `FunctionExpression` getting it.
+
+Although abstractly, it may appear a better fit with `FunctionExpression`,
+the practical purposes of finding JSDoc blocks relates more to position and
+code generation, which should be easiest to work with if in a position closest
+to its actual location.
 
 Note that the AST produced is described in the
 [jsdoccomment](https://github.com/es-joy/jsdoccomment) project. Additionally,
