@@ -78,7 +78,7 @@
   "dependencies": {
     "@babel/core": "^7.17.9",
     "@babel/eslint-parser": "^7.17.0",
-    "@es-joy/jsdoccomment": "0.23.1",
+    "@es-joy/jsdoccomment": "0.23.2",
     "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.13.0",
     "esquery": "^1.4.0",
