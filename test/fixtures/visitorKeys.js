@@ -1,35 +1,29 @@
 const visitorKeys = {
   ChainExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   ImportExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'source'
   ],
   Literal: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   MethodDefinition: [
     'jsdoc',
-    'jsdocBlocks',
     'decorators',
     'key',
     'value'
   ],
   Property: [
     'jsdoc',
-    'jsdocBlocks',
     'decorators',
     'key',
     'value'
   ],
   PropertyDefinition: [
     'jsdoc',
-    'jsdocBlocks',
     'decorators',
     'typeAnnotation',
     'key',
@@ -37,48 +31,39 @@ const visitorKeys = {
   ],
   ArrayExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'elements'
   ],
   AssignmentExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'left',
     'right'
   ],
   BinaryExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'left',
     'right'
   ],
   InterpreterDirective: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   Directive: [
     'jsdoc',
-    'jsdocBlocks',
     'value'
   ],
   DirectiveLiteral: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   BlockStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'directives',
     'body'
   ],
   BreakStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'label'
   ],
   CallExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'callee',
     'arguments',
     'typeParameters',
@@ -86,56 +71,46 @@ const visitorKeys = {
   ],
   CatchClause: [
     'jsdoc',
-    'jsdocBlocks',
     'param',
     'body'
   ],
   ConditionalExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'test',
     'consequent',
     'alternate'
   ],
   ContinueStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'label'
   ],
   DebuggerStatement: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   DoWhileStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'test',
     'body'
   ],
   EmptyStatement: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   ExpressionStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   File: [
     'jsdoc',
-    'jsdocBlocks',
     'program'
   ],
   ForInStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'left',
     'right',
     'body'
   ],
   ForStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'init',
     'test',
     'update',
@@ -143,7 +118,6 @@ const visitorKeys = {
   ],
   FunctionDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'params',
     'body',
@@ -152,7 +126,6 @@ const visitorKeys = {
   ],
   FunctionExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'params',
     'body',
@@ -161,77 +134,63 @@ const visitorKeys = {
   ],
   Identifier: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation',
     'decorators'
   ],
   IfStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'test',
     'consequent',
     'alternate'
   ],
   LabeledStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'label',
     'body'
   ],
   StringLiteral: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   NumericLiteral: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   NullLiteral: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   BooleanLiteral: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   RegExpLiteral: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   LogicalExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'left',
     'right'
   ],
   MemberExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'object',
     'property'
   ],
   NewExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'callee',
     'arguments',
     'typeParameters',
     'typeArguments'
   ],
   Program: [
-    'jsdoc',
     'jsdocBlocks',
     'directives',
     'body'
   ],
   ObjectExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'properties'
   ],
   ObjectMethod: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'params',
     'body',
@@ -241,109 +200,90 @@ const visitorKeys = {
   ],
   ObjectProperty: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'value',
     'decorators'
   ],
   RestElement: [
     'jsdoc',
-    'jsdocBlocks',
     'argument',
     'typeAnnotation'
   ],
   ReturnStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   SequenceExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'expressions'
   ],
   ParenthesizedExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   SwitchCase: [
     'jsdoc',
-    'jsdocBlocks',
     'test',
     'consequent'
   ],
   SwitchStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'discriminant',
     'cases'
   ],
   ThisExpression: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   ThrowStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   TryStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'block',
     'handler',
     'finalizer'
   ],
   UnaryExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   UpdateExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   VariableDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'declarations'
   ],
   VariableDeclarator: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'init'
   ],
   WhileStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'test',
     'body'
   ],
   WithStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'object',
     'body'
   ],
   AssignmentPattern: [
     'jsdoc',
-    'jsdocBlocks',
     'left',
     'right',
     'decorators'
   ],
   ArrayPattern: [
     'jsdoc',
-    'jsdocBlocks',
     'elements',
     'typeAnnotation'
   ],
   ArrowFunctionExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'params',
     'body',
     'returnType',
@@ -351,12 +291,10 @@ const visitorKeys = {
   ],
   ClassBody: [
     'jsdoc',
-    'jsdocBlocks',
     'body'
   ],
   ClassExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'body',
     'superClass',
@@ -368,7 +306,6 @@ const visitorKeys = {
   ],
   ClassDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'body',
     'superClass',
@@ -380,66 +317,55 @@ const visitorKeys = {
   ],
   ExportAllDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'exported',
     'source'
   ],
   ExportDefaultDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'declaration'
   ],
   ExportNamedDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'declaration',
     'specifiers',
     'source'
   ],
   ExportSpecifier: [
     'jsdoc',
-    'jsdocBlocks',
     'local',
     'exported'
   ],
   ForOfStatement: [
     'jsdoc',
-    'jsdocBlocks',
     'left',
     'right',
     'body'
   ],
   ImportDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'specifiers',
     'source'
   ],
   ImportDefaultSpecifier: [
     'jsdoc',
-    'jsdocBlocks',
     'local'
   ],
   ImportNamespaceSpecifier: [
     'jsdoc',
-    'jsdocBlocks',
     'local'
   ],
   ImportSpecifier: [
     'jsdoc',
-    'jsdocBlocks',
     'local',
     'imported'
   ],
   MetaProperty: [
     'jsdoc',
-    'jsdocBlocks',
     'meta',
     'property'
   ],
   ClassMethod: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'params',
     'body',
@@ -449,69 +375,56 @@ const visitorKeys = {
   ],
   ObjectPattern: [
     'jsdoc',
-    'jsdocBlocks',
     'properties',
     'typeAnnotation',
     'decorators'
   ],
   SpreadElement: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   Super: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TaggedTemplateExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'tag',
     'quasi',
     'typeParameters'
   ],
   TemplateElement: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TemplateLiteral: [
     'jsdoc',
-    'jsdocBlocks',
     'quasis',
     'expressions'
   ],
   YieldExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   AwaitExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   Import: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   BigIntLiteral: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   ExportNamespaceSpecifier: [
     'jsdoc',
-    'jsdocBlocks',
     'exported'
   ],
   OptionalMemberExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'object',
     'property'
   ],
   OptionalCallExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'callee',
     'arguments',
     'typeParameters',
@@ -519,7 +432,6 @@ const visitorKeys = {
   ],
   ClassProperty: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'value',
     'typeAnnotation',
@@ -527,7 +439,6 @@ const visitorKeys = {
   ],
   ClassAccessorProperty: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'value',
     'typeAnnotation',
@@ -535,7 +446,6 @@ const visitorKeys = {
   ],
   ClassPrivateProperty: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'value',
     'decorators',
@@ -543,51 +453,41 @@ const visitorKeys = {
   ],
   ClassPrivateMethod: [
     'jsdoc',
-    'jsdocBlocks',
     'decorators',
     'key',
     'value'
   ],
   PrivateName: [
     'jsdoc',
-    'jsdocBlocks',
     'id'
   ],
   StaticBlock: [
     'jsdoc',
-    'jsdocBlocks',
     'body'
   ],
   AnyTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   ArrayTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'elementType'
   ],
   BooleanTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   BooleanLiteralTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   NullLiteralTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   ClassImplements: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters'
   ],
   DeclareClass: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'extends',
@@ -597,12 +497,10 @@ const visitorKeys = {
   ],
   DeclareFunction: [
     'jsdoc',
-    'jsdocBlocks',
     'id'
   ],
   DeclareInterface: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'extends',
@@ -612,58 +510,48 @@ const visitorKeys = {
   ],
   DeclareModule: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'body'
   ],
   DeclareModuleExports: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation'
   ],
   DeclareTypeAlias: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'right'
   ],
   DeclareOpaqueType: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'supertype'
   ],
   DeclareVariable: [
     'jsdoc',
-    'jsdocBlocks',
     'id'
   ],
   DeclareExportDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'declaration',
     'specifiers',
     'source'
   ],
   DeclareExportAllDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'source'
   ],
   DeclaredPredicate: [
     'jsdoc',
-    'jsdocBlocks',
     'value'
   ],
   ExistsTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   FunctionTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'typeParameters',
     'params',
     'rest',
@@ -671,29 +559,24 @@ const visitorKeys = {
   ],
   FunctionTypeParam: [
     'jsdoc',
-    'jsdocBlocks',
     'name',
     'typeAnnotation'
   ],
   GenericTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters'
   ],
   InferredPredicate: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   InterfaceExtends: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters'
   ],
   InterfaceDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'extends',
@@ -703,39 +586,31 @@ const visitorKeys = {
   ],
   InterfaceTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'extends',
     'body'
   ],
   IntersectionTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'types'
   ],
   MixedTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   EmptyTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   NullableTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation'
   ],
   NumberLiteralTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   NumberTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   ObjectTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'properties',
     'indexers',
     'callProperties',
@@ -743,7 +618,6 @@ const visitorKeys = {
   ],
   ObjectTypeInternalSlot: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'value',
     'optional',
@@ -752,12 +626,10 @@ const visitorKeys = {
   ],
   ObjectTypeCallProperty: [
     'jsdoc',
-    'jsdocBlocks',
     'value'
   ],
   ObjectTypeIndexer: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'key',
     'value',
@@ -765,19 +637,16 @@ const visitorKeys = {
   ],
   ObjectTypeProperty: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'value',
     'variance'
   ],
   ObjectTypeSpreadProperty: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   OpaqueType: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'supertype',
@@ -785,310 +654,249 @@ const visitorKeys = {
   ],
   QualifiedTypeIdentifier: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'qualification'
   ],
   StringLiteralTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   StringTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   SymbolTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   ThisTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TupleTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'types'
   ],
   TypeofTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   TypeAlias: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'right'
   ],
   TypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation'
   ],
   TypeCastExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'expression',
     'typeAnnotation'
   ],
   TypeParameter: [
     'jsdoc',
-    'jsdocBlocks',
     'bound',
     'default',
     'variance'
   ],
   TypeParameterDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'params'
   ],
   TypeParameterInstantiation: [
     'jsdoc',
-    'jsdocBlocks',
     'params'
   ],
   UnionTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'types'
   ],
   Variance: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   VoidTypeAnnotation: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   EnumDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'body'
   ],
   EnumBooleanBody: [
     'jsdoc',
-    'jsdocBlocks',
     'members'
   ],
   EnumNumberBody: [
     'jsdoc',
-    'jsdocBlocks',
     'members'
   ],
   EnumStringBody: [
     'jsdoc',
-    'jsdocBlocks',
     'members'
   ],
   EnumSymbolBody: [
     'jsdoc',
-    'jsdocBlocks',
     'members'
   ],
   EnumBooleanMember: [
     'jsdoc',
-    'jsdocBlocks',
     'id'
   ],
   EnumNumberMember: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'init'
   ],
   EnumStringMember: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'init'
   ],
   EnumDefaultedMember: [
     'jsdoc',
-    'jsdocBlocks',
     'id'
   ],
   IndexedAccessType: [
     'jsdoc',
-    'jsdocBlocks',
     'objectType',
     'indexType'
   ],
   OptionalIndexedAccessType: [
     'jsdoc',
-    'jsdocBlocks',
     'objectType',
     'indexType'
   ],
   JSXAttribute: [
     'jsdoc',
-    'jsdocBlocks',
     'name',
     'value'
   ],
   JSXClosingElement: [
     'jsdoc',
-    'jsdocBlocks',
     'name'
   ],
   JSXElement: [
     'jsdoc',
-    'jsdocBlocks',
     'openingElement',
     'children',
     'closingElement'
   ],
   JSXEmptyExpression: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   JSXExpressionContainer: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   JSXSpreadChild: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   JSXIdentifier: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   JSXMemberExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'object',
     'property'
   ],
   JSXNamespacedName: [
     'jsdoc',
-    'jsdocBlocks',
     'namespace',
     'name'
   ],
   JSXOpeningElement: [
     'jsdoc',
-    'jsdocBlocks',
     'name',
     'attributes'
   ],
   JSXSpreadAttribute: [
     'jsdoc',
-    'jsdocBlocks',
     'argument'
   ],
   JSXText: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   JSXFragment: [
     'jsdoc',
-    'jsdocBlocks',
     'openingFragment',
     'children',
     'closingFragment'
   ],
   JSXOpeningFragment: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   JSXClosingFragment: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   Noop: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   Placeholder: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   V8IntrinsicIdentifier: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   ArgumentPlaceholder: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   BindExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'object',
     'callee'
   ],
   ImportAttribute: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'value'
   ],
   Decorator: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   DoExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'body'
   ],
   ExportDefaultSpecifier: [
     'jsdoc',
-    'jsdocBlocks',
     'exported'
   ],
   RecordExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'properties'
   ],
   TupleExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'elements'
   ],
   DecimalLiteral: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   ModuleExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'body'
   ],
   TopicReference: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   PipelineTopicExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   PipelineBareFunction: [
     'jsdoc',
-    'jsdocBlocks',
     'callee'
   ],
   PipelinePrimaryTopicReference: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSParameterProperty: [
     'jsdoc',
-    'jsdocBlocks',
     'parameter'
   ],
   TSDeclareFunction: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'params',
@@ -1096,7 +904,6 @@ const visitorKeys = {
   ],
   TSDeclareMethod: [
     'jsdoc',
-    'jsdocBlocks',
     'decorators',
     'key',
     'typeParameters',
@@ -1105,34 +912,29 @@ const visitorKeys = {
   ],
   TSQualifiedName: [
     'jsdoc',
-    'jsdocBlocks',
     'left',
     'right'
   ],
   TSCallSignatureDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'typeParameters',
     'parameters',
     'typeAnnotation'
   ],
   TSConstructSignatureDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'typeParameters',
     'parameters',
     'typeAnnotation'
   ],
   TSPropertySignature: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'typeAnnotation',
     'initializer'
   ],
   TSMethodSignature: [
     'jsdoc',
-    'jsdocBlocks',
     'key',
     'typeParameters',
     'parameters',
@@ -1140,141 +942,112 @@ const visitorKeys = {
   ],
   TSIndexSignature: [
     'jsdoc',
-    'jsdocBlocks',
     'parameters',
     'typeAnnotation'
   ],
   TSAnyKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSBooleanKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSBigIntKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSIntrinsicKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSNeverKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSNullKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSNumberKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSObjectKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSStringKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSSymbolKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSUndefinedKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSUnknownKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSVoidKeyword: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSThisType: [
-    'jsdoc',
-    'jsdocBlocks'
+    'jsdoc'
   ],
   TSFunctionType: [
     'jsdoc',
-    'jsdocBlocks',
     'typeParameters',
     'parameters',
     'typeAnnotation'
   ],
   TSConstructorType: [
     'jsdoc',
-    'jsdocBlocks',
     'typeParameters',
     'parameters',
     'typeAnnotation'
   ],
   TSTypeReference: [
     'jsdoc',
-    'jsdocBlocks',
     'typeName',
     'typeParameters'
   ],
   TSTypePredicate: [
     'jsdoc',
-    'jsdocBlocks',
     'parameterName',
     'typeAnnotation'
   ],
   TSTypeQuery: [
     'jsdoc',
-    'jsdocBlocks',
     'exprName'
   ],
   TSTypeLiteral: [
     'jsdoc',
-    'jsdocBlocks',
     'members'
   ],
   TSArrayType: [
     'jsdoc',
-    'jsdocBlocks',
     'elementType'
   ],
   TSTupleType: [
     'jsdoc',
-    'jsdocBlocks',
     'elementTypes'
   ],
   TSOptionalType: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation'
   ],
   TSRestType: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation'
   ],
   TSNamedTupleMember: [
     'jsdoc',
-    'jsdocBlocks',
     'label',
     'elementType'
   ],
   TSUnionType: [
     'jsdoc',
-    'jsdocBlocks',
     'types'
   ],
   TSIntersectionType: [
     'jsdoc',
-    'jsdocBlocks',
     'types'
   ],
   TSConditionalType: [
     'jsdoc',
-    'jsdocBlocks',
     'checkType',
     'extendsType',
     'trueType',
@@ -1282,46 +1055,38 @@ const visitorKeys = {
   ],
   TSInferType: [
     'jsdoc',
-    'jsdocBlocks',
     'typeParameter'
   ],
   TSParenthesizedType: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation'
   ],
   TSTypeOperator: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation'
   ],
   TSIndexedAccessType: [
     'jsdoc',
-    'jsdocBlocks',
     'objectType',
     'indexType'
   ],
   TSMappedType: [
     'jsdoc',
-    'jsdocBlocks',
     'typeParameter',
     'typeAnnotation',
     'nameType'
   ],
   TSLiteralType: [
     'jsdoc',
-    'jsdocBlocks',
     'literal'
   ],
   TSExpressionWithTypeArguments: [
     'jsdoc',
-    'jsdocBlocks',
     'expression',
     'typeParameters'
   ],
   TSInterfaceDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'extends',
@@ -1329,102 +1094,84 @@ const visitorKeys = {
   ],
   TSInterfaceBody: [
     'jsdoc',
-    'jsdocBlocks',
     'body'
   ],
   TSTypeAliasDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'typeParameters',
     'typeAnnotation'
   ],
   TSAsExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'expression',
     'typeAnnotation'
   ],
   TSTypeAssertion: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation',
     'expression'
   ],
   TSEnumDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'members'
   ],
   TSEnumMember: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'initializer'
   ],
   TSModuleDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'body'
   ],
   TSModuleBlock: [
     'jsdoc',
-    'jsdocBlocks',
     'body'
   ],
   TSImportType: [
     'jsdoc',
-    'jsdocBlocks',
     'argument',
     'qualifier',
     'typeParameters'
   ],
   TSImportEqualsDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id',
     'moduleReference'
   ],
   TSExternalModuleReference: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   TSNonNullExpression: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   TSExportAssignment: [
     'jsdoc',
-    'jsdocBlocks',
     'expression'
   ],
   TSNamespaceExportDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'id'
   ],
   TSTypeAnnotation: [
     'jsdoc',
-    'jsdocBlocks',
     'typeAnnotation'
   ],
   TSTypeParameterInstantiation: [
     'jsdoc',
-    'jsdocBlocks',
     'params'
   ],
   TSTypeParameterDeclaration: [
     'jsdoc',
-    'jsdocBlocks',
     'params'
   ],
   TSTypeParameter: [
     'jsdoc',
-    'jsdocBlocks',
     'constraint',
     'default'
   ],

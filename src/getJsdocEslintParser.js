@@ -44,10 +44,17 @@ const getJsdocEslintParser = (parser, bakedInOptions) => {
 
     const modifiedVisitorKeys = JSON.parse(JSON.stringify(visitorKeys));
     Object.entries(modifiedVisitorKeys).forEach(([key, value]) => {
-      modifiedVisitorKeys[key] = Array.isArray(value)
-        ? [jsdocCommentProperty, jsdocBlocksProperty, ...value]
-        /* c8 ignore next 1 */
-        : [jsdocCommentProperty, jsdocBlocksProperty];
+      if (key === 'Program') {
+        modifiedVisitorKeys[key] = Array.isArray(value)
+          ? [jsdocBlocksProperty, ...value]
+          /* c8 ignore next 1 */
+          : [jsdocBlocksProperty];
+      } else {
+        modifiedVisitorKeys[key] = Array.isArray(value)
+          ? [jsdocCommentProperty, ...value]
+          /* c8 ignore next 1 */
+          : [jsdocCommentProperty];
+      }
     });
 
     const newVisitorKeys = {
