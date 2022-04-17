@@ -157,7 +157,7 @@ const getJsdocEslintParser = (parser, bakedInOptions) => {
         }
       }
 
-      if (!node.type.startsWith('Jsdoc')) {
+      if (node.type !== 'Program' && !node.type.startsWith('Jsdoc')) {
         node[jsdocCommentProperty] = commentAST;
       }
     }, {visitorKeys: newVisitorKeys});

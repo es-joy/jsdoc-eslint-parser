@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## ?
+
+- fix: avoid `jsdoc` on `Program` (had only dropped as a visitor key)
+
 ## 0.11.3
 
 - chore: update dep. `jsdoccomment`
