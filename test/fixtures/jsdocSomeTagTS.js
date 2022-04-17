@@ -49,7 +49,7 @@ const body = {
     delimiter: '/**',
     description: '',
     descriptionLines: [],
-    end: '*/',
+    terminal: '*/',
     endLine: 2,
     lastDescriptionLine: 1,
     lineEnd: '',
@@ -95,12 +95,13 @@ const body = {
           38
         ],
         rawType: '',
-        start: '       ',
+        initial: '       ',
         tag: 'someTag',
         type: 'JsdocTag',
         typeLines: []
       }
     ],
+    initial: '',
     type: 'JsdocBlock'
   },
   loc: {
@@ -127,7 +128,7 @@ const jsdoc = {
   delimiter: '/**',
   description: '',
   descriptionLines: [],
-  end: '*/',
+  terminal: '*/',
   endLine: 2,
   lastDescriptionLine: 1,
   lineEnd: '',
@@ -173,12 +174,13 @@ const jsdoc = {
         38
       ],
       rawType: '',
-      start: '       ',
+      initial: '       ',
       tag: 'someTag',
       type: 'JsdocTag',
       typeLines: []
     }
   ],
+  initial: '',
   type: 'JsdocBlock'
 };
 
@@ -187,7 +189,7 @@ const jsdocBlock = {
   delimiter: '/**',
   description: '',
   descriptionLines: [],
-  end: '*/',
+  terminal: '*/',
   endLine: 2,
   lastDescriptionLine: 1,
   lineEnd: '',
@@ -234,12 +236,13 @@ const jsdocBlock = {
         38
       ],
       rawType: '',
-      start: '       ',
+      initial: '       ',
       tag: 'someTag',
       type: 'JsdocTag',
       typeLines: []
     }
   ],
+  initial: '',
   type: 'JsdocBlock'
 };
 
