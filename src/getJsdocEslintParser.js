@@ -91,6 +91,9 @@ const getJsdocEslintParser = (parser, bakedInOptions) => {
     );
 
     const sel = esquery.parse('*[type]');
+
+    const takenRanges = {};
+
     esquery.traverse(ast, sel, (node, parent) => {
       // `parent` not available by default, so we add; must be
       //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
@@ -114,12 +117,12 @@ const getJsdocEslintParser = (parser, bakedInOptions) => {
           if (ancestor.type === 'Program') {
             break;
           }
-          const ancestorCommenToken = getJSDocComment(sourceCode, ancestor, {
+          const ancestorCommentToken = getJSDocComment(sourceCode, ancestor, {
             minLines,
             maxLines
           });
 
-          if (ancestorCommenToken && ancestorCommenToken === commentToken) {
+          if (ancestorCommentToken && ancestorCommentToken === commentToken) {
             // Ancestor has handled instead
             commentToken = null;
             break;
@@ -138,6 +141,9 @@ const getJsdocEslintParser = (parser, bakedInOptions) => {
           });
           commentAST.loc = clone(commentToken.loc);
           commentAST.range = clone(commentToken.range);
+
+          takenRanges[commentToken.range] = true;
+
           esquery.traverse(commentAST, sel, (_node, parent) => {
             // `parent` not available by default, so we add; must be
             //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
@@ -160,7 +166,7 @@ const getJsdocEslintParser = (parser, bakedInOptions) => {
       ast[jsdocBlocksProperty] = ast.comments.map(({
         type, value: comment, range, loc
       }, idx) => {
-        if (type !== 'Block') {
+        if (type !== 'Block' || takenRanges[range]) {
           return null;
         }
         let jsdoc;

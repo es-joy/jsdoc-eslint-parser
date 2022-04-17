@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.11.2
+
+- fix: hide already attached `jsdoc` from global `jsdocBlocks`
+
 ## 0.11.1
 
 - fix: avoid adding `jsdocBlocks` to any node except `Program` and drop
