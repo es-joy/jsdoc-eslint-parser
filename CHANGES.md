@@ -1,6 +1,6 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
-## ?
+## 0.11.0
 
 - BREAKING CHANGE: chore: update `jsdoccomment`, `typescript-eslint/parser`;
     must now use `initial` and `terminal` in place of `start` and `end`
