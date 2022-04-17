@@ -13,10 +13,10 @@ const clone = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
-const getJsdocEslintParser = (parser, bakedInOptions) => {
+const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
   return function (code, options) {
     const {
-      mode = 'jsdoc',
+      mode = bakedInOptions.mode || 'jsdoc',
       maxLines = 1,
       minLines = 0,
       indent = '',

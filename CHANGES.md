@@ -2,6 +2,7 @@
 
 ## ?
 
+- fix: bake in typescript mode to typescript parser
 - fix: avoid `jsdoc` on `Program` (had only dropped as a visitor key)
 
 ## 0.11.3
