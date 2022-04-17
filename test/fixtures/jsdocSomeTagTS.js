@@ -275,7 +275,6 @@ const jsdocSomeTagTS = {
     ],
     jsdoc: null,
     jsdocBlocks: [
-      jsdocBlock
     ],
     loc: {
       end: {

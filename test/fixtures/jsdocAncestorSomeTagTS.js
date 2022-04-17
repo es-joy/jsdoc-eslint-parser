@@ -333,9 +333,7 @@ const jsdocSomeTagTS = {
       }
     ],
     jsdoc: null,
-    jsdocBlocks: [
-      jsdocBlock
-    ],
+    jsdocBlocks: [],
     loc: {
       end: {
         column: 4,

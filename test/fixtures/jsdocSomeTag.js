@@ -283,9 +283,7 @@ const jsdocSomeTag = {
     ],
     end: 66,
     jsdoc: null,
-    jsdocBlocks: [
-      jsdocBlock
-    ],
+    jsdocBlocks: [],
     loc: {
       end: {
         column: 4,
