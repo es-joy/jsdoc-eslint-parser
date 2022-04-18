@@ -101,7 +101,7 @@ const body = {
         typeLines: []
       }
     ],
-    initial: '',
+    initial: '      ',
     type: 'JsdocBlock'
   },
   loc: {

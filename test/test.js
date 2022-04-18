@@ -4,6 +4,8 @@ import circularDeepIdentity from './utils/circularDeepIdentity.js';
 import jsdocSomeTag from './fixtures/jsdocSomeTag.js';
 import jsdocAncestorSomeTag from './fixtures/jsdocAncestorSomeTag.js';
 import jsdocCloseAncestorSomeTag from './fixtures/jsdocCloseAncestorSomeTag.js';
+import jsdocCloseAncestorSomeTagNoSpace from
+  './fixtures/jsdocCloseAncestorSomeTagNoSpace.js';
 import lineComment from './fixtures/lineComment.js';
 import multilineComment from './fixtures/multilineComment.js';
 
@@ -79,6 +81,30 @@ describe('`parseForESLint`', function () {
 
     expect(circResult).to.equal(true);
   });
+
+  it(
+    'parses for ESLint (close ancestor having comment and no space)',
+    function () {
+      const parsed = parseForESLint(`
+/** @someTag */ function a () {}
+      `, {
+        mode: 'jsdoc'
+      });
+
+      expect(parsed.visitorKeys).to.deep.equal(
+        jsdocCloseAncestorSomeTagNoSpace.visitorKeys
+      );
+      expect(parsed.services).to.deep.equal(
+        jsdocCloseAncestorSomeTagNoSpace.services
+      );
+
+      const circResult = compare(
+        parsed.ast, jsdocCloseAncestorSomeTagNoSpace.ast
+      );
+
+      expect(circResult).to.equal(true);
+    }
+  );
 
   it('Avoids line comments', function () {
     const parsed = parseForESLint(`

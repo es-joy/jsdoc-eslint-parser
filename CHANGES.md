@@ -1,5 +1,10 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.13.0
+
+- feat: set indent for attached comments based on source context
+- chore: bump `jsdoccomment`
+
 ## 0.12.0
 
 - feat: allow for empty options

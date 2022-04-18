@@ -132,9 +132,21 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
         } while (ancestor);
 
         if (commentToken) {
+          // Note: When there is no end line (it is inline), the `initial` of
+          //   the comment, could be too long, so we can't just repeat solely
+          //   based on the start column
+          const idx = commentToken.range[0];
+          // We could also add to the Comment AST to suggest a line should be
+          //   stringified with line breaks (even if only a single line), if
+          //   it occurs on its own line (the start.column (and end.column))
+          //   have nothing before or after.
+          const indnt = sourceCode.getText().slice(
+            idx - commentToken.loc.start.column, idx
+          ).match(/\s+$/u) || '';
+
           const jsdoc = parseComment(
             commentToken,
-            indent
+            indnt
           );
           commentAST = commentParserToESTree(jsdoc, mode, {
             throwOnTypeParsingErrors
