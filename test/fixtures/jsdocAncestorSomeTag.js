@@ -347,7 +347,6 @@ const jsdocAncestorSomeTag = {
       }
     ],
     end: 63,
-    jsdoc: null,
     jsdocBlocks: [
     ],
     loc: {

@@ -273,9 +273,7 @@ const jsdocSomeTagTS = {
         value: '*\n       * @someTag\n       '
       }
     ],
-    jsdoc: null,
-    jsdocBlocks: [
-    ],
+    jsdocBlocks: [],
     loc: {
       end: {
         column: 4,

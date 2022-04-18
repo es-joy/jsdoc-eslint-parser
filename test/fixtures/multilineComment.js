@@ -25,7 +25,6 @@ const multilineComment = {
     }
   ],
   end: 17,
-  jsdoc: null,
   jsdocBlocks: [],
   loc: {
     end: {

@@ -14,7 +14,7 @@ const clone = (obj) => {
 };
 
 const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
-  return function (code, options) {
+  return function (code, options = {}) {
     const {
       mode = bakedInOptions.mode || 'jsdoc',
       maxLines = 1,

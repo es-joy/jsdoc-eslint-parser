@@ -332,7 +332,6 @@ const jsdocSomeTagTS = {
         value: '* @someTag '
       }
     ],
-    jsdoc: null,
     jsdocBlocks: [],
     loc: {
       end: {

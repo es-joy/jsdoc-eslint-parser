@@ -25,7 +25,6 @@ const lineComment = {
     }
   ],
   end: 23,
-  jsdoc: null,
   jsdocBlocks: [],
   loc: {
     end: {

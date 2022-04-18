@@ -349,7 +349,6 @@ const jsdocCloseAncestorSomeTag = {
       }
     ],
     end: 57,
-    jsdoc: null,
     jsdocBlocks: [
       jsdocBlock
     ],

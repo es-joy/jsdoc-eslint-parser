@@ -1,9 +1,11 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
-## ?
+## 0.12.0
 
+- feat: allow for empty options
 - fix: bake in typescript mode to typescript parser
 - fix: avoid `jsdoc` on `Program` (had only dropped as a visitor key)
+- chore: bump `jsdoccomment`
 
 ## 0.11.3
 

@@ -282,7 +282,6 @@ const jsdocSomeTag = {
       }
     ],
     end: 66,
-    jsdoc: null,
     jsdocBlocks: [],
     loc: {
       end: {

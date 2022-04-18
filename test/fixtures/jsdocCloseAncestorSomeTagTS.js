@@ -334,7 +334,6 @@ const jsdocCloseAncestorSomeTagTS = {
         value: '* @someTag '
       }
     ],
-    jsdoc: null,
     jsdocBlocks: [
       jsdocBlock
     ],

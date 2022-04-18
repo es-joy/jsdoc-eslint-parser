@@ -36,9 +36,7 @@ describe('`parseForESLint`', function () {
        * @someTag
        */
       function a () {}
-    `, {
-      mode: 'jsdoc'
-    });
+    `);
 
     expect(parsed.visitorKeys).to.deep.equal(jsdocSomeTag.visitorKeys);
     expect(parsed.services).to.deep.equal(jsdocSomeTag.services);
