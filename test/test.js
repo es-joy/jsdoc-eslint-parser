@@ -2,6 +2,7 @@ import {parseForESLint} from '../src/index.js';
 import circularDeepIdentity from './utils/circularDeepIdentity.js';
 
 import jsdocSomeTag from './fixtures/jsdocSomeTag.js';
+import jsdocSomeTagUnattached from './fixtures/jsdocSomeTagUnattached.js';
 import jsdocAncestorSomeTag from './fixtures/jsdocAncestorSomeTag.js';
 import jsdocCloseAncestorSomeTag from './fixtures/jsdocCloseAncestorSomeTag.js';
 import jsdocCloseAncestorSomeTagNoSpace from
@@ -47,6 +48,26 @@ describe('`parseForESLint`', function () {
 
     expect(circResult).to.equal(true);
     // expect(parsed.scopeManager).to.deep.equal(jsdocSomeTag.scopeManager);
+  });
+
+  it('parses for ESLint (unattached)', function () {
+    const parsed = parseForESLint(`
+      /**
+       * @someTag
+       */
+    `);
+
+    expect(
+      parsed.visitorKeys
+    ).to.deep.equal(jsdocSomeTagUnattached.visitorKeys);
+    expect(parsed.services).to.deep.equal(jsdocSomeTagUnattached.services);
+
+    const circResult = compare(parsed.ast, jsdocSomeTagUnattached.ast);
+
+    expect(circResult).to.equal(true);
+    // expect(parsed.scopeManager).to.deep.equal(
+    //   jsdocSomeTagUnattached.scopeManager
+    // );
   });
 
   it('parses for ESLint (ancestor having comment)', function () {

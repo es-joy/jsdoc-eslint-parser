@@ -1,5 +1,11 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.14.0
+
+- chore: bump `jsdoccomment`
+- chore: update devDeps.
+- test: checks for unattached comment (now that one example is attached)
+
 ## 0.13.0
 
 - feat: set indent for attached comments based on source context

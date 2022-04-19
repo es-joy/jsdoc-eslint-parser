@@ -10,18 +10,18 @@ const jsdoc = {
   lineEnd: '',
   loc: {
     end: {
-      column: 21,
+      column: 34,
       line: 2
     },
     start: {
-      column: 6,
+      column: 19,
       line: 2
     }
   },
   postDelimiter: ' ',
   range: [
-    7,
-    22
+    20,
+    35
   ],
   tags: [
     {
@@ -31,11 +31,11 @@ const jsdoc = {
       lineEnd: '',
       loc: {
         end: {
-          column: 21,
+          column: 34,
           line: 2
         },
         start: {
-          column: 6,
+          column: 19,
           line: 2
         }
       },
@@ -46,8 +46,8 @@ const jsdoc = {
       postTag: ' ',
       postType: '',
       range: [
-        7,
-        22
+        20,
+        35
       ],
       rawType: '',
       initial: '',
@@ -56,7 +56,7 @@ const jsdoc = {
       typeLines: []
     }
   ],
-  initial: '',
+  initial: ' ',
   type: 'JsdocBlock'
 };
 
@@ -248,7 +248,7 @@ const body = {
           36,
           52
         ],
-        jsdoc: null,
+        jsdoc,
         id: {
           type: 'Identifier',
           start: 45,
@@ -350,7 +350,6 @@ const jsdocCloseAncestorSomeTag = {
     ],
     end: 57,
     jsdocBlocks: [
-      jsdocBlock
     ],
     loc: {
       end: {
