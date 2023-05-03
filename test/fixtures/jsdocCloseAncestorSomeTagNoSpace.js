@@ -57,6 +57,7 @@ const jsdoc = {
     }
   ],
   initial: '',
+  hasPreterminalDescription: 0,
   type: 'JsdocBlock'
 };
 
@@ -117,6 +118,7 @@ const jsdoc2 = {
     }
   ],
   initial: '',
+  hasPreterminalDescription: 0,
   type: 'JsdocBlock'
 };
 
@@ -179,6 +181,7 @@ const jsdocBlock = {
     }
   ],
   initial: '',
+  hasPreterminalDescription: 0,
   type: 'JsdocBlock'
 };
 
@@ -242,6 +245,8 @@ const body = {
     endLine: 0,
     postDelimiter: ' ',
     lineEnd: '',
+    hasPreterminalDescription: 0,
+    hasPreterminalTagDescription: 1,
     type: 'JsdocBlock',
     lastDescriptionLine: 0,
     tags: [

@@ -11,6 +11,13 @@ const visitorKeysTS = {
     'right',
     'typeAnnotation'
   ],
+  AccessorProperty: [
+    'jsdoc',
+    'decorators',
+    'key',
+    'typeAnnotation',
+    'value'
+  ],
   ArrayExpression: [
     'jsdoc',
     'elements'
@@ -440,6 +447,12 @@ const visitorKeysTS = {
     'jsdoc',
     'expression'
   ],
+  TSAbstractAccessorProperty: [
+    'jsdoc',
+    'decorators',
+    'key',
+    'typeAnnotation'
+  ],
   TSAbstractKeyword: [
     'jsdoc'
   ],
@@ -575,6 +588,11 @@ const visitorKeysTS = {
     'jsdoc',
     'typeParameter'
   ],
+  TSInstantiationExpression: [
+    'jsdoc',
+    'expression',
+    'typeParameters'
+  ],
   TSInterfaceBody: [
     'jsdoc',
     'body'
@@ -685,6 +703,11 @@ const visitorKeysTS = {
     'jsdoc',
     'typeAnnotation'
   ],
+  TSSatisfiesExpression: [
+    'jsdoc',
+    'typeAnnotation',
+    'expression'
+  ],
   TSStaticKeyword: [
     'jsdoc'
   ],
@@ -718,8 +741,8 @@ const visitorKeysTS = {
   ],
   TSTypeAssertion: [
     'jsdoc',
-    'typeAnnotation',
-    'expression'
+    'expression',
+    'typeAnnotation'
   ],
   TSTypeLiteral: [
     'jsdoc',
@@ -750,7 +773,8 @@ const visitorKeysTS = {
   ],
   TSTypeQuery: [
     'jsdoc',
-    'exprName'
+    'exprName',
+    'typeParameters'
   ],
   TSTypeReference: [
     'jsdoc',
@@ -776,6 +800,9 @@ const visitorKeysTS = {
   ],
   JsdocDescriptionLine: [],
   JsdocTypeLine: [],
+  JsdocTypeMappedType: [
+    'right'
+  ],
   JsdocTag: [
     'parsedType',
     'typeLines',
@@ -791,11 +818,18 @@ const visitorKeysTS = {
     'elements'
   ],
   JsdocTypeImport: [],
+  JsdocTypeIndexSignature: [
+    'right'
+  ],
   JsdocTypeIntersection: [
     'elements'
   ],
   JsdocTypeKeyof: [
     'element'
+  ],
+  JsdocTypeJsdocObjectField: [
+    'left',
+    'right'
   ],
   JsdocTypeKeyValue: [
     'right'
@@ -815,6 +849,9 @@ const visitorKeysTS = {
   JsdocTypeNumber: [],
   JsdocTypeObject: [
     'elements'
+  ],
+  JsdocTypeObjectField: [
+    'right'
   ],
   JsdocTypeOptional: [
     'element'

@@ -59,6 +59,7 @@ const jsdocBlock = {
     }
   ],
   initial: '',
+  hasPreterminalDescription: 0,
   type: 'JsdocBlock'
 };
 

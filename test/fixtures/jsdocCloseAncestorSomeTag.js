@@ -57,6 +57,8 @@ const jsdoc = {
     }
   ],
   initial: ' ',
+  hasPreterminalDescription: 0,
+  hasPreterminalTagDescription: 1,
   type: 'JsdocBlock'
 };
 
@@ -117,6 +119,7 @@ const jsdoc2 = {
     }
   ],
   initial: '',
+  hasPreterminalDescription: 0,
   type: 'JsdocBlock'
 };
 
@@ -179,6 +182,7 @@ const jsdocBlock = {
     }
   ],
   initial: '',
+  hasPreterminalDescription: 0,
   type: 'JsdocBlock'
 };
 

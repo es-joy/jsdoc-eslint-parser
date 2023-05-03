@@ -504,8 +504,6 @@ const visitorKeys = {
     'id',
     'typeParameters',
     'extends',
-    'mixins',
-    'implements',
     'body'
   ],
   DeclareModule: [
@@ -580,8 +578,6 @@ const visitorKeys = {
     'id',
     'typeParameters',
     'extends',
-    'mixins',
-    'implements',
     'body'
   ],
   InterfaceTypeAnnotation: [
@@ -1011,7 +1007,8 @@ const visitorKeys = {
   ],
   TSTypeQuery: [
     'jsdoc',
-    'exprName'
+    'exprName',
+    'typeParameters'
   ],
   TSTypeLiteral: [
     'jsdoc',
@@ -1031,6 +1028,11 @@ const visitorKeys = {
   ],
   TSRestType: [
     'jsdoc',
+    'typeAnnotation'
+  ],
+  TSSatisfiesExpression: [
+    'jsdoc',
+    'expression',
     'typeAnnotation'
   ],
   TSNamedTupleMember: [
@@ -1091,6 +1093,11 @@ const visitorKeys = {
     'typeParameters',
     'extends',
     'body'
+  ],
+  TSInstantiationExpression: [
+    'jsdoc',
+    'expression',
+    'typeParameters'
   ],
   TSInterfaceBody: [
     'jsdoc',
@@ -1181,6 +1188,9 @@ const visitorKeys = {
   ],
   JsdocDescriptionLine: [],
   JsdocTypeLine: [],
+  JsdocTypeMappedType: [
+    'right'
+  ],
   JsdocTag: [
     'parsedType',
     'typeLines',
@@ -1196,11 +1206,18 @@ const visitorKeys = {
     'elements'
   ],
   JsdocTypeImport: [],
+  JsdocTypeIndexSignature: [
+    'right'
+  ],
   JsdocTypeIntersection: [
     'elements'
   ],
   JsdocTypeKeyof: [
     'element'
+  ],
+  JsdocTypeJsdocObjectField: [
+    'left',
+    'right'
   ],
   JsdocTypeKeyValue: [
     'right'
@@ -1218,6 +1235,9 @@ const visitorKeys = {
     'element'
   ],
   JsdocTypeNumber: [],
+  JsdocTypeObjectField: [
+    'right'
+  ],
   JsdocTypeObject: [
     'elements'
   ],

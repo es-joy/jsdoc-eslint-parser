@@ -107,6 +107,7 @@ const body = {
       }
     ],
     initial: '      ',
+    hasPreterminalDescription: 0,
     type: 'JsdocBlock'
   },
   loc: {
@@ -187,6 +188,7 @@ const jsdoc = {
     }
   ],
   initial: '',
+  hasPreterminalDescription: 0,
   type: 'JsdocBlock'
 };
 
@@ -249,6 +251,7 @@ const jsdocBlock = {
     }
   ],
   initial: '',
+  hasPreterminalDescription: 0,
   type: 'JsdocBlock'
 };
 
