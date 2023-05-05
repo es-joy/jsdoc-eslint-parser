@@ -291,6 +291,7 @@ const body = {
         ],
         rawType: '',
         initial: '',
+        inlineTags: [],
         tag: 'someTag',
         type: 'JsdocTag',
         typeLines: []
@@ -299,6 +300,7 @@ const body = {
     initial: '      ',
     hasPreterminalDescription: 0,
     hasPreterminalTagDescription: 1,
+    inlineTags: [],
     type: 'JsdocBlock'
   },
   loc: {

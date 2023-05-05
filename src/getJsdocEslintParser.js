@@ -185,6 +185,8 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
         try {
           // Todo: detect leading whitespace for indent argument?
           jsdoc = parseComment({value: comment}, indent);
+          // No longer possible here?
+          /* c8 ignore next 3 */
           if (!jsdoc) {
             return null;
           }

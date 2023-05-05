@@ -52,6 +52,7 @@ const jsdoc = {
       rawType: '',
       initial: '',
       tag: 'someTag',
+      inlineTags: [],
       type: 'JsdocTag',
       typeLines: []
     }
@@ -59,6 +60,7 @@ const jsdoc = {
   initial: ' ',
   hasPreterminalDescription: 0,
   hasPreterminalTagDescription: 1,
+  inlineTags: [],
   type: 'JsdocBlock'
 };
 
@@ -184,6 +186,7 @@ const jsdocBlock = {
   initial: '',
   hasPreterminalDescription: 0,
   hasPreterminalTagDescription: 1,
+  inlineTags: [],
   type: 'JsdocBlock'
 };
 

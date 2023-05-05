@@ -247,11 +247,13 @@ const body = {
     lineEnd: '',
     hasPreterminalDescription: 0,
     hasPreterminalTagDescription: 1,
+    inlineTags: [],
     type: 'JsdocBlock',
     lastDescriptionLine: 0,
     tags: [
       {
         tag: 'someTag',
+        inlineTags: [],
         postTag: ' ',
         name: '',
         postName: '',

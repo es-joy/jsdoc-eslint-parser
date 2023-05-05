@@ -796,17 +796,20 @@ const visitorKeysTS = {
   ],
   JsdocBlock: [
     'descriptionLines',
-    'tags'
+    'tags',
+    'inlineTags'
   ],
   JsdocDescriptionLine: [],
   JsdocTypeLine: [],
   JsdocTypeMappedType: [
     'right'
   ],
+  JsdocInlineTag: [],
   JsdocTag: [
     'parsedType',
     'typeLines',
-    'descriptionLines'
+    'descriptionLines',
+    'inlineTags'
   ],
   JsdocTypeAny: [],
   JsdocTypeFunction: [

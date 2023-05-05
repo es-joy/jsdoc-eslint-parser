@@ -1184,9 +1184,11 @@ const visitorKeys = {
   ],
   JsdocBlock: [
     'descriptionLines',
-    'tags'
+    'tags',
+    'inlineTags'
   ],
   JsdocDescriptionLine: [],
+  JsdocInlineTag: [],
   JsdocTypeLine: [],
   JsdocTypeMappedType: [
     'right'
@@ -1194,7 +1196,8 @@ const visitorKeys = {
   JsdocTag: [
     'parsedType',
     'typeLines',
-    'descriptionLines'
+    'descriptionLines',
+    'inlineTags'
   ],
   JsdocTypeAny: [],
   JsdocTypeFunction: [

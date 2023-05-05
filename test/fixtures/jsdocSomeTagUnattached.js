@@ -53,6 +53,7 @@ const jsdocBlock = {
       ],
       rawType: '',
       initial: '       ',
+      inlineTags: [],
       tag: 'someTag',
       type: 'JsdocTag',
       typeLines: []
@@ -60,6 +61,7 @@ const jsdocBlock = {
   ],
   initial: '',
   hasPreterminalDescription: 0,
+  inlineTags: [],
   type: 'JsdocBlock'
 };
 
