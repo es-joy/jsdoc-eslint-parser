@@ -126,9 +126,11 @@ const jsdocBlock = {
 
 const body = {
   kind: 'const',
+  declare: false,
   declarations: [
     {
       type: 'VariableDeclarator',
+      definite: false,
       range: [
         35,
         58
@@ -146,6 +148,8 @@ const body = {
       id: {
         type: 'Identifier',
         jsdoc: null,
+        optional: false,
+        decorators: [],
         loc: {
           start: {
             line: 3,
@@ -169,6 +173,7 @@ const body = {
         generator: false,
         async: false,
         expression: false,
+        declare: false,
         params: [],
         loc: {
           start: {
@@ -187,6 +192,8 @@ const body = {
         jsdoc: null,
         id: {
           type: 'Identifier',
+          decorators: [],
+          optional: false,
           loc: {
             start: {
               line: 3,

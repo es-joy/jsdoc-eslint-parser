@@ -10,8 +10,8 @@ import resolve from '@rollup/plugin-node-resolve';
 /**
  * @param {PlainObject} config
  * @param {string} config.input
- * @param {string} [config.format="umd"]
- * @param {boolean} [config.minifying=false]
+ * @param {string} [config.format]
+ * @param {boolean} [config.minifying]
  * @returns {RollupConfig}
  */
 function getRollupObject ({input, minifying, format = 'umd'} = {}) {

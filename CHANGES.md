@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.20.0
+
+- chore: update deps. and devDeps. and lint
+
 ## 0.19.0
 
 - chore: update `es-joy/jsdoccomment` (`inlineTags` support) and devDeps.

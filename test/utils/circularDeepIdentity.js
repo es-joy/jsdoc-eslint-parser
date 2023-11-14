@@ -4,9 +4,9 @@ const obj2s = new WeakMap();
 /**
  * @param {unknown} obj1
  * @param {unknown} obj2
- * @param {KeyResult} [keyResult={}]
+ * @param {KeyResult} [keyResult]
  * @param {(u: unknown) => boolean} reusedButNotCircular
- * @param {string[]} [paths=[]]
+ * @param {string[]} [paths]
  * @returns {boolean}
  */
 function _circularDeepIdentity (

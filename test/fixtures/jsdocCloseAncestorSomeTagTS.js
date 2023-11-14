@@ -192,9 +192,11 @@ const jsdocBlock = {
 
 const body = {
   kind: 'const',
+  declare: false,
   declarations: [
     {
       type: 'VariableDeclarator',
+      definite: false,
       range: [
         13,
         52
@@ -212,6 +214,8 @@ const body = {
       id: {
         type: 'Identifier',
         jsdoc: null,
+        optional: false,
+        decorators: [],
         loc: {
           start: {
             line: 2,
@@ -235,6 +239,7 @@ const body = {
         generator: false,
         async: false,
         expression: false,
+        declare: false,
         params: [],
         loc: {
           start: {
@@ -253,6 +258,8 @@ const body = {
         jsdoc,
         id: {
           type: 'Identifier',
+          decorators: [],
+          optional: false,
           loc: {
             start: {
               line: 2,
@@ -550,6 +557,7 @@ const jsdocCloseAncestorSomeTagTS = {
   visitorKeys
 };
 
+body.declarations[0].decorators = body.parent;
 body.declarations[0].id.parent = body.declarations[0];
 body.declarations[0].init.parent = body.declarations[0];
 body.declarations[0].init.id.parent = body.declarations[0].init;

@@ -5,7 +5,8 @@ const visitorKeys = {
   ],
   ImportExpression: [
     'jsdoc',
-    'source'
+    'source',
+    'options'
   ],
   Literal: [
     'jsdoc'
@@ -328,7 +329,9 @@ const visitorKeys = {
     'jsdoc',
     'declaration',
     'specifiers',
-    'source'
+    'source',
+    'attributes',
+    'assertions'
   ],
   ExportSpecifier: [
     'jsdoc',
@@ -344,7 +347,9 @@ const visitorKeys = {
   ImportDeclaration: [
     'jsdoc',
     'specifiers',
-    'source'
+    'source',
+    'attributes',
+    'assertions'
   ],
   ImportDefaultSpecifier: [
     'jsdoc',

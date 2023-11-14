@@ -55,7 +55,7 @@ const visitorKeysTS = {
   CallExpression: [
     'jsdoc',
     'callee',
-    'typeParameters',
+    'typeArguments',
     'arguments'
   ],
   CatchClause: [
@@ -77,7 +77,7 @@ const visitorKeysTS = {
     'id',
     'typeParameters',
     'superClass',
-    'superTypeParameters',
+    'superTypeArguments',
     'implements',
     'body'
   ],
@@ -87,7 +87,7 @@ const visitorKeysTS = {
     'id',
     'typeParameters',
     'superClass',
-    'superTypeParameters',
+    'superTypeArguments',
     'implements',
     'body'
   ],
@@ -254,7 +254,7 @@ const visitorKeysTS = {
   JSXOpeningElement: [
     'jsdoc',
     'name',
-    'typeParameters',
+    'typeArguments',
     'attributes'
   ],
   JSXSpreadAttribute: [
@@ -303,13 +303,12 @@ const visitorKeysTS = {
     'jsdoc',
     'decorators',
     'key',
-    'value',
-    'typeParameters'
+    'value'
   ],
   NewExpression: [
     'jsdoc',
     'callee',
-    'typeParameters',
+    'typeArguments',
     'arguments'
   ],
   ObjectExpression: [
@@ -379,7 +378,7 @@ const visitorKeysTS = {
   TaggedTemplateExpression: [
     'jsdoc',
     'tag',
-    'typeParameters',
+    'typeArguments',
     'quasi'
   ],
   TemplateElement: [
@@ -497,7 +496,7 @@ const visitorKeysTS = {
   TSClassImplements: [
     'jsdoc',
     'expression',
-    'typeParameters'
+    'typeArguments'
   ],
   TSConditionalType: [
     'jsdoc',
@@ -570,9 +569,9 @@ const visitorKeysTS = {
   ],
   TSImportType: [
     'jsdoc',
-    'parameter',
+    'argument',
     'qualifier',
-    'typeParameters'
+    'typeArguments'
   ],
   TSIndexedAccessType: [
     'jsdoc',
@@ -591,7 +590,7 @@ const visitorKeysTS = {
   TSInstantiationExpression: [
     'jsdoc',
     'expression',
-    'typeParameters'
+    'typeArguments'
   ],
   TSInterfaceBody: [
     'jsdoc',
@@ -607,7 +606,7 @@ const visitorKeysTS = {
   TSInterfaceHeritage: [
     'jsdoc',
     'expression',
-    'typeParameters'
+    'typeArguments'
   ],
   TSIntersectionType: [
     'jsdoc',
@@ -682,8 +681,7 @@ const visitorKeysTS = {
   TSPropertySignature: [
     'jsdoc',
     'typeAnnotation',
-    'key',
-    'initializer'
+    'key'
   ],
   TSProtectedKeyword: [
     'jsdoc'
@@ -774,12 +772,12 @@ const visitorKeysTS = {
   TSTypeQuery: [
     'jsdoc',
     'exprName',
-    'typeParameters'
+    'typeArguments'
   ],
   TSTypeReference: [
     'jsdoc',
     'typeName',
-    'typeParameters'
+    'typeArguments'
   ],
   TSUndefinedKeyword: [
     'jsdoc'

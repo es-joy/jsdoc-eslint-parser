@@ -2,6 +2,7 @@ import visitorKeys from './visitorKeysTS.js';
 
 const body = {
   async: false,
+  declare: false,
   body: {
     body: [],
     jsdoc: null,
@@ -27,6 +28,8 @@ const body = {
   generator: false,
   id: {
     jsdoc: null,
+    decorators: [],
+    optional: false,
     loc: {
       end: {
         column: 16,
