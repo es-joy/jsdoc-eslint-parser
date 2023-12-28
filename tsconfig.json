@@ -3,6 +3,7 @@
     "lib": ["es2023"],
     "moduleResolution": "nodenext",
     "module": "NodeNext",
+    "skipLibCheck": true,
     "allowJs": true,
     "checkJs": true,
     "noEmit": false,

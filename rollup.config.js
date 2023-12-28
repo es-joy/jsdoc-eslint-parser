@@ -8,7 +8,7 @@ import resolve from '@rollup/plugin-node-resolve';
 /* eslint-enable jsdoc/require-property -- not proper TypeScript */
 
 /**
- * @param {PlainObject} config
+ * @param {object} config
  * @param {string} config.input
  * @param {string} [config.format]
  * @param {boolean} [config.minifying]

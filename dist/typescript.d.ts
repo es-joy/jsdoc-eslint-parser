@@ -1,5 +1,5 @@
 export const parseForESLint: (code: string, options?: {
-    mode?: "closure" | "jsdoc" | "typescript" | undefined;
+    mode?: "jsdoc" | "closure" | "typescript" | undefined;
     maxLines?: number | undefined;
     minLines?: number | undefined;
     indent?: string | undefined;

@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.21.1
+
+- fix: update build files
+
 ## 0.21.0
 
 - feat: add types

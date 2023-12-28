@@ -10,33 +10,30 @@ function e(t){return (e="function"==typeof Symbol&&"symbol"==typeof Symbol.itera
 /**
  * Removes initial and ending brackets from `rawType`
  * @param {JsdocTypeLine[]|JsdocTag} container
- * @param {boolean} isArr
+ * @param {boolean} [isArr]
  * @returns {void}
  */
 const stripEncapsulatingBrackets = (container, isArr) => {
   if (isArr) {
-    const firstItem = container[0];
+    const firstItem = /** @type {JsdocTypeLine[]} */ (container)[0];
     firstItem.rawType = firstItem.rawType.replace(
       /^\{/u, ''
     );
 
-    const lastItem = container[container.length - 1];
+    const lastItem = /** @type {JsdocTypeLine} */ (
+      /** @type {JsdocTypeLine[]} */ (
+        container
+      ).at(-1)
+    );
     lastItem.rawType = lastItem.rawType.replace(/\}$/u, '');
 
     return;
   }
-  container.rawType = container.rawType.replace(
-    /^\{/u, ''
-  ).replace(/\}$/u, '');
+  /** @type {JsdocTag} */ (container).rawType =
+    /** @type {JsdocTag} */ (container).rawType.replace(
+      /^\{/u, ''
+    ).replace(/\}$/u, '');
 };
-
-/**
- * @external CommentParserJsdoc
- */
-
-/**
- * @external JsdocTypePrattParserMode
- */
 
 /**
  * @typedef {{
@@ -60,18 +57,16 @@ const stripEncapsulatingBrackets = (container, isArr) => {
 
 /**
  * @typedef {{
- *   delimiter: string,
- *   description: string,
- *   postDelimiter: string,
- *   initial: string,
+ *   format: 'pipe' | 'plain' | 'prefix' | 'space',
+ *   namepathOrURL: string,
  *   tag: string,
- *   terminal: string,
- *   type: string,
- *   descriptionLines: JsdocDescriptionLine[],
- *   rawType: string,
- *   type: "JsdocTag",
- *   typeLines: JsdocTypeLine[]
- * }} JsdocTag
+ *   text: string,
+ * }} JsdocInlineTagNoType
+ */
+/**
+ * @typedef {JsdocInlineTagNoType & {
+ *   type: "JsdocInlineTag"
+ * }} JsdocInlineTag
  */
 
 /**
@@ -80,21 +75,67 @@ const stripEncapsulatingBrackets = (container, isArr) => {
  *   description: string,
  *   descriptionLines: JsdocDescriptionLine[],
  *   initial: string,
- *   terminal: string,
+ *   inlineTags: JsdocInlineTag[]
+ *   name: string,
  *   postDelimiter: string,
+ *   postName: string,
+ *   postTag: string,
+ *   postType: string,
+ *   rawType: string,
+ *   parsedType: import('jsdoc-type-pratt-parser').RootResult|null
+ *   tag: string,
+ *   type: "JsdocTag",
+ *   typeLines: JsdocTypeLine[],
+ * }} JsdocTag
+ */
+
+/**
+ * @typedef {number} Integer
+ */
+
+/**
+ * @typedef {{
+ *   delimiter: string,
+ *   description: string,
+ *   descriptionEndLine?: Integer,
+ *   descriptionLines: JsdocDescriptionLine[],
+ *   descriptionStartLine?: Integer,
+ *   hasPreterminalDescription: 0|1,
+ *   hasPreterminalTagDescription?: 1,
+ *   initial: string,
+ *   inlineTags: JsdocInlineTag[]
+ *   lastDescriptionLine?: Integer,
+ *   endLine: Integer,
  *   lineEnd: string,
+ *   postDelimiter: string,
+ *   tags: JsdocTag[],
+ *   terminal: string,
  *   type: "JsdocBlock",
- *   lastDescriptionLine: Integer,
- *   tags: JsdocTag[]
  * }} JsdocBlock
  */
 
 /**
+ * @param {object} cfg
+ * @param {string} cfg.text
+ * @param {string} cfg.tag
+ * @param {'pipe' | 'plain' | 'prefix' | 'space'} cfg.format
+ * @param {string} cfg.namepathOrURL
+ * @returns {JsdocInlineTag}
+ */
+const inlineTagToAST = ({text, tag, format, namepathOrURL}) => ({
+  text,
+  tag,
+  format,
+  namepathOrURL,
+  type: 'JsdocInlineTag'
+});
+
+/**
  * Converts comment parser AST to ESTree format.
- * @param {external:CommentParserJsdoc} jsdoc
- * @param {external:JsdocTypePrattParserMode} mode
- * @param {PlainObject} opts
- * @param {throwOnTypeParsingErrors} [opts.throwOnTypeParsingErrors=false]
+ * @param {import('./index.js').JsdocBlockWithInline} jsdoc
+ * @param {import('jsdoc-type-pratt-parser').ParseMode} mode
+ * @param {object} opts
+ * @param {boolean} [opts.throwOnTypeParsingErrors]
  * @returns {JsdocBlock}
  */
 const commentParserToESTree = (jsdoc, mode, {
@@ -121,8 +162,11 @@ const commentParserToESTree = (jsdoc, mode, {
     } catch (err) {
       // Ignore
       if (lastTag.rawType && throwOnTypeParsingErrors) {
-        err.message = `Tag @${lastTag.tag} with raw type ` +
-          `\`${lastTag.rawType}\` had parsing error: ${err.message}`;
+        /** @type {Error} */ (
+          err
+        ).message = `Tag @${lastTag.tag} with raw type ` +
+          `\`${lastTag.rawType}\` had parsing error: ${
+            /** @type {Error} */ (err).message}`;
         throw err;
       }
     }
@@ -130,7 +174,7 @@ const commentParserToESTree = (jsdoc, mode, {
     lastTag.parsedType = parsedType;
   };
 
-  const {source} = jsdoc;
+  const {source, inlineTags: blockInlineTags} = jsdoc;
 
   const {tokens: {
     delimiter: delimiterRoot,
@@ -141,13 +185,17 @@ const commentParserToESTree = (jsdoc, mode, {
   }} = source[0];
 
   const endLine = source.length - 1;
+
+  /** @type {JsdocBlock} */
   const ast = {
     delimiter: delimiterRoot,
     description: '',
 
     descriptionLines: [],
+    inlineTags: blockInlineTags.map((t) => inlineTagToAST(t)),
 
     initial: startRoot,
+    tags: [],
     // `terminal` will be overwritten if there are other entries
     terminal: endRoot,
     hasPreterminalDescription: 0,
@@ -158,9 +206,17 @@ const commentParserToESTree = (jsdoc, mode, {
     type: 'JsdocBlock'
   };
 
+  /**
+   * @type {JsdocTag[]}
+   */
   const tags = [];
+
+  /** @type {Integer|undefined} */
   let lastDescriptionLine;
+
+  /** @type {JsdocTag|null} */
   let lastTag = null;
+
   let descLineStateOpen = true;
 
   source.forEach((info, idx) => {
@@ -219,6 +275,7 @@ const commentParserToESTree = (jsdoc, mode, {
       }
 
       const {
+        // eslint-disable-next-line no-unused-vars -- Discarding
         end: ed,
         delimiter: de,
         postDelimiter: pd,
@@ -248,12 +305,34 @@ const commentParserToESTree = (jsdoc, mode, {
         }
       }
 
+      /**
+       * @type {JsdocInlineTag[]}
+       */
+      let tagInlineTags = [];
+      if (tag) {
+        // Assuming the tags from `source` are in the same order as `jsdoc.tags`
+        // we can use the `tags` length as index into the parser result tags.
+        tagInlineTags =
+          /**
+           * @type {import('comment-parser').Spec & {
+           *   inlineTags: JsdocInlineTagNoType[]
+           * }}
+           */ (
+            jsdoc.tags[tags.length]
+          ).inlineTags.map(
+            (t) => inlineTagToAST(t)
+          );
+      }
+
+      /** @type {JsdocTag} */
       const tagObj = {
         ...tkns,
         initial: endLine ? init : '',
         postDelimiter: lastDescriptionLine ? pd : '',
         delimiter: lastDescriptionLine ? de : '',
         descriptionLines: [],
+        inlineTags: tagInlineTags,
+        parsedType: null,
         rawType: '',
         type: 'JsdocTag',
         typeLines: []
@@ -267,8 +346,8 @@ const commentParserToESTree = (jsdoc, mode, {
 
     if (rawType) {
       // Will strip rawType brackets after this tag
-      lastTag.typeLines.push(
-        lastTag.typeLines.length
+      /** @type {JsdocTag} */ (lastTag).typeLines.push(
+        /** @type {JsdocTag} */ (lastTag).typeLines.length
           ? {
             delimiter,
             postDelimiter,
@@ -284,7 +363,11 @@ const commentParserToESTree = (jsdoc, mode, {
             type: 'JsdocTypeLine'
           }
       );
-      lastTag.rawType += lastTag.rawType ? '\n' + rawType : rawType;
+      /** @type {JsdocTag} */ (lastTag).rawType += /** @type {JsdocTag} */ (
+        lastTag
+      ).rawType
+        ? '\n' + rawType
+        : rawType;
     }
 
     if (description) {
@@ -327,7 +410,7 @@ const commentParserToESTree = (jsdoc, mode, {
       ast.terminal = end;
       ast.hasPreterminalTagDescription = 1;
 
-      cleanUpLastTag(lastTag);
+      cleanUpLastTag(/** @type {JsdocTag} */ (lastTag));
     }
   });
 
@@ -338,11 +421,125 @@ const commentParserToESTree = (jsdoc, mode, {
 };
 
 const jsdocVisitorKeys = {
-  JsdocBlock: ['descriptionLines', 'tags'],
+  JsdocBlock: ['descriptionLines', 'tags', 'inlineTags'],
   JsdocDescriptionLine: [],
   JsdocTypeLine: [],
-  JsdocTag: ['parsedType', 'typeLines', 'descriptionLines']
+  JsdocTag: ['parsedType', 'typeLines', 'descriptionLines', 'inlineTags'],
+  JsdocInlineTag: []
 };
+
+/**
+ * @param {RegExpMatchArray & {
+ *   indices: {
+ *     groups: {
+ *       [key: string]: [number, number]
+ *     }
+ *   }
+ *   groups: {[key: string]: string}
+ * }} match An inline tag regexp match.
+ * @returns {'pipe' | 'plain' | 'prefix' | 'space'}
+ */
+function determineFormat (match) {
+  const {separator, text} = match.groups;
+  const [, textEnd] = match.indices.groups.text;
+  const [tagStart] = match.indices.groups.tag;
+  if (!text) {
+    return 'plain';
+  } else if (separator === '|') {
+    return 'pipe';
+  } else if (textEnd < tagStart) {
+    return 'prefix';
+  }
+  return 'space';
+}
+
+/**
+ * @typedef {import('./index.js').InlineTag} InlineTag
+ */
+
+/**
+ * Extracts inline tags from a description.
+ * @param {string} description
+ * @returns {InlineTag[]} Array of inline tags from the description.
+ */
+function parseDescription (description) {
+  /** @type {InlineTag[]} */
+  const result = [];
+
+  // This could have been expressed in a single pattern,
+  // but having two avoids a potentially exponential time regex.
+
+  const prefixedTextPattern = new RegExp(/(?:\[(?<text>[^\]]+)\])\{@(?<tag>[^}\s]+)\s?(?<namepathOrURL>[^}\s|]*)\}/gu, 'gud');
+  // The pattern used to match for text after tag uses a negative lookbehind
+  // on the ']' char to avoid matching the prefixed case too.
+  const suffixedAfterPattern = new RegExp(/(?<!\])\{@(?<tag>[^}\s]+)\s?(?<namepathOrURL>[^}\s|]*)\s*(?<separator>[\s|])?\s*(?<text>[^}]*)\}/gu, 'gud');
+
+  const matches = [
+    ...description.matchAll(prefixedTextPattern),
+    ...description.matchAll(suffixedAfterPattern)
+  ];
+
+  for (const mtch of matches) {
+    const match = /**
+      * @type {RegExpMatchArray & {
+      *   indices: {
+      *     groups: {
+      *       [key: string]: [number, number]
+      *     }
+      *   }
+      *   groups: {[key: string]: string}
+      * }}
+      */ (
+        mtch
+      );
+    const {tag, namepathOrURL, text} = match.groups;
+    const [start, end] = match.indices[0];
+    const format = determineFormat(match);
+
+    result.push({
+      tag,
+      namepathOrURL,
+      text,
+      format,
+      start,
+      end
+    });
+  }
+
+  return result;
+}
+
+/**
+ * Splits the `{@prefix}` from remaining `Spec.lines[].token.description`
+ * into the `inlineTags` tokens, and populates `spec.inlineTags`
+ * @param {import('comment-parser').Block} block
+ * @returns {import('./index.js').JsdocBlockWithInline}
+ */
+function parseInlineTags (block) {
+  const inlineTags =
+    /**
+     * @type {(import('./commentParserToESTree.js').JsdocInlineTagNoType & {
+     *   line?: import('./commentParserToESTree.js').Integer
+     * })[]}
+     */ (
+      parseDescription(block.description)
+    );
+
+  /** @type {import('./index.js').JsdocBlockWithInline} */ (
+    block
+  ).inlineTags = inlineTags;
+
+  for (const tag of block.tags) {
+    /**
+     * @type {import('./index.js').JsdocTagWithInline}
+     */ (tag).inlineTags = parseDescription(tag.description);
+  }
+  return (
+    /**
+     * @type {import('./index.js').JsdocBlockWithInline}
+     */ (block)
+  );
+}
 
 /* eslint-disable prefer-named-capture-group -- Temporary */
 
@@ -353,6 +550,10 @@ const {
   description: descriptionTokenizer
 } = commentParser.tokenizers;
 
+/**
+ * @param {import('comment-parser').Spec} spec
+ * @returns {boolean}
+ */
 const hasSeeWithLink = (spec) => {
   return spec.tag === 'see' && (/\{@link.+?\}/u).test(spec.source[0].source);
 };
@@ -381,6 +582,19 @@ const preserveTypeTokenizer = typeTokenizer('preserve');
 const preserveDescriptionTokenizer = descriptionTokenizer('preserve');
 const plainNameTokenizer = nameTokenizer();
 
+/**
+ * Can't import `comment-parser/es6/parser/tokenizers/index.js`,
+ *   so we redefine here.
+ * @typedef {(spec: import('comment-parser').Spec) =>
+ *   import('comment-parser').Spec} CommentParserTokenizer
+ */
+
+/**
+ * @param {object} [cfg]
+ * @param {string[]} [cfg.noTypes]
+ * @param {string[]} [cfg.noNames]
+ * @returns {CommentParserTokenizer[]}
+ */
 const getTokenizers = ({
   noTypes = defaultNoTypes,
   noNames = defaultNoNames
@@ -390,7 +604,11 @@ const getTokenizers = ({
     // Tag
     tagTokenizer(),
 
-    // Type
+    /**
+     * Type tokenizer.
+     * @param {import('comment-parser').Spec} spec
+     * @returns {import('comment-parser').Spec}
+     */
     (spec) => {
       if (noTypes.includes(spec.tag)) {
         return spec;
@@ -399,7 +617,11 @@ const getTokenizers = ({
       return preserveTypeTokenizer(spec);
     },
 
-    // Name
+    /**
+     * Name tokenizer.
+     * @param {import('comment-parser').Spec} spec
+     * @returns {import('comment-parser').Spec}
+     */
     (spec) => {
       if (spec.tag === 'template') {
         // const preWS = spec.postTag;
@@ -411,11 +633,17 @@ const getTokenizers = ({
         const extra = remainder.slice(pos);
         let postName = '', description = '', lineEnd = '';
         if (pos > -1) {
-          [, postName, description, lineEnd] = extra.match(/(\s*)([^\r]*)(\r)?/u);
+          [, postName, description, lineEnd] = /** @type {RegExpMatchArray} */ (
+            extra.match(/(\s*)([^\r]*)(\r)?/u)
+          );
         }
 
         if (optionalBrackets.test(name)) {
-          name = name.match(optionalBrackets)?.groups?.name;
+          name = /** @type {string} */ (
+            /** @type {RegExpMatchArray} */ (
+              name.match(optionalBrackets)
+            )?.groups?.name
+          );
           spec.optional = true;
         } else {
           spec.optional = false;
@@ -438,7 +666,11 @@ const getTokenizers = ({
       return plainNameTokenizer(spec);
     },
 
-    // Description
+    /**
+     * Description tokenizer.
+     * @param {import('comment-parser').Spec} spec
+     * @returns {import('comment-parser').Spec}
+     */
     (spec) => {
       return preserveDescriptionTokenizer(spec);
     }
@@ -447,22 +679,41 @@ const getTokenizers = ({
 
 /**
  * Accepts a comment token and converts it into `comment-parser` AST.
- * @param {PlainObject} commentNode
- * @param {string} [indent=""] Whitespace
- * @returns {PlainObject}
+ * @param {{value: string}} commentNode
+ * @param {string} [indent] Whitespace
+ * @returns {import('./index.js').JsdocBlockWithInline}
  */
 const parseComment = (commentNode, indent = '') => {
   // Preserve JSDoc block start/end indentation.
-  return commentParser.parse(`${indent}/*${commentNode.value}*/`, {
+  const [block] = commentParser.parse(`${indent}/*${commentNode.value}*/`, {
     // @see https://github.com/yavorskiy/comment-parser/issues/21
     tokenizers: getTokenizers()
-  })[0];
+  });
+  return parseInlineTags(block);
 };
 
+/* eslint-disable jsdoc/imports-as-dependencies -- https://github.com/gajus/eslint-plugin-jsdoc/issues/1114 */
 /**
  * Obtained originally from {@link https://github.com/eslint/eslint/blob/master/lib/util/source-code.js#L313}.
  *
  * @license MIT
+ */
+
+/**
+ * @typedef {import('eslint').AST.Token | import('estree').Comment | {
+ *   type: import('eslint').AST.TokenType|"Line"|"Block"|"Shebang",
+ *   range: [number, number],
+ *   value: string
+ * }} Token
+ */
+
+/**
+ * @typedef {import('eslint').Rule.Node|
+ *   import('@typescript-eslint/types').TSESTree.Node} ESLintOrTSNode
+ */
+
+/**
+ * @typedef {number} int
  */
 
 /**
@@ -477,8 +728,14 @@ const isCommentToken = (token) => {
 };
 
 /**
- * @param {AST} node
- * @returns {boolean}
+ * @param {(import('estree').Comment|import('eslint').Rule.Node) & {
+ *   declaration?: any,
+ *   decorators?: any[],
+ *   parent?: import('eslint').Rule.Node & {
+ *     decorators?: any[]
+ *   }
+ * }} node
+ * @returns {import('@typescript-eslint/types').TSESTree.Decorator|undefined}
  */
 const getDecorator = (node) => {
   return node?.declaration?.decorators?.[0] || node?.decorators?.[0] ||
@@ -488,7 +745,7 @@ const getDecorator = (node) => {
 /**
  * Check to see if it is a ES6 export declaration.
  *
- * @param {ASTNode} astNode An AST node.
+ * @param {import('eslint').Rule.Node} astNode An AST node.
  * @returns {boolean} whether the given node represents an export declaration.
  * @private
  */
@@ -500,40 +757,60 @@ const looksLikeExport = function (astNode) {
 };
 
 /**
- * @param {AST} astNode
- * @returns {AST}
+ * @param {import('eslint').Rule.Node} astNode
+ * @returns {import('eslint').Rule.Node}
  */
 const getTSFunctionComment = function (astNode) {
   const {parent} = astNode;
+  /* c8 ignore next 3 */
+  if (!parent) {
+    return astNode;
+  }
   const grandparent = parent.parent;
+  /* c8 ignore next 3 */
+  if (!grandparent) {
+    return astNode;
+  }
   const greatGrandparent = grandparent.parent;
   const greatGreatGrandparent = greatGrandparent && greatGrandparent.parent;
 
   // istanbul ignore if
-  if (parent.type !== 'TSTypeAnnotation') {
+  if (/** @type {ESLintOrTSNode} */ (parent).type !== 'TSTypeAnnotation') {
     return astNode;
   }
 
-  switch (grandparent.type) {
-  case 'PropertyDefinition':
-  case 'ClassProperty':
+  switch (/** @type {ESLintOrTSNode} */ (grandparent).type) {
+  // @ts-expect-error
+  case 'PropertyDefinition': case 'ClassProperty':
   case 'TSDeclareFunction':
   case 'TSMethodSignature':
   case 'TSPropertySignature':
     return grandparent;
   case 'ArrowFunctionExpression':
+    /* c8 ignore next 3 */
+    if (!greatGrandparent) {
+      return astNode;
+    }
     // istanbul ignore else
     if (
       greatGrandparent.type === 'VariableDeclarator'
 
     // && greatGreatGrandparent.parent.type === 'VariableDeclaration'
     ) {
+      /* c8 ignore next 3 */
+      if (!greatGreatGrandparent || !greatGreatGrandparent.parent) {
+        return astNode;
+      }
       return greatGreatGrandparent.parent;
     }
 
     // istanbul ignore next
     return astNode;
   case 'FunctionExpression':
+    /* c8 ignore next 3 */
+    if (!greatGreatGrandparent) {
+      return astNode;
+    }
     // istanbul ignore else
     if (greatGrandparent.type === 'MethodDefinition') {
       return greatGrandparent;
@@ -546,6 +823,11 @@ const getTSFunctionComment = function (astNode) {
       // istanbul ignore next
       return astNode;
     }
+  }
+
+  /* c8 ignore next 3 */
+  if (!greatGreatGrandparent) {
+    return astNode;
   }
 
   // istanbul ignore next
@@ -596,15 +878,15 @@ const allowableCommentNode = new Set([
  * Reduces the provided node to the appropriate node for evaluating
  * JSDoc comment status.
  *
- * @param {ASTNode} node An AST node.
- * @param {SourceCode} sourceCode The ESLint SourceCode.
- * @returns {ASTNode} The AST node that can be evaluated for appropriate
- * JSDoc comments.
+ * @param {import('eslint').Rule.Node} node An AST node.
+ * @param {import('eslint').SourceCode} sourceCode The ESLint SourceCode.
+ * @returns {import('eslint').Rule.Node} The AST node that
+ *   can be evaluated for appropriate JSDoc comments.
  */
 const getReducedASTNode = function (node, sourceCode) {
   let {parent} = node;
 
-  switch (node.type) {
+  switch (/** @type {ESLintOrTSNode} */ (node).type) {
   case 'TSFunctionType':
     return getTSFunctionComment(node);
   case 'TSInterfaceDeclaration':
@@ -612,6 +894,10 @@ const getReducedASTNode = function (node, sourceCode) {
   case 'TSEnumDeclaration':
   case 'ClassDeclaration':
   case 'FunctionDeclaration':
+    /* c8 ignore next 3 */
+    if (!parent) {
+      return node;
+    }
     return looksLikeExport(parent) ? parent : node;
 
   case 'TSDeclareFunction':
@@ -620,12 +906,24 @@ const getReducedASTNode = function (node, sourceCode) {
   case 'ArrowFunctionExpression':
   case 'TSEmptyBodyFunctionExpression':
   case 'FunctionExpression':
+    /* c8 ignore next 3 */
+    if (!parent) {
+      return node;
+    }
     if (
       !invokedExpression.has(parent.type)
     ) {
+      /**
+       * @type {import('eslint').Rule.Node|Token|null}
+       */
       let token = node;
       do {
-        token = sourceCode.getTokenBefore(token, {includeComments: true});
+        token = sourceCode.getTokenBefore(
+          /** @type {import('eslint').Rule.Node|import('eslint').AST.Token} */ (
+            token
+          ),
+          {includeComments: true}
+        );
       } while (token && token.type === 'Punctuator' && token.value === '(');
 
       if (token && token.type === 'Block') {
@@ -668,22 +966,27 @@ const getReducedASTNode = function (node, sourceCode) {
 /**
  * Checks for the presence of a JSDoc comment for the given node and returns it.
  *
- * @param {ASTNode} astNode The AST node to get the comment for.
- * @param {SourceCode} sourceCode
- * @param {{maxLines: Integer, minLines: Integer}} settings
+ * @param {import('eslint').Rule.Node} astNode The AST node to get
+ *   the comment for.
+ * @param {import('eslint').SourceCode} sourceCode
+ * @param {{maxLines: int, minLines: int, [name: string]: any}} settings
  * @returns {Token|null} The Block comment token containing the JSDoc comment
  *    for the given node or null if not found.
  * @private
  */
 const findJSDocComment = (astNode, sourceCode, settings) => {
   const {minLines, maxLines} = settings;
+
+  /** @type {import('eslint').Rule.Node|import('estree').Comment} */
   let currentNode = astNode;
   let tokenBefore = null;
+  let parenthesisToken = null;
 
   while (currentNode) {
     const decorator = getDecorator(currentNode);
     if (decorator) {
-      currentNode = decorator;
+      const dec = /** @type {unknown} */ (decorator);
+      currentNode = /** @type {import('eslint').Rule.Node} */ (dec);
     }
     tokenBefore = sourceCode.getTokenBefore(
       currentNode, {includeComments: true}
@@ -692,6 +995,7 @@ const findJSDocComment = (astNode, sourceCode, settings) => {
       tokenBefore && tokenBefore.type === 'Punctuator' &&
       tokenBefore.value === '('
     ) {
+      parenthesisToken = tokenBefore;
       [tokenBefore] = sourceCode.getTokensBefore(currentNode, {
         count: 2,
         includeComments: true
@@ -707,11 +1011,22 @@ const findJSDocComment = (astNode, sourceCode, settings) => {
     break;
   }
 
+  /* c8 ignore next 3 */
+  if (!tokenBefore || !currentNode.loc || !tokenBefore.loc) {
+    return null;
+  }
+
   if (
     tokenBefore.type === 'Block' &&
     (/^\*\s/u).test(tokenBefore.value) &&
-    currentNode.loc.start.line - tokenBefore.loc.end.line >= minLines &&
-    currentNode.loc.start.line - tokenBefore.loc.end.line <= maxLines
+    currentNode.loc.start.line - (
+      /** @type {import('eslint').AST.Token} */
+      (parenthesisToken ?? tokenBefore)
+    ).loc.end.line >= minLines &&
+    currentNode.loc.start.line - (
+      /** @type {import('eslint').AST.Token} */
+      (parenthesisToken ?? tokenBefore)
+    ).loc.end.line <= maxLines
   ) {
     return tokenBefore;
   }
@@ -722,11 +1037,14 @@ const findJSDocComment = (astNode, sourceCode, settings) => {
 /**
  * Retrieves the JSDoc comment for a given node.
  *
- * @param {SourceCode} sourceCode The ESLint SourceCode
- * @param {ASTNode} node The AST node to get the comment for.
- * @param {PlainObject} settings The settings in context
- * @returns {Token|null} The Block comment token containing the JSDoc comment
- *    for the given node or null if not found.
+ * @param {import('eslint').SourceCode} sourceCode The ESLint SourceCode
+ * @param {import('eslint').Rule.Node} node The AST node to get
+ *   the comment for.
+ * @param {{maxLines: int, minLines: int, [name: string]: any}} settings The
+ *   settings in context
+ * @returns {Token|null} The Block comment
+ *   token containing the JSDoc comment for the given node or
+ *   null if not found.
  * @public
  */
 const getJSDocComment = function (sourceCode, node, settings) {
@@ -740,11 +1058,57 @@ const getJSDocComment = function (sourceCode, node, settings) {
 const jsdocCommentProperty = 'jsdoc';
 const jsdocBlocksProperty = 'jsdocBlocks';
 
+/**
+ * @typedef {import('@es-joy/jsdoccomment').JsdocBlock & {
+ *   loc: import('estree').SourceLocation,
+ *   range: [number, number],
+ *   commentsIndex: number
+ * }} JsdocBlockEnhanced
+ */
+
+/**
+ * @callback TraverseCallback
+ * @param {import('eslint').Rule.Node & {
+ *   parent: import('eslint').Rule.Node
+ *   jsdoc?: import('@es-joy/jsdoccomment').JsdocBlock|null
+ * }} node
+ * @param {import('eslint').Rule.Node} parent
+ * @returns {void}
+ */
+
+/**
+ * @typedef {any} AnyObject
+ */
+
+/**
+ * @param {AnyObject} obj
+ */
 const clone = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
+/**
+ * @param {(
+ *   code: string,
+ *   options: any
+ * ) => import('eslint').Linter.ESLintParseResult} parser
+ * @param {{
+ *   mode?: "jsdoc"|"closure"|"typescript"
+ * }} bakedInOptions
+ */
 const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
+  /**
+   * @param {string} code
+   * @param {{
+   *   mode?: "jsdoc"|"closure"|"typescript",
+   *   maxLines?: number,
+   *   minLines?: number,
+   *   indent?: string,
+   *   throwOnTypeParsingErrors?: boolean
+   *   sourceType?: "script"|"module",
+   *   babelOptions?: any
+   * }} options
+   */
   return function (code, options = {}) {
     const {
       mode = bakedInOptions.mode || 'jsdoc',
@@ -823,99 +1187,135 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
 
     const sel = A.parse('*[type]');
 
+    /**
+     * @type {{[key: string]: boolean}}
+     */
     const takenRanges = {};
 
-    A.traverse(ast, sel, (node, parent) => {
-      // `parent` not available by default, so we add; must be
-      //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
-      node.parent = parent;
+    A.traverse(
+      ast,
+      // @ts-expect-error Bug in esquery types
+      sel,
+      /** @type {TraverseCallback} */
+      (node, parent) => {
+        // `parent` not available by default, so we add; must be
+        //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
+        node.parent = parent;
 
-      // Have must `range` and `loc` per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
-      // We've specified `ranges` above and seem to be getting `loc` set.
-      // const [start, end] = node.range;
-      // node.loc = {start: {line: 0}, end: {line: 0}};
-      // node.loc = {start: {line: start}, end: {line: end}};
+        // Have must `range` and `loc` per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
+        // We've specified `ranges` above and seem to be getting `loc` set.
+        // const [start, end] = node.range;
+        // node.loc = {start: {line: 0}, end: {line: 0}};
+        // node.loc = {start: {line: start}, end: {line: end}};
 
-      let commentAST = null;
-      if (node.type !== 'Program' && !node.type.startsWith('Jsdoc')) {
-        let commentToken = getJSDocComment(sourceCode, node, {
-          minLines,
-          maxLines
-        });
+        let commentAST = null;
+        if (node.type !== 'Program' && !node.type.startsWith('Jsdoc')) {
+          let commentToken =
+            /**
+             * @type {import('@es-joy/jsdoccomment').Token & {
+             *   loc: import('estree').SourceLocation
+             * }|null}
+             */ (getJSDocComment(sourceCode, node, {
+              minLines,
+              maxLines
+            }));
 
-        let ancestor = parent;
-        do {
-          if (ancestor.type === 'Program') {
-            break;
+          let ancestor = parent;
+          do {
+            if (ancestor.type === 'Program') {
+              break;
+            }
+            const ancestorCommentToken = getJSDocComment(sourceCode, ancestor, {
+              minLines,
+              maxLines
+            });
+
+            if (ancestorCommentToken && ancestorCommentToken === commentToken) {
+              // Ancestor has handled instead
+              commentToken = null;
+              break;
+            }
+
+            ancestor = ancestor.parent;
+          } while (ancestor);
+
+          if (
+            commentToken && commentToken.range && 'loc' in commentToken &&
+            commentToken.loc && 'start' in commentToken.loc
+          ) {
+            // Note: When there is no end line (it is inline), the `initial` of
+            //   the comment, could be too long, so we can't just repeat solely
+            //   based on the start column
+            const idx = commentToken.range[0];
+            // We could also add to the Comment AST to suggest a line should be
+            //   stringified with line breaks (even if only a single line), if
+            //   it occurs on its own line (the start.column (and end.column))
+            //   have nothing before or after.
+            const indnt = sourceCode.getText().slice(
+              idx - commentToken.loc.start.column, idx
+            ).match(/\s+$/u)?.[0] || '';
+
+            const jsdoc = parseComment(
+              commentToken,
+              indnt
+            );
+            commentAST =
+              /**
+               * @type {import('@es-joy/jsdoccomment').JsdocBlock & {
+               *   loc: import('estree').SourceLocation,
+               *   range: [number, number]
+               * }}
+               */ (commentParserToESTree(jsdoc, mode, {
+                throwOnTypeParsingErrors
+              }));
+            commentAST.loc = clone(commentToken.loc);
+            commentAST.range = clone(commentToken.range);
+
+            takenRanges[String(commentToken.range)] = true;
+
+            A.traverse(
+              // @ts-expect-error Bug
+              commentAST,
+              sel,
+              /** @type {TraverseCallback} */
+              (_node, parent) => {
+                // `parent` not available by default, so we add; must be
+                //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
+                _node.parent = parent;
+
+                // For now, we are just fudging these by using the comment
+                //   block's location
+                _node.loc = clone(commentToken?.loc);
+                _node.range = clone(commentToken?.range);
+              }, {visitorKeys: newVisitorKeys}
+            );
           }
-          const ancestorCommentToken = getJSDocComment(sourceCode, ancestor, {
-            minLines,
-            maxLines
-          });
-
-          if (ancestorCommentToken && ancestorCommentToken === commentToken) {
-            // Ancestor has handled instead
-            commentToken = null;
-            break;
-          }
-
-          ancestor = ancestor.parent;
-        } while (ancestor);
-
-        if (commentToken) {
-          // Note: When there is no end line (it is inline), the `initial` of
-          //   the comment, could be too long, so we can't just repeat solely
-          //   based on the start column
-          const idx = commentToken.range[0];
-          // We could also add to the Comment AST to suggest a line should be
-          //   stringified with line breaks (even if only a single line), if
-          //   it occurs on its own line (the start.column (and end.column))
-          //   have nothing before or after.
-          const indnt = sourceCode.getText().slice(
-            idx - commentToken.loc.start.column, idx
-          ).match(/\s+$/u) || '';
-
-          const jsdoc = parseComment(
-            commentToken,
-            indnt
-          );
-          commentAST = commentParserToESTree(jsdoc, mode, {
-            throwOnTypeParsingErrors
-          });
-          commentAST.loc = clone(commentToken.loc);
-          commentAST.range = clone(commentToken.range);
-
-          takenRanges[commentToken.range] = true;
-
-          A.traverse(commentAST, sel, (_node, parent) => {
-            // `parent` not available by default, so we add; must be
-            //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
-            _node.parent = parent;
-
-            // For now, we are just fudging these by using the comment block's
-            //   location
-            _node.loc = clone(commentToken.loc);
-            _node.range = clone(commentToken.range);
-          }, {visitorKeys: newVisitorKeys});
         }
-      }
 
-      if (node.type !== 'Program' && !node.type.startsWith('Jsdoc')) {
-        node[jsdocCommentProperty] = commentAST;
-      }
-    }, {visitorKeys: newVisitorKeys});
+        if (node.type !== 'Program' && !node.type.startsWith('Jsdoc')) {
+          node[jsdocCommentProperty] = commentAST;
+        }
+      }, {visitorKeys: newVisitorKeys}
+    );
 
     if (ast.comments) {
-      ast[jsdocBlocksProperty] = ast.comments.map(({
+      /**
+       * @type {import('eslint').AST.Program & {
+       *   jsdocBlocks: (JsdocBlockEnhanced|null)[]
+       * }}
+       */
+      (ast)[jsdocBlocksProperty] = ast.comments.map(({
         type, value: comment, range, loc
       }, idx) => {
-        if (type !== 'Block' || takenRanges[range]) {
+        if (type !== 'Block' || takenRanges[String(range)]) {
           return null;
         }
         let jsdoc;
         try {
           // Todo: detect leading whitespace for indent argument?
           jsdoc = parseComment({value: comment}, indent);
+          // No longer possible here?
+          /* c8 ignore next 3 */
           if (!jsdoc) {
             return null;
           }
@@ -924,24 +1324,33 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
         } catch (err) {
           return null;
         }
-        const commentAST = commentParserToESTree(jsdoc, mode, {
-          throwOnTypeParsingErrors
-        });
+        const commentAST =
+          /**
+           * @type {JsdocBlockEnhanced}
+           */ (commentParserToESTree(jsdoc, mode, {
+            throwOnTypeParsingErrors
+          }));
 
         commentAST.loc = clone(loc);
         commentAST.range = clone(range);
         commentAST.commentsIndex = idx;
 
-        A.traverse(commentAST, sel, (node, parent) => {
-          // `parent` not available by default, so we add; must be
-          //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
-          node.parent = parent;
+        A.traverse(
+          // @ts-expect-error Bug
+          commentAST,
+          sel,
+          /** @type {TraverseCallback} */
+          (node, parent) => {
+            // `parent` not available by default, so we add; must be
+            //   rewritable per https://eslint.org/docs/developer-guide/working-with-custom-parsers#all-nodes
+            node.parent = parent;
 
-          // For now, we are just fudging these by using the comment block's
-          //   location
-          node.loc = clone(loc);
-          node.range = clone(range);
-        }, {visitorKeys: newVisitorKeys});
+            // For now, we are just fudging these by using the comment block's
+            //   location
+            node.loc = clone(loc);
+            node.range = clone(range);
+          }, {visitorKeys: newVisitorKeys}
+        );
 
         return commentAST;
       }).filter(Boolean);
