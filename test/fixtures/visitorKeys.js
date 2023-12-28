@@ -931,8 +931,7 @@ const visitorKeys = {
   TSPropertySignature: [
     'jsdoc',
     'key',
-    'typeAnnotation',
-    'initializer'
+    'typeAnnotation'
   ],
   TSMethodSignature: [
     'jsdoc',
