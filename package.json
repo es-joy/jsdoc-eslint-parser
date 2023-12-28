@@ -11,12 +11,15 @@
   ],
   "type": "module",
   "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./src/index.js",
       "require": "./dist/index.cjs"
     },
     "./typescript.js": {
+      "types": "./dist/typescript.d.ts",
       "import": "./typescript.js",
       "require": "./dist/typescript.cjs"
     }
@@ -33,6 +36,7 @@
   ],
   "scripts": {
     "prepublishOnly": "pnpm i",
+    "tsc": "tsc",
     "rollup": "rollup -c",
     "lint-test": "echo \"Getting \\`Cannot read property 'start' of undefined\\` errors without no-eslintrc but this works at least\" && eslint --no-eslintrc --config .eslintrc-test.cjs test/fixtures",
     "eslint": "eslint --ext=js,cjs,md,html .",
@@ -49,11 +53,14 @@
   },
   "homepage": "https://github.com/es-joy/jsdoc-eslint-parser",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "@brettz9/eslint-plugin": "^1.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@types/eslint": "^8.56.0",
+    "@types/esquery": "^1.5.3",
+    "@types/estree": "^1.0.5",
     "c8": "^8.0.1",
     "chai": "^4.3.10",
     "eslint-config-ash-nazg": "35.1.0",
