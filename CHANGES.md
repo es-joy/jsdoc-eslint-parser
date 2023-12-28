@@ -1,5 +1,10 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.21.0
+
+- feat: add types
+- chore: update deps. and devDeps.
+
 ## 0.20.0
 
 - chore: update deps. and devDeps. and lint
