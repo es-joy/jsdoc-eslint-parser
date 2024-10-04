@@ -91,6 +91,7 @@ function circularDeepIdentity (
     obj1, obj2, keyResult1, reusedButNotCircular
   );
   return res1 && _circularDeepIdentity(
+    // eslint-disable-next-line sonarjs/arguments-order -- Intentional
     obj2, obj1, keyResult2, reusedButNotCircular
   );
 }

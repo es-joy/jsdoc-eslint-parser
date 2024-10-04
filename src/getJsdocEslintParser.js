@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/prefer-structured-clone -- JSON desired here */
 import {SourceCode} from 'eslint';
 import esquery from 'esquery';
 import {
@@ -19,11 +20,13 @@ const jsdocBlocksProperty = 'jsdocBlocks';
 
 /**
  * @callback TraverseCallback
- * @param {import('eslint').Rule.Node & {
- *   parent: import('eslint').Rule.Node
+ * @param {import('estree').Node & {
+ *   parent?: import('estree').Node & {
+ *      parent?: import('estree').Node
+ *   }
  *   jsdoc?: import('@es-joy/jsdoccomment').JsdocBlock|null
  * }} node
- * @param {import('eslint').Rule.Node} parent
+ * @param {import('estree').Node} parent
  * @returns {void}
  */
 
@@ -145,7 +148,6 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
 
     esquery.traverse(
       ast,
-      // @ts-expect-error Bug in esquery types
       sel,
       /** @type {TraverseCallback} */
       (node, parent) => {
@@ -166,20 +168,35 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
              * @type {import('@es-joy/jsdoccomment').Token & {
              *   loc: import('estree').SourceLocation
              * }|null}
-             */ (getJSDocComment(sourceCode, node, {
-              minLines,
-              maxLines
-            }));
+             */ (getJSDocComment(
+              sourceCode,
+              // @ts-expect-error Ok
+              node,
+              {
+                minLines,
+                maxLines
+              }
+            ));
 
+          /**
+           * @type {(import('estree').Node & {
+           *   parent?: import('estree').Node
+           * })|undefined}
+           */
           let ancestor = parent;
           do {
             if (ancestor.type === 'Program') {
               break;
             }
-            const ancestorCommentToken = getJSDocComment(sourceCode, ancestor, {
-              minLines,
-              maxLines
-            });
+            const ancestorCommentToken = getJSDocComment(
+              sourceCode,
+              // @ts-expect-error Ok
+              ancestor,
+              {
+                minLines,
+                maxLines
+              }
+            );
 
             if (ancestorCommentToken && ancestorCommentToken === commentToken) {
               // Ancestor has handled instead

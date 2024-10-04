@@ -1,3 +1,6 @@
+/* eslint-disable mocha/no-identical-title -- Ok */
+import {expect} from 'chai';
+
 import circularDeepIdentity from './utils/circularDeepIdentity.js';
 
 describe('`circularDeepIdentity`', function () {
@@ -101,12 +104,10 @@ describe('`circularDeepIdentity`', function () {
     });
 
     it('returns true for equivalent nested circular objects', function () {
-      /* eslint-disable sonarjs/prefer-object-literal -- Need cyclic */
       const obj1 = {};
       obj1.b = {c: obj1};
       const obj2 = {};
       obj2.b = {c: obj2};
-      /* eslint-enable sonarjs/prefer-object-literal -- Need cyclic */
       expect(circularDeepIdentity(obj1, obj2)).to.equal(true);
     });
 
@@ -127,22 +128,18 @@ describe('`circularDeepIdentity`', function () {
     });
 
     it('returns false for non-equivalent nested circular objects', function () {
-      /* eslint-disable sonarjs/prefer-object-literal -- Need cyclic */
       const obj1 = {};
       obj1.b = {c: obj1};
       const obj2 = {a: 5};
       obj2.b = {c: obj2};
-      /* eslint-enable sonarjs/prefer-object-literal -- Need cyclic */
       expect(circularDeepIdentity(obj1, obj2)).to.equal(false);
     });
 
     it('returns false for non-equivalent nested circular objects', function () {
-      /* eslint-disable sonarjs/prefer-object-literal -- Need cyclic */
       const obj1 = {};
       obj1.b = {c: obj1};
       const obj2 = {};
       obj2.b = {c: obj2, d: 5};
-      /* eslint-enable sonarjs/prefer-object-literal -- Need cyclic */
       expect(circularDeepIdentity(obj1, obj2)).to.equal(false);
     });
   });

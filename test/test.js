@@ -1,3 +1,5 @@
+import {expect} from 'chai';
+
 import {parseForESLint} from '../src/index.js';
 import circularDeepIdentity from './utils/circularDeepIdentity.js';
 
