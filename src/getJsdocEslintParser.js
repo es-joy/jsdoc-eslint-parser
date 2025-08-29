@@ -5,7 +5,9 @@ import {
   jsdocVisitorKeys, jsdocTypeVisitorKeys,
   getJSDocComment,
   parseComment, commentParserToESTree
+  /* eslint-disable import/no-unresolved -- Bug? */
 } from '@es-joy/jsdoccomment';
+/* eslint-enable import/no-unresolved -- Bug? */
 
 const jsdocCommentProperty = 'jsdoc';
 const jsdocBlocksProperty = 'jsdocBlocks';

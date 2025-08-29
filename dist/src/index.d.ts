@@ -1,10 +1,10 @@
 export const parseForESLint: (code: string, options?: {
-    mode?: "jsdoc" | "closure" | "typescript" | undefined;
-    maxLines?: number | undefined;
-    minLines?: number | undefined;
-    indent?: string | undefined;
-    throwOnTypeParsingErrors?: boolean | undefined;
-    sourceType?: "script" | "module" | undefined;
+    mode?: "jsdoc" | "closure" | "typescript";
+    maxLines?: number;
+    minLines?: number;
+    indent?: string;
+    throwOnTypeParsingErrors?: boolean;
+    sourceType?: "script" | "module";
     babelOptions?: any;
 }) => {
     ast: import("eslint").AST.Program;

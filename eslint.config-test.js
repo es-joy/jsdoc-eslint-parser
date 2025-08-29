@@ -1,11 +1,14 @@
 import jsdoc from 'eslint-plugin-jsdoc';
-import parser from './src/index.js';
+import * as parser from './src/index.js';
 
 export default [
-  jsdoc.configs.recommended,
+  jsdoc.configs['flat/recommended'],
   {
-    parser,
+    languageOptions: {
+      parser
+    },
     rules: {
+      'no-console': ['error'],
       'no-restricted-syntax': [
         'error',
         'FunctionDeclaration:has(JSDocBlock > ' +

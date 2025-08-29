@@ -1,13 +1,15 @@
 export default getJsdocEslintParser;
-export type JsdocBlockEnhanced = import('@es-joy/jsdoccomment').JsdocBlock & {
-    loc: import('estree').SourceLocation;
+export type JsdocBlockEnhanced = import("@es-joy/jsdoccomment").JsdocBlock & {
+    loc: import("estree").SourceLocation;
     range: [number, number];
     commentsIndex: number;
 };
-export type TraverseCallback = (node: import('eslint').Rule.Node & {
-    parent: import('eslint').Rule.Node;
-    jsdoc?: import('@es-joy/jsdoccomment').JsdocBlock | null;
-}, parent: import('eslint').Rule.Node) => void;
+export type TraverseCallback = (node: import("estree").Node & {
+    parent?: import("estree").Node & {
+        parent?: import("estree").Node;
+    };
+    jsdoc?: import("@es-joy/jsdoccomment").JsdocBlock | null;
+}, parent: import("estree").Node) => void;
 export type AnyObject = any;
 /**
  * @param {(
@@ -18,7 +20,7 @@ export type AnyObject = any;
  *   mode?: "jsdoc"|"closure"|"typescript"
  * }} bakedInOptions
  */
-declare function getJsdocEslintParser(parser: (code: string, options: any) => import('eslint').Linter.ESLintParseResult, bakedInOptions?: {
+declare function getJsdocEslintParser(parser: (code: string, options: any) => import("eslint").Linter.ESLintParseResult, bakedInOptions?: {
     mode?: "jsdoc" | "closure" | "typescript";
 }): (code: string, options?: {
     mode?: "jsdoc" | "closure" | "typescript";

@@ -1,6 +1,6 @@
 import {
   parseForESLint as typescriptEslintParser
-// // eslint-disable-next-line import/no-unresolved -- Bug?
+// eslint-disable-next-line import/no-unresolved -- Bug?
 } from '@typescript-eslint/parser';
 
 import getJsdocEslintParser from './src/getJsdocEslintParser.js';
