@@ -150,6 +150,7 @@ const body = {
         jsdoc: null,
         optional: false,
         decorators: [],
+        typeAnnotation: undefined,
         loc: {
           start: {
             line: 3,
@@ -158,8 +159,7 @@ const body = {
           end: {
             line: 3,
             column: 16
-          },
-          filename: undefined
+          }
         },
         range: [
           35,
@@ -175,6 +175,8 @@ const body = {
         expression: false,
         declare: false,
         params: [],
+        returnType: undefined,
+        typeParameters: undefined,
         loc: {
           start: {
             line: 3,
@@ -194,6 +196,7 @@ const body = {
           type: 'Identifier',
           decorators: [],
           optional: false,
+          typeAnnotation: undefined,
           loc: {
             start: {
               line: 3,
@@ -202,8 +205,7 @@ const body = {
             end: {
               line: 3,
               column: 29
-            },
-            filename: undefined
+            }
           },
           range: [
             51,
@@ -222,9 +224,7 @@ const body = {
             end: {
               line: 3,
               column: 35
-            },
-            filename: undefined,
-            identifierName: undefined
+            }
           },
           range: [
             56,
@@ -238,6 +238,7 @@ const body = {
   ],
   jsdoc: {
     delimiter: '/**',
+    delimiterLineBreak: '',
     description: '',
     descriptionLines: [],
     terminal: '*/',
@@ -254,6 +255,7 @@ const body = {
         line: 2
       }
     },
+    preterminalLineBreak: '',
     postDelimiter: ' ',
     range: [
       7,
@@ -304,8 +306,6 @@ const body = {
       column: 35,
       line: 3
     },
-    filename: undefined,
-    identifierName: undefined,
     start: {
       column: 6,
       line: 3
@@ -330,8 +330,6 @@ const jsdocSomeTagTS = {
             column: 21,
             line: 2
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 6,
             line: 2
@@ -351,8 +349,6 @@ const jsdocSomeTagTS = {
         column: 4,
         line: 4
       },
-      filename: undefined,
-      identifierName: undefined,
       start: {
         column: 6,
         line: 3
@@ -371,8 +367,6 @@ const jsdocSomeTagTS = {
             column: 11,
             line: 3
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 6,
             line: 3
@@ -391,8 +385,6 @@ const jsdocSomeTagTS = {
             column: 16,
             line: 3
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 12,
             line: 3
@@ -411,8 +403,6 @@ const jsdocSomeTagTS = {
             column: 18,
             line: 3
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 17,
             line: 3
@@ -431,8 +421,6 @@ const jsdocSomeTagTS = {
             column: 27,
             line: 3
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 19,
             line: 3
@@ -451,8 +439,6 @@ const jsdocSomeTagTS = {
             column: 29,
             line: 3
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 28,
             line: 3
@@ -471,8 +457,6 @@ const jsdocSomeTagTS = {
             column: 31,
             line: 3
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 30,
             line: 3
@@ -496,9 +480,7 @@ const jsdocSomeTagTS = {
           end: {
             line: 3,
             column: 32
-          },
-          filename: undefined,
-          identifierName: undefined
+          }
         },
         range: [
           54,
@@ -516,9 +498,7 @@ const jsdocSomeTagTS = {
           end: {
             line: 3,
             column: 34
-          },
-          filename: undefined,
-          identifierName: undefined
+          }
         },
         range: [
           56,
@@ -536,9 +516,7 @@ const jsdocSomeTagTS = {
           end: {
             line: 3,
             column: 35
-          },
-          filename: undefined,
-          identifierName: undefined
+          }
         },
         range: [
           57,

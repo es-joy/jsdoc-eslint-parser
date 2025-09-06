@@ -66,9 +66,9 @@ const visitorKeys = {
   CallExpression: [
     'jsdoc',
     'callee',
-    'arguments',
     'typeParameters',
-    'typeArguments'
+    'typeArguments',
+    'arguments'
   ],
   CatchClause: [
     'jsdoc',
@@ -90,8 +90,8 @@ const visitorKeys = {
   ],
   DoWhileStatement: [
     'jsdoc',
-    'test',
-    'body'
+    'body',
+    'test'
   ],
   EmptyStatement: [
     'jsdoc'
@@ -120,18 +120,20 @@ const visitorKeys = {
   FunctionDeclaration: [
     'jsdoc',
     'id',
+    'typeParameters',
     'params',
-    'body',
+    'predicate',
     'returnType',
-    'typeParameters'
+    'body'
   ],
   FunctionExpression: [
     'jsdoc',
     'id',
+    'typeParameters',
     'params',
-    'body',
+    'predicate',
     'returnType',
-    'typeParameters'
+    'body'
   ],
   Identifier: [
     'jsdoc',
@@ -177,9 +179,9 @@ const visitorKeys = {
   NewExpression: [
     'jsdoc',
     'callee',
-    'arguments',
     'typeParameters',
-    'typeArguments'
+    'typeArguments',
+    'arguments'
   ],
   Program: [
     'jsdocBlocks',
@@ -192,18 +194,18 @@ const visitorKeys = {
   ],
   ObjectMethod: [
     'jsdoc',
-    'key',
-    'params',
-    'body',
     'decorators',
+    'key',
+    'typeParameters',
+    'params',
     'returnType',
-    'typeParameters'
+    'body'
   ],
   ObjectProperty: [
     'jsdoc',
+    'decorators',
     'key',
-    'value',
-    'decorators'
+    'value'
   ],
   RestElement: [
     'jsdoc',
@@ -285,10 +287,11 @@ const visitorKeys = {
   ],
   ArrowFunctionExpression: [
     'jsdoc',
+    'typeParameters',
     'params',
-    'body',
+    'predicate',
     'returnType',
-    'typeParameters'
+    'body'
   ],
   ClassBody: [
     'jsdoc',
@@ -296,25 +299,25 @@ const visitorKeys = {
   ],
   ClassExpression: [
     'jsdoc',
+    'decorators',
     'id',
-    'body',
-    'superClass',
-    'mixins',
     'typeParameters',
+    'superClass',
     'superTypeParameters',
+    'mixins',
     'implements',
-    'decorators'
+    'body'
   ],
   ClassDeclaration: [
     'jsdoc',
+    'decorators',
     'id',
-    'body',
-    'superClass',
-    'mixins',
     'typeParameters',
+    'superClass',
     'superTypeParameters',
+    'mixins',
     'implements',
-    'decorators'
+    'body'
   ],
   ExportAllDeclaration: [
     'jsdoc',
@@ -361,8 +364,8 @@ const visitorKeys = {
   ],
   ImportSpecifier: [
     'jsdoc',
-    'local',
-    'imported'
+    'imported',
+    'local'
   ],
   MetaProperty: [
     'jsdoc',
@@ -371,18 +374,18 @@ const visitorKeys = {
   ],
   ClassMethod: [
     'jsdoc',
-    'key',
-    'params',
-    'body',
     'decorators',
+    'key',
+    'typeParameters',
+    'params',
     'returnType',
-    'typeParameters'
+    'body'
   ],
   ObjectPattern: [
     'jsdoc',
+    'decorators',
     'properties',
-    'typeAnnotation',
-    'decorators'
+    'typeAnnotation'
   ],
   SpreadElement: [
     'jsdoc',
@@ -394,8 +397,8 @@ const visitorKeys = {
   TaggedTemplateExpression: [
     'jsdoc',
     'tag',
-    'quasi',
-    'typeParameters'
+    'typeParameters',
+    'quasi'
   ],
   TemplateElement: [
     'jsdoc'
@@ -431,30 +434,32 @@ const visitorKeys = {
   OptionalCallExpression: [
     'jsdoc',
     'callee',
-    'arguments',
     'typeParameters',
-    'typeArguments'
+    'typeArguments',
+    'arguments'
   ],
   ClassProperty: [
     'jsdoc',
+    'decorators',
+    'variance',
     'key',
-    'value',
     'typeAnnotation',
-    'decorators'
+    'value'
   ],
   ClassAccessorProperty: [
     'jsdoc',
+    'decorators',
     'key',
-    'value',
     'typeAnnotation',
-    'decorators'
+    'value'
   ],
   ClassPrivateProperty: [
     'jsdoc',
-    'key',
-    'value',
     'decorators',
-    'typeAnnotation'
+    'variance',
+    'key',
+    'typeAnnotation',
+    'value'
   ],
   ClassPrivateMethod: [
     'jsdoc',
@@ -502,7 +507,8 @@ const visitorKeys = {
   ],
   DeclareFunction: [
     'jsdoc',
-    'id'
+    'id',
+    'predicate'
   ],
   DeclareInterface: [
     'jsdoc',
@@ -540,11 +546,13 @@ const visitorKeys = {
     'jsdoc',
     'declaration',
     'specifiers',
-    'source'
+    'source',
+    'attributes'
   ],
   DeclareExportAllDeclaration: [
     'jsdoc',
-    'source'
+    'source',
+    'attributes'
   ],
   DeclaredPredicate: [
     'jsdoc',
@@ -556,6 +564,7 @@ const visitorKeys = {
   FunctionTypeAnnotation: [
     'jsdoc',
     'typeParameters',
+    'this',
     'params',
     'rest',
     'returnType'
@@ -620,10 +629,7 @@ const visitorKeys = {
   ObjectTypeInternalSlot: [
     'jsdoc',
     'id',
-    'value',
-    'optional',
-    'static',
-    'method'
+    'value'
   ],
   ObjectTypeCallProperty: [
     'jsdoc',
@@ -631,10 +637,10 @@ const visitorKeys = {
   ],
   ObjectTypeIndexer: [
     'jsdoc',
+    'variance',
     'id',
     'key',
-    'value',
-    'variance'
+    'value'
   ],
   ObjectTypeProperty: [
     'jsdoc',
@@ -655,8 +661,8 @@ const visitorKeys = {
   ],
   QualifiedTypeIdentifier: [
     'jsdoc',
-    'id',
-    'qualification'
+    'qualification',
+    'id'
   ],
   StringLiteralTypeAnnotation: [
     'jsdoc'
@@ -714,6 +720,9 @@ const visitorKeys = {
   Variance: [
     'jsdoc'
   ],
+  VoidPattern: [
+    'jsdoc'
+  ],
   VoidTypeAnnotation: [
     'jsdoc'
   ],
@@ -740,7 +749,8 @@ const visitorKeys = {
   ],
   EnumBooleanMember: [
     'jsdoc',
-    'id'
+    'id',
+    'init'
   ],
   EnumNumberMember: [
     'jsdoc',
@@ -808,6 +818,8 @@ const visitorKeys = {
   JSXOpeningElement: [
     'jsdoc',
     'name',
+    'typeParameters',
+    'typeArguments',
     'attributes'
   ],
   JSXSpreadAttribute: [
@@ -984,6 +996,11 @@ const visitorKeys = {
   TSVoidKeyword: [
     'jsdoc'
   ],
+  TSTemplateLiteralType: [
+    'jsdoc',
+    'quasis',
+    'types'
+  ],
   TSThisType: [
     'jsdoc'
   ],
@@ -1079,8 +1096,8 @@ const visitorKeys = {
   TSMappedType: [
     'jsdoc',
     'typeParameter',
-    'typeAnnotation',
-    'nameType'
+    'nameType',
+    'typeAnnotation'
   ],
   TSLiteralType: [
     'jsdoc',
@@ -1123,6 +1140,10 @@ const visitorKeys = {
     'typeAnnotation',
     'expression'
   ],
+  TSEnumBody: [
+    'jsdoc',
+    'members'
+  ],
   TSEnumDeclaration: [
     'jsdoc',
     'id',
@@ -1145,6 +1166,7 @@ const visitorKeys = {
   TSImportType: [
     'jsdoc',
     'argument',
+    'options',
     'qualifier',
     'typeParameters'
   ],
@@ -1204,6 +1226,19 @@ const visitorKeys = {
     'inlineTags'
   ],
   JsdocTypeAny: [],
+  JsdocTypeAsserts: [
+    'left',
+    'right'
+  ],
+  JsdocTypeAssertsPlain: [
+    'element'
+  ],
+  JsdocTypeConditional: [
+    'checksType',
+    'extendsType',
+    'trueType',
+    'falseType'
+  ],
   JsdocTypeFunction: [
     'parameters',
     'returnType'
@@ -1262,6 +1297,11 @@ const visitorKeys = {
   JsdocTypeTuple: [
     'elements'
   ],
+  JsdocTypeTypeParameter: [
+    'name',
+    'constraint',
+    'defaultValue'
+  ],
   JsdocTypeTypeof: [
     'element'
   ],
@@ -1274,6 +1314,9 @@ const visitorKeys = {
     'element'
   ],
   JsdocTypeProperty: [],
+  JsdocTypeReadonlyArray: [
+    'element'
+  ],
   JsdocTypePredicate: [
     'left',
     'right'

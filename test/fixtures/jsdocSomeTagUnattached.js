@@ -3,6 +3,7 @@ import visitorKeys from './visitorKeys.js';
 const jsdocBlock = {
   commentsIndex: 0,
   delimiter: '/**',
+  delimiterLineBreak: '\n',
   description: '',
   descriptionLines: [],
   terminal: '*/',
@@ -20,6 +21,7 @@ const jsdocBlock = {
     }
   },
   parent: null,
+  preterminalLineBreak: '\n',
   postDelimiter: '',
   range: [
     7,

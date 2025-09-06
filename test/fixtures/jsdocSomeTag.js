@@ -52,6 +52,7 @@ const body = {
   },
   jsdoc: {
     delimiter: '/**',
+    delimiterLineBreak: '\n',
     description: '',
     descriptionLines: [],
     terminal: '*/',
@@ -69,6 +70,7 @@ const body = {
       }
     },
     postDelimiter: '',
+    preterminalLineBreak: '\n',
     range: [
       7,
       38

@@ -2,6 +2,7 @@ import visitorKeys from './visitorKeysTS.js';
 
 const jsdoc = {
   delimiter: '/**',
+  delimiterLineBreak: '',
   description: '',
   descriptionLines: [],
   terminal: '*/',
@@ -18,6 +19,7 @@ const jsdoc = {
       line: 2
     }
   },
+  preterminalLineBreak: '',
   postDelimiter: ' ',
   range: [
     20,
@@ -224,13 +226,13 @@ const body = {
           end: {
             line: 2,
             column: 16
-          },
-          filename: undefined
+          }
         },
         range: [
           13,
           17
         ],
+        typeAnnotation: undefined,
         name: 'func'
       },
       jsdoc: null,
@@ -241,6 +243,8 @@ const body = {
         expression: false,
         declare: false,
         params: [],
+        returnType: undefined,
+        typeParameters: undefined,
         loc: {
           start: {
             line: 2,
@@ -258,6 +262,7 @@ const body = {
         jsdoc,
         id: {
           type: 'Identifier',
+          typeAnnotation: undefined,
           decorators: [],
           optional: false,
           loc: {
@@ -268,8 +273,7 @@ const body = {
             end: {
               line: 2,
               column: 45
-            },
-            filename: undefined
+            }
           },
           range: [
             45,
@@ -288,9 +292,7 @@ const body = {
             end: {
               line: 2,
               column: 51
-            },
-            filename: undefined,
-            identifierName: undefined
+            }
           },
           range: [
             50,
@@ -308,8 +310,6 @@ const body = {
       column: 51,
       line: 2
     },
-    filename: undefined,
-    identifierName: undefined,
     start: {
       column: 6,
       line: 2
@@ -334,8 +334,6 @@ const jsdocCloseAncestorSomeTagTS = {
             column: 34,
             line: 2
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 19,
             line: 2
@@ -356,8 +354,6 @@ const jsdocCloseAncestorSomeTagTS = {
         column: 4,
         line: 3
       },
-      filename: undefined,
-      identifierName: undefined,
       start: {
         column: 6,
         line: 2
@@ -376,8 +372,6 @@ const jsdocCloseAncestorSomeTagTS = {
             column: 11,
             line: 2
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 6,
             line: 2
@@ -396,8 +390,6 @@ const jsdocCloseAncestorSomeTagTS = {
             column: 16,
             line: 2
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 12,
             line: 2
@@ -416,8 +408,6 @@ const jsdocCloseAncestorSomeTagTS = {
             column: 18,
             line: 2
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 17,
             line: 2
@@ -436,8 +426,6 @@ const jsdocCloseAncestorSomeTagTS = {
             column: 43,
             line: 2
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 35,
             line: 2
@@ -456,8 +444,6 @@ const jsdocCloseAncestorSomeTagTS = {
             column: 45,
             line: 2
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 44,
             line: 2
@@ -476,8 +462,6 @@ const jsdocCloseAncestorSomeTagTS = {
             column: 47,
             line: 2
           },
-          filename: undefined,
-          identifierName: undefined,
           start: {
             column: 46,
             line: 2
@@ -501,9 +485,7 @@ const jsdocCloseAncestorSomeTagTS = {
           end: {
             line: 2,
             column: 48
-          },
-          filename: undefined,
-          identifierName: undefined
+          }
         },
         range: [
           48,
@@ -521,9 +503,7 @@ const jsdocCloseAncestorSomeTagTS = {
           end: {
             line: 2,
             column: 50
-          },
-          filename: undefined,
-          identifierName: undefined
+          }
         },
         range: [
           50,
@@ -541,9 +521,7 @@ const jsdocCloseAncestorSomeTagTS = {
           end: {
             line: 2,
             column: 51
-          },
-          filename: undefined,
-          identifierName: undefined
+          }
         },
         range: [
           51,
@@ -557,7 +535,6 @@ const jsdocCloseAncestorSomeTagTS = {
   visitorKeys
 };
 
-body.declarations[0].decorators = body.parent;
 body.declarations[0].id.parent = body.declarations[0];
 body.declarations[0].init.parent = body.declarations[0];
 body.declarations[0].init.id.parent = body.declarations[0].init;

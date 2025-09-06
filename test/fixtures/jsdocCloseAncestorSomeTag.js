@@ -2,6 +2,7 @@ import visitorKeys from './visitorKeys.js';
 
 const jsdoc = {
   delimiter: '/**',
+  delimiterLineBreak: '',
   description: '',
   descriptionLines: [],
   terminal: '*/',
@@ -18,6 +19,7 @@ const jsdoc = {
       line: 2
     }
   },
+  preterminalLineBreak: '',
   postDelimiter: ' ',
   range: [
     20,
@@ -200,6 +202,8 @@ const body = {
         52
       ],
       loc: {
+        filename: undefined,
+        identifierName: undefined,
         start: {
           line: 2,
           column: 12
@@ -241,6 +245,8 @@ const body = {
         expression: false,
         params: [],
         loc: {
+          filename: undefined,
+          identifierName: undefined,
           start: {
             line: 2,
             column: 35

@@ -116,7 +116,7 @@ const visitorKeysTS = {
     'jsdoc',
     'exported',
     'source',
-    'assertions'
+    'attributes'
   ],
   ExportDefaultDeclaration: [
     'jsdoc',
@@ -127,12 +127,12 @@ const visitorKeysTS = {
     'declaration',
     'specifiers',
     'source',
-    'assertions'
+    'attributes'
   ],
   ExportSpecifier: [
     'jsdoc',
-    'exported',
-    'local'
+    'local',
+    'exported'
   ],
   ExpressionStatement: [
     'jsdoc',
@@ -196,7 +196,7 @@ const visitorKeysTS = {
     'jsdoc',
     'specifiers',
     'source',
-    'assertions'
+    'attributes'
   ],
   ImportDefaultSpecifier: [
     'jsdoc',
@@ -205,7 +205,7 @@ const visitorKeysTS = {
   ImportExpression: [
     'jsdoc',
     'source',
-    'attributes'
+    'options'
   ],
   ImportNamespaceSpecifier: [
     'jsdoc',
@@ -535,10 +535,14 @@ const visitorKeysTS = {
     'params',
     'returnType'
   ],
+  TSEnumBody: [
+    'jsdoc',
+    'members'
+  ],
   TSEnumDeclaration: [
     'jsdoc',
     'id',
-    'members'
+    'body'
   ],
   TSEnumMember: [
     'jsdoc',
@@ -570,13 +574,14 @@ const visitorKeysTS = {
   TSImportType: [
     'jsdoc',
     'argument',
+    'options',
     'qualifier',
     'typeArguments'
   ],
   TSIndexedAccessType: [
     'jsdoc',
-    'indexType',
-    'objectType'
+    'objectType',
+    'indexType'
   ],
   TSIndexSignature: [
     'jsdoc',
@@ -621,14 +626,15 @@ const visitorKeysTS = {
   ],
   TSMappedType: [
     'jsdoc',
+    'key',
+    'constraint',
     'nameType',
-    'typeParameter',
     'typeAnnotation'
   ],
   TSMethodSignature: [
     'jsdoc',
-    'typeParameters',
     'key',
+    'typeParameters',
     'params',
     'returnType'
   ],
@@ -680,8 +686,8 @@ const visitorKeysTS = {
   ],
   TSPropertySignature: [
     'jsdoc',
-    'typeAnnotation',
-    'key'
+    'key',
+    'typeAnnotation'
   ],
   TSProtectedKeyword: [
     'jsdoc'
@@ -703,8 +709,8 @@ const visitorKeysTS = {
   ],
   TSSatisfiesExpression: [
     'jsdoc',
-    'typeAnnotation',
-    'expression'
+    'expression',
+    'typeAnnotation'
   ],
   TSStaticKeyword: [
     'jsdoc'
@@ -739,8 +745,8 @@ const visitorKeysTS = {
   ],
   TSTypeAssertion: [
     'jsdoc',
-    'expression',
-    'typeAnnotation'
+    'typeAnnotation',
+    'expression'
   ],
   TSTypeLiteral: [
     'jsdoc',
@@ -766,8 +772,8 @@ const visitorKeysTS = {
   ],
   TSTypePredicate: [
     'jsdoc',
-    'typeAnnotation',
-    'parameterName'
+    'parameterName',
+    'typeAnnotation'
   ],
   TSTypeQuery: [
     'jsdoc',
@@ -810,6 +816,19 @@ const visitorKeysTS = {
     'inlineTags'
   ],
   JsdocTypeAny: [],
+  JsdocTypeAsserts: [
+    'left',
+    'right'
+  ],
+  JsdocTypeAssertsPlain: [
+    'element'
+  ],
+  JsdocTypeConditional: [
+    'checksType',
+    'extendsType',
+    'trueType',
+    'falseType'
+  ],
   JsdocTypeFunction: [
     'parameters',
     'returnType'
@@ -868,6 +887,11 @@ const visitorKeysTS = {
   JsdocTypeTuple: [
     'elements'
   ],
+  JsdocTypeTypeParameter: [
+    'name',
+    'constraint',
+    'defaultValue'
+  ],
   JsdocTypeTypeof: [
     'element'
   ],
@@ -880,6 +904,9 @@ const visitorKeysTS = {
     'element'
   ],
   JsdocTypeProperty: [],
+  JsdocTypeReadonlyArray: [
+    'element'
+  ],
   JsdocTypePredicate: [
     'left',
     'right'

@@ -136,6 +136,8 @@ const body = {
         58
       ],
       loc: {
+        filename: undefined,
+        identifierName: undefined,
         start: {
           line: 3,
           column: 12
@@ -177,6 +179,8 @@ const body = {
         expression: false,
         params: [],
         loc: {
+          filename: undefined,
+          identifierName: undefined,
           start: {
             line: 3,
             column: 19
@@ -242,6 +246,7 @@ const body = {
   end: 58,
   jsdoc: {
     delimiter: '/**',
+    delimiterLineBreak: '',
     description: '',
     descriptionLines: [],
     terminal: '*/',
@@ -258,6 +263,7 @@ const body = {
         line: 2
       }
     },
+    preterminalLineBreak: '',
     postDelimiter: ' ',
     range: [
       7,

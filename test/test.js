@@ -1,7 +1,10 @@
 import {expect} from 'chai';
 
 import {parseForESLint} from '../src/index.js';
-import circularDeepIdentity from './utils/circularDeepIdentity.js';
+import {
+  CompareValuesWithDetailedDifferences as
+  compareValuesWithDetailedDifferences
+} from 'object-deep-compare';
 
 import jsdocSomeTag from './fixtures/jsdocSomeTag.js';
 import jsdocSomeTagUnattached from './fixtures/jsdocSomeTagUnattached.js';
@@ -11,28 +14,6 @@ import jsdocCloseAncestorSomeTagNoSpace from
   './fixtures/jsdocCloseAncestorSomeTagNoSpace.js';
 import lineComment from './fixtures/lineComment.js';
 import multilineComment from './fixtures/multilineComment.js';
-
-/**
- * @param {unknown} obj1
- * @param {unknown} obj2
- * @returns {boolean}
- */
-function compare (obj1, obj2) {
-  const track1 = {};
-  const track2 = {};
-  const ret = circularDeepIdentity(
-    obj1, obj2, (o) => {
-      return 'line' in o && 'column' in o;
-    }, track1, track2
-  );
-
-  if (!ret) {
-    // eslint-disable-next-line no-console -- Debugging
-    console.log('tracks', track1, track2);
-  }
-
-  return ret;
-}
 
 describe('`parseForESLint`', function () {
   it('parses for ESLint', function () {
@@ -46,9 +27,15 @@ describe('`parseForESLint`', function () {
     expect(parsed.visitorKeys).to.deep.equal(jsdocSomeTag.visitorKeys);
     expect(parsed.services).to.deep.equal(jsdocSomeTag.services);
 
-    const circResult = compare(parsed.ast, jsdocSomeTag.ast);
+    const circResult = compareValuesWithDetailedDifferences(
+      jsdocSomeTag.ast, parsed.ast,
+      '',
+      {
+        circularReferences: 'ignore'
+      }
+    );
 
-    expect(circResult).to.equal(true);
+    expect(circResult.length).to.equal(0);
     // expect(parsed.scopeManager).to.deep.equal(jsdocSomeTag.scopeManager);
   });
 
@@ -64,9 +51,15 @@ describe('`parseForESLint`', function () {
     ).to.deep.equal(jsdocSomeTagUnattached.visitorKeys);
     expect(parsed.services).to.deep.equal(jsdocSomeTagUnattached.services);
 
-    const circResult = compare(parsed.ast, jsdocSomeTagUnattached.ast);
+    const circResult = compareValuesWithDetailedDifferences(
+      jsdocSomeTagUnattached.ast, parsed.ast,
+      '',
+      {
+        circularReferences: 'ignore'
+      }
+    );
 
-    expect(circResult).to.equal(true);
+    expect(circResult.length).to.equal(0);
     // expect(parsed.scopeManager).to.deep.equal(
     //   jsdocSomeTagUnattached.scopeManager
     // );
@@ -83,9 +76,15 @@ describe('`parseForESLint`', function () {
     expect(parsed.visitorKeys).to.deep.equal(jsdocAncestorSomeTag.visitorKeys);
     expect(parsed.services).to.deep.equal(jsdocAncestorSomeTag.services);
 
-    const circResult = compare(parsed.ast, jsdocAncestorSomeTag.ast);
+    const circResult = compareValuesWithDetailedDifferences(
+      jsdocAncestorSomeTag.ast, parsed.ast,
+      '',
+      {
+        circularReferences: 'ignore'
+      }
+    );
 
-    expect(circResult).to.equal(true);
+    expect(circResult.length).to.equal(0);
   });
 
   it('parses for ESLint (close ancestor having comment)', function () {
@@ -100,9 +99,15 @@ describe('`parseForESLint`', function () {
     );
     expect(parsed.services).to.deep.equal(jsdocCloseAncestorSomeTag.services);
 
-    const circResult = compare(parsed.ast, jsdocCloseAncestorSomeTag.ast);
+    const circResult = compareValuesWithDetailedDifferences(
+      jsdocCloseAncestorSomeTag.ast, parsed.ast,
+      '',
+      {
+        circularReferences: 'ignore'
+      }
+    );
 
-    expect(circResult).to.equal(true);
+    expect(circResult.length).to.equal(0);
   });
 
   it(
@@ -121,11 +126,15 @@ describe('`parseForESLint`', function () {
         jsdocCloseAncestorSomeTagNoSpace.services
       );
 
-      const circResult = compare(
-        parsed.ast, jsdocCloseAncestorSomeTagNoSpace.ast
+      const circResult = compareValuesWithDetailedDifferences(
+        jsdocCloseAncestorSomeTagNoSpace.ast, parsed.ast,
+        '',
+        {
+          circularReferences: 'ignore'
+        }
       );
 
-      expect(circResult).to.equal(true);
+      expect(circResult.length).to.equal(0);
     }
   );
 
