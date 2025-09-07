@@ -1,6 +1,6 @@
 {
   "name": "@es-joy/jsdoc-eslint-parser",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "author": "Brett Zamir <brettz9@yahoo.com>",
   "contributors": [],
   "description": "Parser to support JavaScript with JSDoc comments and types available as AST",

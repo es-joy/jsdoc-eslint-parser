@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.23.0
+
+- chore: update deps. and devDeps.
+
 ## 0.22.0
 
 - chore: update deps. and devDeps.
