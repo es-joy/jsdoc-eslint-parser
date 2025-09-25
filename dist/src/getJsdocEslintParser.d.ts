@@ -11,18 +11,7 @@ export type TraverseCallback = (node: import("estree").Node & {
     jsdoc?: import("@es-joy/jsdoccomment").JsdocBlock | null;
 }, parent: import("estree").Node) => void;
 export type AnyObject = any;
-/**
- * @param {(
- *   code: string,
- *   options: any
- * ) => import('eslint').Linter.ESLintParseResult} parser
- * @param {{
- *   mode?: "jsdoc"|"closure"|"typescript"
- * }} bakedInOptions
- */
-declare function getJsdocEslintParser(parser: (code: string, options: any) => import("eslint").Linter.ESLintParseResult, bakedInOptions?: {
-    mode?: "jsdoc" | "closure" | "typescript";
-}): (code: string, options?: {
+export type Options = {
     mode?: "jsdoc" | "closure" | "typescript";
     maxLines?: number;
     minLines?: number;
@@ -30,7 +19,19 @@ declare function getJsdocEslintParser(parser: (code: string, options: any) => im
     throwOnTypeParsingErrors?: boolean;
     sourceType?: "script" | "module";
     babelOptions?: any;
-}) => {
+};
+/**
+ * @param {(
+ *   code: string,
+ *   options: Options
+ * ) => import('eslint').Linter.ESLintParseResult} parser
+ * @param {{
+ *   mode?: "jsdoc"|"closure"|"typescript"
+ * }} bakedInOptions
+ */
+declare function getJsdocEslintParser(parser: (code: string, options: Options) => import("eslint").Linter.ESLintParseResult, bakedInOptions?: {
+    mode?: "jsdoc" | "closure" | "typescript";
+}): (code: string, options?: Options) => {
     ast: import("eslint").AST.Program;
     services: {};
     scopeManager: import("eslint").Scope.ScopeManager | undefined;

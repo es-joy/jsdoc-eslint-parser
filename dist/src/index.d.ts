@@ -1,12 +1,4 @@
-export const parseForESLint: (code: string, options?: {
-    mode?: "jsdoc" | "closure" | "typescript";
-    maxLines?: number;
-    minLines?: number;
-    indent?: string;
-    throwOnTypeParsingErrors?: boolean;
-    sourceType?: "script" | "module";
-    babelOptions?: any;
-}) => {
+export const parseForESLint: (code: string, options?: import("./getJsdocEslintParser.js").Options) => {
     ast: import("eslint").AST.Program;
     services: {};
     scopeManager: import("eslint").Scope.ScopeManager | undefined;
