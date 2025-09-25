@@ -32,9 +32,25 @@ const jsdocBlocksProperty = 'jsdocBlocks';
  * @returns {void}
  */
 
+/* eslint-disable jsdoc/reject-any-type -- Needed */
 /**
  * @typedef {any} AnyObject
  */
+/* eslint-enable jsdoc/reject-any-type -- Needed */
+
+/* eslint-disable jsdoc/reject-any-type -- Babel doesn't specify */
+/**
+ * @typedef {{
+ *   mode?: "jsdoc"|"closure"|"typescript",
+ *   maxLines?: number,
+ *   minLines?: number,
+ *   indent?: string,
+ *   throwOnTypeParsingErrors?: boolean
+ *   sourceType?: "script"|"module",
+ *   babelOptions?: any
+ * }} Options
+ */
+/* eslint-enable jsdoc/reject-any-type -- Babel doesn't specify */
 
 /**
  * @param {AnyObject} obj
@@ -46,7 +62,7 @@ const clone = (obj) => {
 /**
  * @param {(
  *   code: string,
- *   options: any
+ *   options: Options
  * ) => import('eslint').Linter.ESLintParseResult} parser
  * @param {{
  *   mode?: "jsdoc"|"closure"|"typescript"
@@ -55,15 +71,7 @@ const clone = (obj) => {
 const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
   /**
    * @param {string} code
-   * @param {{
-   *   mode?: "jsdoc"|"closure"|"typescript",
-   *   maxLines?: number,
-   *   minLines?: number,
-   *   indent?: string,
-   *   throwOnTypeParsingErrors?: boolean
-   *   sourceType?: "script"|"module",
-   *   babelOptions?: any
-   * }} options
+   * @param {Options} options
    */
   return function (code, options = {}) {
     const {
