@@ -32,7 +32,7 @@
     "statements": 100
   },
   "browserslist": [
-    "cover 100%"
+    "last 2 versions"
   ],
   "scripts": {
     "prepublishOnly": "pnpm i && pnpm rollup && pnpm tsc",
