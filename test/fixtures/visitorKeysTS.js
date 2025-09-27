@@ -823,11 +823,27 @@ const visitorKeysTS = {
   JsdocTypeAssertsPlain: [
     'element'
   ],
+  JsdocTypeCallSignature: [
+    'parameters',
+    'returnType'
+  ],
+  JsdocTypeComputedMethod: [
+    'value',
+    'parameters',
+    'returnType'
+  ],
+  JsdocTypeComputedProperty: [
+    'value'
+  ],
   JsdocTypeConditional: [
     'checksType',
     'extendsType',
     'trueType',
     'falseType'
+  ],
+  JsdocTypeConstructorSignature: [
+    'parameters',
+    'returnType'
   ],
   JsdocTypeFunction: [
     'parameters',
@@ -839,6 +855,9 @@ const visitorKeysTS = {
   ],
   JsdocTypeImport: [],
   JsdocTypeIndexSignature: [
+    'right'
+  ],
+  JsdocTypeIndexedAccessIndex: [
     'right'
   ],
   JsdocTypeIntersection: [
@@ -853,6 +872,10 @@ const visitorKeysTS = {
   ],
   JsdocTypeKeyValue: [
     'right'
+  ],
+  JsdocTypeMethodSignature: [
+    'parameters',
+    'returnType'
   ],
   JsdocTypeName: [],
   JsdocTypeNamePath: [
@@ -883,6 +906,9 @@ const visitorKeysTS = {
   JsdocTypeStringValue: [],
   JsdocTypeSymbol: [
     'element'
+  ],
+  JsdocTypeTemplateLiteral: [
+    'interpolations'
   ],
   JsdocTypeTuple: [
     'elements'

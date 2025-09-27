@@ -142,7 +142,7 @@ const inlineTagToAST = ({text, tag, format, namepathOrURL}) => ({
  * @param {boolean} [opts.throwOnTypeParsingErrors]
  * @returns {JsdocBlock}
  */
-const commentParserToESTree = (jsdoc, mode, {
+const commentParserToESTree = (jsdoc, mode = 'typescript', {
   spacing = 'compact',
   throwOnTypeParsingErrors = false
 } = {}) => {
@@ -508,6 +508,7 @@ const jsdocVisitorKeys = {
   JsdocInlineTag: []
 };
 
+/* eslint-disable jsdoc/reject-any-type -- Todo */
 /**
  * Obtained originally from {@link https://github.com/eslint/eslint/blob/master/lib/util/source-code.js#L313}.
  *
@@ -1207,24 +1208,23 @@ const getTokenizers = ({
  * @returns {import('.').JsdocBlockWithInline}
  */
 const parseComment = (commentOrNode, indent = '') => {
-  let block;
+  let result;
 
   switch (typeof commentOrNode) {
   case 'string':
     // Preserve JSDoc block start/end indentation.
-    [block] = commentParser.parse(`${indent}${commentOrNode}`, {
+    result = commentParser.parse(`${indent}${commentOrNode}`, {
       // @see https://github.com/yavorskiy/comment-parser/issues/21
       tokenizers: getTokenizers()
     });
     break;
-
   case 'object':
     if (commentOrNode === null) {
       throw new TypeError(`'commentOrNode' is not a string or object.`);
     }
 
     // Preserve JSDoc block start/end indentation.
-    [block] = commentParser.parse(`${indent}/*${commentOrNode.value}*/`, {
+    result = commentParser.parse(`${indent}/*${commentOrNode.value}*/`, {
       // @see https://github.com/yavorskiy/comment-parser/issues/21
       tokenizers: getTokenizers()
     });
@@ -1234,6 +1234,11 @@ const parseComment = (commentOrNode, indent = '') => {
     throw new TypeError(`'commentOrNode' is not a string or object.`);
   }
 
+  if (!result.length) {
+    throw new Error('There were no results for comment parsing');
+  }
+
+  const [block] = result;
   return parseInlineTags(block);
 };
 
@@ -1263,9 +1268,25 @@ const jsdocBlocksProperty = 'jsdocBlocks';
  * @returns {void}
  */
 
+/* eslint-disable jsdoc/reject-any-type -- Needed */
 /**
  * @typedef {any} AnyObject
  */
+/* eslint-enable jsdoc/reject-any-type -- Needed */
+
+/* eslint-disable jsdoc/reject-any-type -- Babel doesn't specify */
+/**
+ * @typedef {{
+ *   mode?: "jsdoc"|"closure"|"typescript",
+ *   maxLines?: number,
+ *   minLines?: number,
+ *   indent?: string,
+ *   throwOnTypeParsingErrors?: boolean
+ *   sourceType?: "script"|"module",
+ *   babelOptions?: any
+ * }} Options
+ */
+/* eslint-enable jsdoc/reject-any-type -- Babel doesn't specify */
 
 /**
  * @param {AnyObject} obj
@@ -1277,7 +1298,7 @@ const clone = (obj) => {
 /**
  * @param {(
  *   code: string,
- *   options: any
+ *   options: Options
  * ) => import('eslint').Linter.ESLintParseResult} parser
  * @param {{
  *   mode?: "jsdoc"|"closure"|"typescript"
@@ -1286,15 +1307,7 @@ const clone = (obj) => {
 const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
   /**
    * @param {string} code
-   * @param {{
-   *   mode?: "jsdoc"|"closure"|"typescript",
-   *   maxLines?: number,
-   *   minLines?: number,
-   *   indent?: string,
-   *   throwOnTypeParsingErrors?: boolean
-   *   sourceType?: "script"|"module",
-   *   babelOptions?: any
-   * }} options
+   * @param {Options} options
    */
   return function (code, options = {}) {
     const {
