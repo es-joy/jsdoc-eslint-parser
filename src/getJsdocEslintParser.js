@@ -245,6 +245,11 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
                * }}
                */ (commentParserToESTree(jsdoc, mode, {
                 throwOnTypeParsingErrors
+                /* ,
+                jsdocTypePrattParserArgs: {
+                  loc: true,
+                  range: true
+                } */
               }));
             commentAST.loc = clone(commentToken.loc);
             commentAST.range = clone(commentToken.range);
@@ -307,6 +312,11 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
            * @type {JsdocBlockEnhanced}
            */ (commentParserToESTree(jsdoc, mode, {
             throwOnTypeParsingErrors
+            /* ,
+            jsdocTypePrattParserArgs: {
+              loc: true,
+              range: true
+            } */
           }));
 
         commentAST.loc = clone(loc);

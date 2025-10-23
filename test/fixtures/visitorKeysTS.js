@@ -824,11 +824,13 @@ const visitorKeysTS = {
     'element'
   ],
   JsdocTypeCallSignature: [
+    'typeParameters',
     'parameters',
     'returnType'
   ],
   JsdocTypeComputedMethod: [
     'value',
+    'typeParameters',
     'parameters',
     'returnType'
   ],
@@ -842,10 +844,12 @@ const visitorKeysTS = {
     'falseType'
   ],
   JsdocTypeConstructorSignature: [
+    'typeParameters',
     'parameters',
     'returnType'
   ],
   JsdocTypeFunction: [
+    'typeParameters',
     'parameters',
     'returnType'
   ],
@@ -853,7 +857,9 @@ const visitorKeysTS = {
     'left',
     'elements'
   ],
-  JsdocTypeImport: [],
+  JsdocTypeImport: [
+    'element'
+  ],
   JsdocTypeIndexSignature: [
     'right'
   ],
@@ -874,6 +880,7 @@ const visitorKeysTS = {
     'right'
   ],
   JsdocTypeMethodSignature: [
+    'typeParameters',
     'parameters',
     'returnType'
   ],
@@ -894,6 +901,7 @@ const visitorKeysTS = {
     'elements'
   ],
   JsdocTypeObjectField: [
+    'key',
     'right'
   ],
   JsdocTypeOptional: [
