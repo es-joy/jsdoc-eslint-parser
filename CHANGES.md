@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.26.0
+
+- chore: update deps. and devDeps., adding infer structure to visitor keys
+
 ## 0.25.0
 
 - chore: update deps. and devDeps.

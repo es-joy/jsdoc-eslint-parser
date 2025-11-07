@@ -17,7 +17,7 @@ const stripEncapsulatingBrackets = (container, isArr) => {
   if (isArr) {
     const firstItem = /** @type {JsdocTypeLine[]} */ (container)[0];
     firstItem.rawType = firstItem.rawType.replace(
-      /^\{/u, ''
+      /^\{/v, ''
     );
 
     const lastItem = /** @type {JsdocTypeLine} */ (
@@ -25,14 +25,14 @@ const stripEncapsulatingBrackets = (container, isArr) => {
         container
       ).at(-1)
     );
-    lastItem.rawType = lastItem.rawType.replace(/\}$/u, '');
+    lastItem.rawType = lastItem.rawType.replace(/\}$/v, '');
 
     return;
   }
   /** @type {JsdocTag} */ (container).rawType =
     /** @type {JsdocTag} */ (container).rawType.replace(
-      /^\{/u, ''
-    ).replace(/\}$/u, '');
+      /^\{/v, ''
+    ).replace(/\}$/v, '');
 };
 
 /**
@@ -394,7 +394,7 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
         type: 'JsdocTag',
         typeLines: []
       };
-      tagObj.tag = tagObj.tag.replace(/^@/u, '');
+      tagObj.tag = tagObj.tag.replace(/^@/v, '');
 
       lastTag = tagObj;
       tagDescriptionSeen = false;
@@ -564,18 +564,23 @@ const isCommentToken = (token) => {
 };
 
 /**
- * @param {(ESLintOrTSNode|import('estree').Comment) & {
- *   declaration?: any,
- *   decorators?: any[],
- *   parent?: import('eslint').Rule.Node & {
- *     decorators?: any[]
- *   }
- * }} node
+ * @typedef {(
+ *   ESLintOrTSNode|
+ *   import('estree').Comment|
+ *   import('eslint').Rule.Node & {declaration?: any, decorators?: any[]}
+ * )} DecoratedNode
+ */
+/**
+ * @param {DecoratedNode} node
  * @returns {import('@typescript-eslint/types').TSESTree.Decorator|undefined}
  */
 const getDecorator = (node) => {
-  return node?.declaration?.decorators?.[0] || node?.decorators?.[0] ||
-      node?.parent?.decorators?.[0];
+  // @ts-expect-error -- Loose checking for decorator presence across node kinds
+  return node?.declaration?.decorators?.[0] ||
+    // @ts-expect-error -- Loose checking
+    node?.decorators?.[0] ||
+    // @ts-expect-error -- Loose checking
+    node?.parent?.decorators?.[0];
 };
 
 /**
@@ -775,7 +780,7 @@ const getReducedASTNode = function (node, sourceCode) {
           /** @type {import('eslint').Rule.Node} */
           (parent)
         ).length &&
-        !(/Function/u).test(parent.type) &&
+        !(/Function/v).test(parent.type) &&
         !allowableCommentNode.has(parent.type)
       ) {
         ({parent} = parent);
@@ -823,10 +828,7 @@ const findJSDocComment = (astNode, sourceCode, settings, opts = {}) => {
   let parenthesisToken = null;
 
   while (currentNode) {
-    const decorator = getDecorator(
-      /** @type {import('eslint').Rule.Node} */
-      (currentNode)
-    );
+    const decorator = getDecorator(currentNode);
     if (decorator) {
       const dec = /** @type {unknown} */ (decorator);
       currentNode = /** @type {import('eslint').Rule.Node} */ (dec);
@@ -868,9 +870,9 @@ const findJSDocComment = (astNode, sourceCode, settings, opts = {}) => {
   if (
     (
       (nonJSDoc && (tokenBefore.type !== 'Block' ||
-        !(/^\*\s/u).test(tokenBefore.value))) ||
+        !(/^\*\s/v).test(tokenBefore.value))) ||
       (!nonJSDoc && tokenBefore.type === 'Block' &&
-      (/^\*\s/u).test(tokenBefore.value))
+      (/^\*\s/v).test(tokenBefore.value))
     ) &&
     currentNode.loc.start.line - (
       /** @type {import('eslint').AST.Token} */
@@ -1007,10 +1009,10 @@ function parseDescription (description) {
   // This could have been expressed in a single pattern,
   // but having two avoids a potentially exponential time regex.
 
-  const prefixedTextPattern = new RegExp(/(?:\[(?<text>[^\]]+)\])\{@(?<tag>[^}\s]+)\s?(?<namepathOrURL>[^}\s|]*)\}/gu, 'gud');
+  const prefixedTextPattern = /(?:\[(?<text>[^\]]+)\])\{@(?<tag>[^\}\s]+)\s?(?<namepathOrURL>[^\}\s\|]*)\}/gvd;
   // The pattern used to match for text after tag uses a negative lookbehind
   // on the ']' char to avoid matching the prefixed case too.
-  const suffixedAfterPattern = new RegExp(/(?<!\])\{@(?<tag>[^}\s]+)\s?(?<namepathOrURL>[^}\s|]*)\s*(?<separator>[\s|])?\s*(?<text>[^}]*)\}/gu, 'gud');
+  const suffixedAfterPattern = /(?<!\])\{@(?<tag>[^\}\s]+)\s?(?<namepathOrURL>[^\}\s\|]*)\s*(?<separator>[\s\|])?\s*(?<text>[^\}]*)\}/gvd;
 
   const matches = [
     ...description.matchAll(prefixedTextPattern),
@@ -1093,7 +1095,7 @@ const {
  * @returns {boolean}
  */
 const hasSeeWithLink = (spec) => {
-  return spec.tag === 'see' && (/\{@link.+?\}/u).test(spec.source[0].source);
+  return spec.tag === 'see' && (/\{@link.+?\}/v).test(spec.source[0].source);
 };
 
 const defaultNoTypes = [
@@ -1115,7 +1117,7 @@ const defaultNoNames = [
   'version', 'variation'
 ];
 
-const optionalBrackets = /^\[(?<name>[^=]*)=[^\]]*\]/u;
+const optionalBrackets = /^\[(?<name>[^=]*)=[^\]]*\]/v;
 const preserveTypeTokenizer = typeTokenizer('preserve');
 const preserveDescriptionTokenizer = descriptionTokenizer('preserve');
 const plainNameTokenizer = nameTokenizer();
@@ -1168,12 +1170,12 @@ const getTokenizers = ({
         let pos;
         if (remainder.startsWith('[') && remainder.includes(']')) {
           const endingBracketPos = remainder.lastIndexOf(']');
-          pos = remainder.slice(endingBracketPos).search(/(?<![\s,])\s/u);
+          pos = remainder.slice(endingBracketPos).search(/(?<![\s,])\s/v);
           if (pos > -1) { // Add offset to starting point if space found
             pos += endingBracketPos;
           }
         } else {
-          pos = remainder.search(/(?<![\s,])\s/u);
+          pos = remainder.search(/(?<![\s,])\s/v);
         }
 
         const name = pos === -1 ? remainder : remainder.slice(0, pos);
@@ -1181,7 +1183,7 @@ const getTokenizers = ({
         let postName = '', description = '', lineEnd = '';
         if (pos > -1) {
           [, postName, description, lineEnd] = /** @type {RegExpMatchArray} */ (
-            extra.match(/(\s*)([^\r]*)(\r)?/u)
+            extra.match(/(\s*)([^\r]*)(\r)?/v)
           );
         }
 

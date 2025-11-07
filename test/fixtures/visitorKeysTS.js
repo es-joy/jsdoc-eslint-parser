@@ -866,6 +866,9 @@ const visitorKeysTS = {
   JsdocTypeIndexedAccessIndex: [
     'right'
   ],
+  JsdocTypeInfer: [
+    'element'
+  ],
   JsdocTypeIntersection: [
     'elements'
   ],
