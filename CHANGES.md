@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## ?
+
+- Require Node ^20.19.0 || ^22.13.0 || >=24
+
 ## 0.26.0
 
 - chore: update deps. and devDeps., adding infer structure to visitor keys
