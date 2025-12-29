@@ -3,7 +3,7 @@
 ## ?
 
 - Breaking: Require Node ^20.19.0 || ^22.13.0 || >=24
-- chore: update typescript-eslint/parser and devDeps.; change target to es2024
+- chore: update eslint, typescript-eslint/parser and devDeps.; change target to es2024
 
 ## 0.26.0
 

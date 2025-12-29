@@ -573,7 +573,7 @@ const visitorKeysTS = {
   ],
   TSImportType: [
     'jsdoc',
-    'argument',
+    'source',
     'options',
     'qualifier',
     'typeArguments'

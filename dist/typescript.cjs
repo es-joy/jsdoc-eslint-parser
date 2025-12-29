@@ -1489,7 +1489,7 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
             //   have nothing before or after.
             const indnt = sourceCode.getText().slice(
               idx - commentToken.loc.start.column, idx
-            ).match(/\s+$/u)?.[0] || '';
+            ).match(/\s+$/v)?.[0] || '';
 
             const jsdoc = parseComment(
               commentToken,
