@@ -1,6 +1,6 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
-## ?
+## 0.27.0
 
 - Breaking: Require Node ^20.19.0 || ^22.13.0 || >=24
 - chore: update eslint, typescript-eslint/parser and devDeps.; change target to es2024
