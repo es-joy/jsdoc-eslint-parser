@@ -936,6 +936,7 @@ const visitorKeysTS = {
   JsdocTypeUnion: [
     'elements'
   ],
+  JsdocTypeUniqueSymbol: [],
   JsdocTypeUnknown: [],
   JsdocTypeVariadic: [
     'element'

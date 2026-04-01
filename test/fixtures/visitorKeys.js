@@ -1346,6 +1346,7 @@ const visitorKeys = {
   JsdocTypeUnion: [
     'elements'
   ],
+  JsdocTypeUniqueSymbol: [],
   JsdocTypeUnknown: [],
   JsdocTypeVariadic: [
     'element'
