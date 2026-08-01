@@ -1,8 +1,8 @@
-import jsdoc from 'eslint-plugin-jsdoc';
+import jsdocObj from 'eslint-plugin-jsdoc';
 import * as parser from './src/index.js';
 
 export default [
-  jsdoc.configs['flat/recommended'],
+  jsdocObj.configs['flat/recommended'],
   {
     languageOptions: {
       parser

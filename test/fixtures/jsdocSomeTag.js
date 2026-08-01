@@ -102,14 +102,14 @@ const body = {
           38
         ],
         rawType: '',
-        initial: '       ',
+        initial: ' '.repeat(7),
         inlineTags: [],
         tag: 'someTag',
         type: 'JsdocTag',
         typeLines: []
       }
     ],
-    initial: '      ',
+    initial: ' '.repeat(6),
     hasPreterminalDescription: 0,
     inlineTags: [],
     type: 'JsdocBlock'
@@ -185,7 +185,7 @@ const jsdoc = {
         38
       ],
       rawType: '',
-      initial: '       ',
+      initial: ' '.repeat(7),
       tag: 'someTag',
       type: 'JsdocTag',
       typeLines: []
@@ -248,7 +248,7 @@ const jsdocBlock = {
         38
       ],
       rawType: '',
-      initial: '       ',
+      initial: ' '.repeat(7),
       tag: 'someTag',
       type: 'JsdocTag',
       typeLines: []

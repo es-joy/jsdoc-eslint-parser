@@ -56,6 +56,7 @@ const stripEncapsulatingBrackets = (container, isArr) => {
  */
 
 /**
+ * An inline tag whose `text` is the unescaped label value.
  * @typedef {{
  *   format: 'pipe' | 'plain' | 'prefix' | 'space',
  *   namepathOrURL: string,
@@ -193,7 +194,7 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
       );
     } catch (err) {
       // Ignore
-      if (lastTag.rawType && throwOnTypeParsingErrors) {
+      if (throwOnTypeParsingErrors && lastTag.rawType) {
         /** @type {Error} */ (
           err
         ).message = `Tag @${lastTag.tag} with raw type ` +
@@ -342,7 +343,7 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
 
       if (!tokens.name) {
         let i = 1;
-        while (source[idx + i]) {
+        while (Object.hasOwn(source, idx + i)) {
           const {tokens: {
             name,
             postName,
@@ -365,21 +366,21 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
       /**
        * @type {JsdocInlineTag[]}
        */
-      let tagInlineTags = [];
-      if (tag) {
+      const tagInlineTags = tag
         // Assuming the tags from `source` are in the same order as `jsdoc.tags`
         // we can use the `tags` length as index into the parser result tags.
-        tagInlineTags =
-          /**
-           * @type {import('comment-parser').Spec & {
-           *   inlineTags: JsdocInlineTagNoType[]
-           * }}
-           */ (
-            jsdoc.tags[tags.length]
-          ).inlineTags.map(
-            (t) => inlineTagToAST(t)
-          );
-      }
+        // eslint-disable-next-line @stylistic/operator-linebreak -- Required
+        ?
+        /**
+         * @type {import('comment-parser').Spec & {
+         *   inlineTags: JsdocInlineTagNoType[]
+         * }}
+         */ (
+          jsdoc.tags[tags.length]
+        ).inlineTags.map(
+          (t) => inlineTagToAST(t)
+        )
+        : [];
 
       /** @type {JsdocTag} */
       const tagObj = {
@@ -433,7 +434,7 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
     //
     // In `preserve` mode process when `description` is not the `empty string
     // or the `delimiter` is not `/**` ensuring empty lines are preserved.
-    if (((spacing === 'compact' && description) || lastTag) ||
+    if ((lastTag || (spacing === 'compact' && description)) ||
         (spacing === 'preserve' && (description || delimiter !== '/**'))) {
       const holder = lastTag || ast;
 
@@ -460,9 +461,8 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
           const isFirstDescriptionLine = holder.descriptionLines.length === 0;
 
           // For `compact` spacing must allow through first description line.
-          if ((spacing === 'compact' &&
-              (description || isFirstDescriptionLine)) ||
-              spacing === 'preserve') {
+          if (spacing === 'preserve' || (spacing === 'compact' &&
+              (description || isFirstDescriptionLine))) {
             holder.descriptionLines.push({
               delimiter: isFirstDescriptionLine ? '' : delimiter,
               description,
@@ -487,7 +487,8 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
           // For `compact` spacing must filter out any empty description lines
           // after the initial `holder.description` has content.
           if (tagDescriptionSeen && !(spacing === 'compact' &&
-            holder.description && description === '')) {
+            description === '' &&
+            holder.description)) {
             holder.description += !holder.description
               ? description
               : '\n' + description;
@@ -528,6 +529,47 @@ const jsdocVisitorKeys = {
   JsdocInlineTag: []
 };
 
+/**
+ * @typedef {'pipe' | 'plain' | 'prefix' | 'space'} InlineTagFormat
+ */
+
+/**
+ * Gets the label delimiter for an inline-tag format.
+ * @param {InlineTagFormat} format
+ * @returns {string}
+ */
+function getLabelDelimiter (format) {
+  return format === 'prefix' ? ']' : '}';
+}
+
+/**
+ * Decodes context-specific escape pairs in an inline-tag label.
+ * @param {string} text
+ * @param {InlineTagFormat} format
+ * @returns {string}
+ */
+function decodeInlineTagText (text, format) {
+  const delimiter = getLabelDelimiter(format);
+  let decoded = '';
+  let idx = 0;
+
+  while (idx < text.length) {
+    const character = text[idx];
+    if (character === '\\') {
+      const nextCharacter = text[idx + 1];
+      if (nextCharacter === '\\' || nextCharacter === delimiter) {
+        decoded += nextCharacter;
+        idx += 2;
+        continue;
+      }
+    }
+    decoded += character;
+    idx++;
+  }
+
+  return decoded;
+}
+
 /* eslint-disable jsdoc/reject-any-type -- Todo */
 /**
  * Obtained originally from {@link https://github.com/eslint/eslint/blob/master/lib/util/source-code.js#L313}.
@@ -559,8 +601,7 @@ const jsdocVisitorKeys = {
  * @returns {boolean} `true` if the token is a comment token.
  */
 const isCommentToken = (token) => {
-  return token.type === 'Line' || token.type === 'Block' ||
-    token.type === 'Shebang';
+  return ['Line', 'Block', 'Shebang'].includes(token.type);
 };
 
 /**
@@ -591,10 +632,12 @@ const getDecorator = (node) => {
  * @private
  */
 const looksLikeExport = function (astNode) {
-  return astNode.type === 'ExportDefaultDeclaration' ||
-    astNode.type === 'ExportNamedDeclaration' ||
-    astNode.type === 'ExportAllDeclaration' ||
-    astNode.type === 'ExportSpecifier';
+  return [
+    'ExportDefaultDeclaration',
+    'ExportNamedDeclaration',
+    'ExportAllDeclaration',
+    'ExportSpecifier'
+  ].includes(astNode.type);
 };
 
 /**
@@ -612,8 +655,6 @@ const getTSFunctionComment = function (astNode) {
   if (!grandparent) {
     return astNode;
   }
-  const greatGrandparent = grandparent.parent;
-  const greatGreatGrandparent = greatGrandparent && greatGrandparent.parent;
 
   if (/** @type {ESLintOrTSNode} */ (parent).type !== 'TSTypeAnnotation') {
     if (
@@ -621,10 +662,14 @@ const getTSFunctionComment = function (astNode) {
       grandparent.type === 'ExportNamedDeclaration'
     ) {
       return grandparent;
-    /* v8 ignore next 3 */
+    /* v8 ignore start */
     }
     return astNode;
+    /* v8 ignore stop */
   }
+
+  const greatGrandparent = grandparent.parent;
+  const greatGreatGrandparent = greatGrandparent && greatGrandparent.parent;
 
   switch (/** @type {ESLintOrTSNode} */ (grandparent).type) {
   // @ts-expect-error -- For `ClassProperty`.
@@ -649,9 +694,10 @@ const getTSFunctionComment = function (astNode) {
         return astNode;
       }
       return greatGreatGrandparent.parent;
-    /* v8 ignore next 2 */
+    /* v8 ignore start */
     }
     return astNode;
+    /* v8 ignore stop */
   case 'FunctionExpression':
     /* v8 ignore next 3 */
     if (!greatGreatGrandparent) {
@@ -687,6 +733,7 @@ const getTSFunctionComment = function (astNode) {
   case 'FunctionDeclaration':
     return greatGrandparent;
   case 'VariableDeclarator':
+    /* v8 ignore next */
     if (greatGreatGrandparent.type === 'VariableDeclaration') {
       return greatGreatGrandparent;
     }
@@ -900,11 +947,189 @@ const findJSDocComment = (astNode, sourceCode, settings, opts = {}) => {
   return null;
 };
 
+const overloadMethodNode = new Set([
+  'MethodDefinition',
+  'TSAbstractMethodDefinition'
+]);
+
+/**
+ * @param {ESLintOrTSNode|null|undefined} node
+ * @returns {ESLintOrTSNode[]|undefined}
+ */
+const getOverloadStatementSiblings = (node) => {
+  if (
+    node &&
+    // eslint-disable-next-line @stylistic/max-len -- Long
+    // eslint-disable-next-line unicorn/prefer-includes-over-repeated-comparisons -- TS
+    (node.type === 'BlockStatement' ||
+      node.type === 'Program' ||
+      node.type === 'StaticBlock' ||
+      node.type === 'TSModuleBlock')
+  ) {
+    return /** @type {ESLintOrTSNode[]} */ (node.body);
+  }
+
+  return undefined;
+};
+
+/**
+ * @param {ESLintOrTSNode} node
+ * @returns {{
+ *   bodyless: boolean,
+ *   kind: string,
+ *   name: string,
+ *   static: boolean
+ * }|null}
+ */
+const getMethodOverloadInfo = (node) => {
+  /* v8 ignore next 3 -- Defensive */
+  if (!overloadMethodNode.has(node.type)) {
+    return null;
+  }
+
+  /**
+   * @type {{
+   *   computed?: boolean,
+   *   key?: {name?: string},
+   *   kind?: string,
+   *   static?: boolean,
+   *   value?: {type?: string}
+   * }}
+   */
+  // @ts-expect-error -- Loose method-shape check after node.type guard.
+  const method = node;
+  if (method.computed ||
+    !method.kind ||
+    !['method', 'constructor'].includes(/** @type {string} */ (method.kind)) ||
+    !method.key?.name
+  ) {
+    return null;
+  }
+
+  return {
+    bodyless: node.type === 'TSAbstractMethodDefinition' ||
+      method.value?.type === 'TSEmptyBodyFunctionExpression',
+    kind: method.kind,
+    name: method.key.name,
+    static: Boolean(method.static)
+  };
+};
+
+/**
+ * @param {ESLintOrTSNode} node
+ * @param {ESLintOrTSNode} prevSibling
+ * @returns {boolean}
+ */
+const isMatchingMethodOverloadSibling = (node, prevSibling) => {
+  const current = getMethodOverloadInfo(node);
+  const previous = getMethodOverloadInfo(prevSibling);
+
+  return Boolean(
+    current &&
+    previous?.bodyless &&
+    previous.name === current.name &&
+    previous.kind === current.kind &&
+    previous.static === current.static
+  );
+};
+
+/**
+ * @param {ESLintOrTSNode} node
+ * @returns {string|undefined}
+ */
+const getCurrentOverloadName = (node) => {
+  if (node.type === 'TSDeclareFunction' ||
+    node.type === 'FunctionDeclaration') {
+    return /** @type {{id?: {name?: string}}} */ (node).id?.name;
+  }
+
+  if (node.type === 'ExportNamedDeclaration') {
+    const {declaration} =
+      /** @type {{declaration?: {type?: string, id?: {name?: string}}}} */ (
+        node
+      );
+    if (declaration?.type === 'FunctionDeclaration' ||
+      declaration?.type === 'TSDeclareFunction') {
+      return declaration.id?.name;
+    }
+  }
+
+  if (overloadMethodNode.has(node.type)) {
+    const method =
+      /** @type {{computed?: boolean, key?: {name?: string}}} */ (node);
+    if (!method.computed) {
+      return method.key?.name;
+    }
+  }
+
+  return undefined;
+};
+
+/**
+ * @param {ESLintOrTSNode} node
+ * @returns {string|undefined}
+ */
+const getPreviousOverloadName = (node) => {
+  if (node.type === 'TSDeclareFunction') {
+    return /** @type {{id?: {name?: string}}} */ (node).id?.name;
+  }
+
+  if (node.type === 'ExportNamedDeclaration') {
+    const {declaration} =
+      /** @type {{declaration?: {type?: string, id?: {name?: string}}}} */ (
+        node
+      );
+    if (declaration?.type === 'TSDeclareFunction') {
+      return declaration.id?.name;
+    }
+  }
+
+  if (overloadMethodNode.has(node.type)) {
+    const method =
+      /** @type {{computed?: boolean, key?: {name?: string}}} */ (node);
+    if (!method.computed) {
+      return method.key?.name;
+    }
+  }
+
+  return undefined;
+};
+
+/**
+ * @param {ESLintOrTSNode} node
+ * @returns {ESLintOrTSNode|null}
+ */
+const getPreviousOverloadSibling = (node) => {
+  const {parent} = node;
+  let childNode = node;
+  /** @type {ESLintOrTSNode[]|undefined} */
+  let siblings;
+
+  if (
+    overloadMethodNode.has(node.type) &&
+    parent?.type === 'ClassBody'
+  ) {
+    siblings = /** @type {ESLintOrTSNode[]} */ (parent.body);
+  } else if (parent?.type === 'ExportNamedDeclaration') {
+    childNode = parent;
+    siblings = getOverloadStatementSiblings(parent.parent);
+  } else {
+    siblings = getOverloadStatementSiblings(parent);
+  }
+
+  if (!siblings) {
+    return null;
+  }
+
+  const idx = siblings.indexOf(childNode);
+  return idx > 0 ? siblings[idx - 1] : null;
+};
+
 /**
  * Retrieves the JSDoc comment for a given node.
  *
  * @param {import('eslint').SourceCode} sourceCode The ESLint SourceCode
- * @param {import('eslint').Rule.Node} node The AST node to get
+ * @param {ESLintOrTSNode} node The AST node to get
  *   the comment for.
  * @param {Settings} settings The settings in context
  * @param {{checkOverloads?: boolean}} [opts]
@@ -917,68 +1142,18 @@ const getJSDocComment = function (sourceCode, node, settings, opts = {}) {
   const reducedNode = getReducedASTNode(node, sourceCode, settings);
   const comment = findJSDocComment(reducedNode, sourceCode, settings);
 
-  if (!comment &&
-    opts.checkOverloads &&
-    (
-      reducedNode.parent?.type === 'Program' ||
-      reducedNode.parent?.type === 'ExportNamedDeclaration'
-    )
-  ) {
-    let functionName;
-    if (reducedNode.type === 'TSDeclareFunction' ||
-      reducedNode.type === 'FunctionDeclaration') {
-      functionName = reducedNode.id?.name;
-    } else if (reducedNode.type === 'ExportNamedDeclaration' &&
-      (reducedNode.declaration?.type === 'FunctionDeclaration' ||
-      // @ts-ignore Should be ok
-      reducedNode.declaration?.type === 'TSDeclareFunction')
-    ) {
-      functionName = reducedNode.declaration.id.name;
-    } else {
-      return null;
-    }
-
-    /**
-     * @type {import('estree').Program & {
-     *   parent: null
-     * }}
-     */
-    let programNode;
-
-    /**
-     * @type {ESLintOrTSNode}
-     */
-    let childNode;
-
-    if (reducedNode.parent?.type === 'Program') {
-      programNode = reducedNode.parent;
-      childNode = reducedNode;
-    } else if (reducedNode.parent?.parent.type === 'Program') {
-      programNode = reducedNode.parent.parent;
-      childNode = reducedNode.parent;
-    /* v8 ignore next 3 */
-    } else {
-      throw new Error('unexpected TS guard condition');
-    }
-
-    // @ts-expect-error Should be ok
-    const idx = programNode.body.indexOf(childNode);
-    const prevSibling =
-      /** @type {import('eslint').AST.Program & {parent: null}} */ (
-        programNode
-      ).body[idx - 1];
+  if (!comment && opts.checkOverloads) {
+    const functionName = getCurrentOverloadName(reducedNode);
+    const prevSibling = getPreviousOverloadSibling(reducedNode);
     if (
-      // @ts-expect-error Should be ok
-      (prevSibling?.type === 'TSDeclareFunction' &&
-        // @ts-expect-error Should be ok
-        functionName === prevSibling.id.name) ||
-      (prevSibling?.type === 'ExportNamedDeclaration' &&
-        // @ts-expect-error Should be ok
-        prevSibling.declaration?.type === 'TSDeclareFunction' &&
-        // @ts-expect-error Should be ok
-        prevSibling.declaration?.id?.name === functionName)
+      prevSibling &&
+      functionName &&
+      getPreviousOverloadName(prevSibling) === functionName &&
+      (
+        !overloadMethodNode.has(reducedNode.type) ||
+        isMatchingMethodOverloadSibling(reducedNode, prevSibling)
+      )
     ) {
-      // @ts-expect-error Should be ok
       return getJSDocComment(sourceCode, prevSibling, settings, opts);
     }
   }
@@ -1002,9 +1177,11 @@ function determineFormat (match) {
   const [tagStart] = match.indices.groups.tag;
   if (!text) {
     return 'plain';
-  } else if (separator === '|') {
+  }
+  if (separator === '|') {
     return 'pipe';
-  } else if (textEnd < tagStart) {
+  }
+  if (textEnd < tagStart) {
     return 'prefix';
   }
   return 'space';
@@ -1022,10 +1199,10 @@ function parseDescription (description) {
   // This could have been expressed in a single pattern,
   // but having two avoids a potentially exponential time regex.
 
-  const prefixedTextPattern = /(?:\[(?<text>[^\]]+)\])\{@(?<tag>[^\}\s]+)\s?(?<namepathOrURL>[^\}\s\|]*)\}/gvd;
+  const prefixedTextPattern = /(?:\[(?<text>(?:[^\\\]]|\\[\s\S])+)\])\{@(?<tag>[^\}\s]+)\s?(?<namepathOrURL>[^\}\s\|]*)\}/gvd;
   // The pattern used to match for text after tag uses a negative lookbehind
   // on the ']' char to avoid matching the prefixed case too.
-  const suffixedAfterPattern = /(?<!\])\{@(?<tag>[^\}\s]+)\s?(?<namepathOrURL>[^\}\s\|]*)\s*(?<separator>[\s\|])?\s*(?<text>[^\}]*)\}/gvd;
+  const suffixedAfterPattern = /(?<!\])\{@(?<tag>[^\}\s]+)\s?(?<namepathOrURL>[^\}\s\|]*)\s*(?<separator>[\s\|])?\s*(?<text>(?:[^\\\}]|\\[\s\S])*)\}/gvd;
 
   const matches = [
     ...description.matchAll(prefixedTextPattern),
@@ -1046,13 +1223,15 @@ function parseDescription (description) {
         mtch
       );
     const {tag, namepathOrURL, text} = match.groups;
+    // @ts-expect-error Ok
     const [start, end] = match.indices[0];
     const format = determineFormat(match);
+    const decodedText = decodeInlineTagText(text, format);
 
     result.push({
       tag,
       namepathOrURL,
-      text,
+      text: decodedText,
       format,
       start,
       end
@@ -1278,7 +1457,6 @@ const parseComment = (commentOrNode, indent = '') => {
 };
 
 /* eslint-disable unicorn/prefer-structured-clone -- JSON desired here */
-/* eslint-enable import/no-unresolved -- Bug? */
 
 const jsdocCommentProperty = 'jsdoc';
 const jsdocBlocksProperty = 'jsdocBlocks';
@@ -1561,7 +1739,7 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
       (ast)[jsdocBlocksProperty] = ast.comments.map(({
         type, value: comment, range, loc
       }, idx) => {
-        if (type !== 'Block' || takenRanges[String(range)]) {
+        if (type !== 'Block' || Object.hasOwn(takenRanges, String(range))) {
           return null;
         }
         let jsdoc;

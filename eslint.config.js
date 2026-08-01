@@ -13,7 +13,7 @@ export default [
   {
     files: ['**/*.md/*.js'],
     rules: {
-      'import/unambiguous': 'off',
+      'import-x/unambiguous': 'off',
       'no-empty-function': 'off',
       'no-unused-vars': ['error', {varsIgnorePattern: 'aFunc'}]
     }

@@ -54,7 +54,7 @@ const jsdocBlock = {
         38
       ],
       rawType: '',
-      initial: '       ',
+      initial: ' '.repeat(7),
       inlineTags: [],
       tag: 'someTag',
       type: 'JsdocTag',

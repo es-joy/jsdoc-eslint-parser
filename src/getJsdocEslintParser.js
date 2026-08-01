@@ -5,9 +5,7 @@ import {
   jsdocVisitorKeys, jsdocTypeVisitorKeys,
   getJSDocComment,
   parseComment, commentParserToESTree
-  /* eslint-disable import/no-unresolved -- Bug? */
 } from '@es-joy/jsdoccomment';
-/* eslint-enable import/no-unresolved -- Bug? */
 
 const jsdocCommentProperty = 'jsdoc';
 const jsdocBlocksProperty = 'jsdocBlocks';
@@ -290,7 +288,7 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
       (ast)[jsdocBlocksProperty] = ast.comments.map(({
         type, value: comment, range, loc
       }, idx) => {
-        if (type !== 'Block' || takenRanges[String(range)]) {
+        if (type !== 'Block' || Object.hasOwn(takenRanges, String(range))) {
           return null;
         }
         let jsdoc;

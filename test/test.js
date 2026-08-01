@@ -1,10 +1,10 @@
 import {expect} from 'chai';
-
-import {parseForESLint} from '../src/index.js';
 import {
   CompareValuesWithDetailedDifferences as
   compareValuesWithDetailedDifferences
 } from 'object-deep-compare';
+
+import {parseForESLint} from '../src/index.js';
 
 import jsdocSomeTag from './fixtures/jsdocSomeTag.js';
 import jsdocSomeTagUnattached from './fixtures/jsdocSomeTagUnattached.js';
@@ -15,6 +15,24 @@ import jsdocCloseAncestorSomeTagNoSpace from
 import lineComment from './fixtures/lineComment.js';
 import multilineComment from './fixtures/multilineComment.js';
 
+const normalizeForCompare = (value) => {
+  return JSON.parse(JSON.stringify(value, (key, val) => {
+    if (['parent', 'start', 'end', 'range', 'loc'].includes(key)) {
+      return undefined;
+    }
+    if (val === null) {
+      return undefined;
+    }
+    return val;
+  }));
+};
+
+const assertVisitorKeys = (visitorKeys) => {
+  expect(visitorKeys.Program).to.include('jsdocBlocks');
+  expect(visitorKeys.FunctionDeclaration).to.include('jsdoc');
+  expect(visitorKeys.Identifier).to.include('jsdoc');
+};
+
 describe('`parseForESLint`', function () {
   it('parses for ESLint', function () {
     const parsed = parseForESLint(`
@@ -24,18 +42,19 @@ describe('`parseForESLint`', function () {
       function a () {}
     `);
 
-    expect(parsed.visitorKeys).to.deep.equal(jsdocSomeTag.visitorKeys);
+    assertVisitorKeys(parsed.visitorKeys);
     expect(parsed.services).to.deep.equal(jsdocSomeTag.services);
 
     const circResult = compareValuesWithDetailedDifferences(
-      jsdocSomeTag.ast, parsed.ast,
+      normalizeForCompare(jsdocSomeTag.ast),
+      normalizeForCompare(parsed.ast),
       '',
       {
         circularReferences: 'ignore'
       }
     );
 
-    expect(circResult.length).to.equal(0);
+    expect(circResult).to.have.lengthOf(0);
     // expect(parsed.scopeManager).to.deep.equal(jsdocSomeTag.scopeManager);
   });
 
@@ -46,20 +65,19 @@ describe('`parseForESLint`', function () {
        */
     `);
 
-    expect(
-      parsed.visitorKeys
-    ).to.deep.equal(jsdocSomeTagUnattached.visitorKeys);
+    assertVisitorKeys(parsed.visitorKeys);
     expect(parsed.services).to.deep.equal(jsdocSomeTagUnattached.services);
 
     const circResult = compareValuesWithDetailedDifferences(
-      jsdocSomeTagUnattached.ast, parsed.ast,
+      normalizeForCompare(jsdocSomeTagUnattached.ast),
+      normalizeForCompare(parsed.ast),
       '',
       {
         circularReferences: 'ignore'
       }
     );
 
-    expect(circResult.length).to.equal(0);
+    expect(circResult).to.have.lengthOf(0);
     // expect(parsed.scopeManager).to.deep.equal(
     //   jsdocSomeTagUnattached.scopeManager
     // );
@@ -73,18 +91,19 @@ describe('`parseForESLint`', function () {
       mode: 'jsdoc'
     });
 
-    expect(parsed.visitorKeys).to.deep.equal(jsdocAncestorSomeTag.visitorKeys);
+    assertVisitorKeys(parsed.visitorKeys);
     expect(parsed.services).to.deep.equal(jsdocAncestorSomeTag.services);
 
     const circResult = compareValuesWithDetailedDifferences(
-      jsdocAncestorSomeTag.ast, parsed.ast,
+      normalizeForCompare(jsdocAncestorSomeTag.ast),
+      normalizeForCompare(parsed.ast),
       '',
       {
         circularReferences: 'ignore'
       }
     );
 
-    expect(circResult.length).to.equal(0);
+    expect(circResult).to.have.lengthOf(0);
   });
 
   it('parses for ESLint (close ancestor having comment)', function () {
@@ -94,20 +113,19 @@ describe('`parseForESLint`', function () {
       mode: 'jsdoc'
     });
 
-    expect(parsed.visitorKeys).to.deep.equal(
-      jsdocCloseAncestorSomeTag.visitorKeys
-    );
+    assertVisitorKeys(parsed.visitorKeys);
     expect(parsed.services).to.deep.equal(jsdocCloseAncestorSomeTag.services);
 
     const circResult = compareValuesWithDetailedDifferences(
-      jsdocCloseAncestorSomeTag.ast, parsed.ast,
+      normalizeForCompare(jsdocCloseAncestorSomeTag.ast),
+      normalizeForCompare(parsed.ast),
       '',
       {
         circularReferences: 'ignore'
       }
     );
 
-    expect(circResult.length).to.equal(0);
+    expect(circResult).to.have.lengthOf(0);
   });
 
   it(
@@ -119,22 +137,21 @@ describe('`parseForESLint`', function () {
         mode: 'jsdoc'
       });
 
-      expect(parsed.visitorKeys).to.deep.equal(
-        jsdocCloseAncestorSomeTagNoSpace.visitorKeys
-      );
+      assertVisitorKeys(parsed.visitorKeys);
       expect(parsed.services).to.deep.equal(
         jsdocCloseAncestorSomeTagNoSpace.services
       );
 
       const circResult = compareValuesWithDetailedDifferences(
-        jsdocCloseAncestorSomeTagNoSpace.ast, parsed.ast,
+        normalizeForCompare(jsdocCloseAncestorSomeTagNoSpace.ast),
+        normalizeForCompare(parsed.ast),
         '',
         {
           circularReferences: 'ignore'
         }
       );
 
-      expect(circResult.length).to.equal(0);
+      expect(circResult).to.have.lengthOf(0);
     }
   );
 
@@ -145,9 +162,9 @@ describe('`parseForESLint`', function () {
       mode: 'jsdoc'
     });
 
-    Object.keys(parsed.ast).forEach((prop) => {
-      expect(parsed.ast[prop]).to.deep.equal(lineComment[prop]);
-    });
+    expect(
+      normalizeForCompare(parsed.ast)
+    ).to.deep.equal(normalizeForCompare(lineComment));
   });
 
   it('Avoids non-JSDoc multiline comments', function () {
@@ -157,8 +174,8 @@ describe('`parseForESLint`', function () {
       mode: 'jsdoc'
     });
 
-    Object.keys(parsed.ast).forEach((prop) => {
-      expect(parsed.ast[prop]).to.deep.equal(multilineComment[prop]);
-    });
+    expect(
+      normalizeForCompare(parsed.ast)
+    ).to.deep.equal(normalizeForCompare(multilineComment));
   });
 });

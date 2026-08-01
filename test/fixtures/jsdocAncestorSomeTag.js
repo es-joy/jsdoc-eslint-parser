@@ -303,7 +303,7 @@ const body = {
         typeLines: []
       }
     ],
-    initial: '      ',
+    initial: ' '.repeat(6),
     hasPreterminalDescription: 0,
     hasPreterminalTagDescription: 1,
     inlineTags: [],

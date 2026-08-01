@@ -26,6 +26,7 @@ function getRollupObject ({input, minifying, format = 'umd'} = {}) {
       name: 'JsdocEslintParser',
       format,
       sourcemap: minifying,
+      // eslint-disable-next-line unicorn/no-unsafe-string-replacement -- Safe
       file: `dist/${input.replace(/\.js$/v, format === 'cjs' ? '' : `.${format}`)}${
         minifying ? '.min' : ''
       }.${format === 'cjs' || format === 'umd' ? 'c' : ''}js`

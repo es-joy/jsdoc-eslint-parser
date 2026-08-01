@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## 0.28.0
+
+- chore: update deps. and devDeps.
+
 ## 0.27.0
 
 - Breaking: Require Node ^20.19.0 || ^22.13.0 || >=24

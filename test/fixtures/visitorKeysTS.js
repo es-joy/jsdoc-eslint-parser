@@ -823,6 +823,7 @@ const visitorKeysTS = {
   JsdocTypeAssertsPlain: [
     'element'
   ],
+  JsdocTypeBigInt: [],
   JsdocTypeCallSignature: [
     'typeParameters',
     'parameters',
