@@ -29,5 +29,7 @@ minimumReleaseAgeExclude:
   - '@rollup/rollup-win32-x64-gnu@4.62.4'
   - '@rollup/rollup-win32-x64-msvc@4.62.4'
   - rollup@4.62.4
-  - '@es-joy/jsdoccomment@0.93.2'
-  - jsdoc-type-pratt-parser@9.0.1
+  - '@es-joy/jsdoccomment@0.93.2 || 0.94.0'
+  - jsdoc-type-pratt-parser@9.0.1 || 9.1.0
+  - eslint-config-ash-nazg@42.2.0
+  - eslint-plugin-jsdoc@64.0.2
