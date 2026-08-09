@@ -29,3 +29,5 @@ minimumReleaseAgeExclude:
   - '@rollup/rollup-win32-x64-gnu@4.62.4'
   - '@rollup/rollup-win32-x64-msvc@4.62.4'
   - rollup@4.62.4
+  - '@es-joy/jsdoccomment@0.93.2'
+  - jsdoc-type-pratt-parser@9.0.1
