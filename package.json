@@ -1,6 +1,6 @@
 {
   "name": "@es-joy/jsdoc-eslint-parser",
-  "version": "0.28.0",
+  "version": "0.29.0",
   "author": "Brett Zamir <brettz9@yahoo.com>",
   "contributors": [],
   "description": "Parser to support JavaScript with JSDoc comments and types available as AST",
@@ -71,8 +71,8 @@
   "dependencies": {
     "@babel/core": "^8.0.1",
     "@babel/eslint-parser": "^8.0.1",
-    "@es-joy/jsdoccomment": "0.94.0",
-    "@typescript-eslint/parser": "^8.66.0",
+    "@es-joy/jsdoccomment": "0.95.0",
+    "@typescript-eslint/parser": "^8.67.0",
     "eslint": "^10.8.1",
     "esquery": "^1.7.0"
   }

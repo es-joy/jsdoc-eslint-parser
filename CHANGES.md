@@ -1,6 +1,6 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
-## ?
+## 0.29.0
 
 - chore: update eslint, typescript-eslint/parser, jsdoccomment, devDeps.
 
