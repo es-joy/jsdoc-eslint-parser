@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   reject: [
     // Wait until typescript-eslint supports
     'typescript'
