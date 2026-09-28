@@ -99,19 +99,13 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
       // ranges: true
     });
 
-    const modifiedVisitorKeys = JSON.parse(JSON.stringify(visitorKeys));
+    const modifiedVisitorKeys = /** @type {SourceCode.VisitorKeys} */ (
+      JSON.parse(JSON.stringify(visitorKeys))
+    );
     Object.entries(modifiedVisitorKeys).forEach(([key, value]) => {
-      if (key === 'Program') {
-        modifiedVisitorKeys[key] = Array.isArray(value)
-          ? [jsdocBlocksProperty, ...value]
-          /* c8 ignore next 1 */
-          : [jsdocBlocksProperty];
-      } else {
-        modifiedVisitorKeys[key] = Array.isArray(value)
-          ? [jsdocCommentProperty, ...value]
-          /* c8 ignore next 1 */
-          : [jsdocCommentProperty];
-      }
+      modifiedVisitorKeys[key] = key === 'Program'
+        ? [jsdocBlocksProperty, ...value]
+        : [jsdocCommentProperty, ...value];
     });
 
     const newVisitorKeys = {
@@ -178,7 +172,6 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
              * }|null}
              */ (getJSDocComment(
               sourceCode,
-              // @ts-expect-error Ok
               node,
               {
                 minLines,
@@ -198,7 +191,6 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
             }
             const ancestorCommentToken = getJSDocComment(
               sourceCode,
-              // @ts-expect-error Ok
               ancestor,
               {
                 minLines,
@@ -295,13 +287,11 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
         try {
           // Todo: detect leading whitespace for indent argument?
           jsdoc = parseComment({value: comment}, indent);
-          // No longer possible here?
-          /* c8 ignore next 3 */
+          /* c8 ignore next 3 -- No longer possible here? */
           if (!jsdoc) {
             return null;
           }
-        // Unreachable?
-        /* c8 ignore next 3 */
+        /* c8 ignore next 3 -- Guard */
         } catch (err) {
           return null;
         }

@@ -61,19 +61,19 @@
     "@types/estree": "^1.0.9",
     "c8": "^12.0.0",
     "chai": "^6.2.2",
-    "eslint-config-ash-nazg": "42.2.0",
-    "eslint-plugin-jsdoc": "^64.0.2",
-    "mocha": "^11.8.0",
+    "eslint-config-ash-nazg": "43.2.3",
+    "eslint-plugin-jsdoc": "^64.5.4",
+    "mocha": "^12.0.2",
     "object-deep-compare": "^2.0.0",
-    "rollup": "^4.62.4",
+    "rollup": "^4.63.5",
     "typescript": "^6.0.2"
   },
   "dependencies": {
-    "@babel/core": "^8.0.1",
+    "@babel/core": "^8.0.6",
     "@babel/eslint-parser": "^8.0.1",
-    "@es-joy/jsdoccomment": "0.95.0",
-    "@typescript-eslint/parser": "^8.67.0",
-    "eslint": "^10.8.1",
+    "@es-joy/jsdoccomment": "0.98.0",
+    "@typescript-eslint/parser": "^8.70.1",
+    "eslint": "^10.11.0",
     "esquery": "^1.7.0"
   }
 }

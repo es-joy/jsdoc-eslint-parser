@@ -1,5 +1,9 @@
 # CHANGES for `@es-joy/jsdoc-eslint-parser`
 
+## ?
+
+- chore: update babel/core, jsdoccomment, typescript-eslint/parser, eslint, devDeps.
+
 ## 0.29.0
 
 - chore: update eslint, typescript-eslint/parser, jsdoccomment, devDeps.

@@ -17,13 +17,10 @@ import multilineComment from './fixtures/multilineComment.js';
 
 const normalizeForCompare = (value) => {
   return JSON.parse(JSON.stringify(value, (key, val) => {
-    if (['parent', 'start', 'end', 'range', 'loc'].includes(key)) {
-      return undefined;
-    }
-    if (val === null) {
-      return undefined;
-    }
-    return val;
+    return val === null ||
+      ['parent', 'start', 'end', 'range', 'loc'].includes(key)
+      ? undefined
+      : val;
   }));
 };
 
