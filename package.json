@@ -10,13 +10,13 @@
     "jsdoc"
   ],
   "type": "module",
-  "main": "./dist/index.cjs",
+  "main": "./dist/src/index.cjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./src/index.js",
-      "require": "./dist/index.cjs"
+      "require": "./dist/src/index.cjs"
     },
     "./typescript.js": {
       "types": "./dist/typescript.d.ts",
@@ -36,6 +36,7 @@
   ],
   "scripts": {
     "prepublishOnly": "pnpm i && pnpm rollup && pnpm tsc",
+    "attw": "attw --pack . --profile node16",
     "tsc": "tsc",
     "rollup": "rollup -c",
     "lint-test": "eslint --config eslint.config-test.js test/fixtures",
@@ -56,6 +57,7 @@
     "node": "^20.19.0 || ^22.13.0 || >=24"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@types/esquery": "^1.5.4",
     "@types/estree": "^1.0.10",
