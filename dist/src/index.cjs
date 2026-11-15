@@ -366,11 +366,9 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
       /**
        * @type {JsdocInlineTag[]}
        */
-      const tagInlineTags = tag
-        // Assuming the tags from `source` are in the same order as `jsdoc.tags`
-        // we can use the `tags` length as index into the parser result tags.
-        // eslint-disable-next-line @stylistic/operator-linebreak -- Required
-        ?
+      const tagInlineTags =
+      // Assuming the tags from `source` are in the same order as `jsdoc.tags`
+      // we can use the `tags` length as index into the parser result tags.
         /**
          * @type {import('comment-parser').Spec & {
          *   inlineTags: JsdocInlineTagNoType[]
@@ -379,8 +377,7 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
           jsdoc.tags[tags.length]
         ).inlineTags.map(
           (t) => inlineTagToAST(t)
-        )
-        : [];
+        );
 
       /** @type {JsdocTag} */
       const tagObj = {
@@ -502,17 +499,19 @@ const commentParserToESTree = (jsdoc, mode = 'typescript', {
     }
 
     // Clean-up where last line itself has tag content
-    if (end && tag) {
-      ast.terminal = end;
-      ast.hasPreterminalTagDescription = 1;
-
-      // Remove terminal line break at end when tag is defined on last line.
-      if (ast.terminal === '*/') {
-        ast.preterminalLineBreak = '';
-      }
-
-      cleanUpLastTag(/** @type {JsdocTag} */ (lastTag));
+    if (!end || !tag) {
+      return;
     }
+
+    ast.terminal = end;
+    ast.hasPreterminalTagDescription = 1;
+
+    // Remove terminal line break at end when tag is defined on last line.
+    if (ast.terminal === '*/') {
+      ast.preterminalLineBreak = '';
+    }
+
+    cleanUpLastTag(/** @type {JsdocTag} */ (lastTag));
   });
 
   ast.lastDescriptionLine = lastDescriptionLine;
@@ -591,6 +590,22 @@ function decodeInlineTagText (text, format) {
  */
 
 /**
+ * The type accepted in node parameter positions of the public comment-finding
+ * helpers. It is deliberately looser than {@link ESLintOrTSNode}: callers pass
+ * nodes typed against their own copy of `@typescript-eslint/types`, and when
+ * that copy differs from the one resolved here the two `TSESTree` unions are
+ * nominally distinct and, being large and recursive, can exceed the
+ * type-checker's comparison depth. Requiring only `type` lets any AST node
+ * through while the helpers narrow internally; return types keep the precise
+ * {@link ESLintOrTSNode}.
+ *
+ * `ESLintOrTSNode` is deliberately *not* part of this union: including it makes
+ * the checker relate arguments against the full recursive `TSESTree.Node` union
+ * anyway, which is what overflows.
+ * @typedef {{type: string}} ESLintOrTSNodeInput
+ */
+
+/**
  * @typedef {number} int
  */
 
@@ -646,12 +661,12 @@ const looksLikeExport = function (astNode) {
  */
 const getTSFunctionComment = function (astNode) {
   const {parent} = astNode;
-  /* v8 ignore next 3 */
+  /* v8 ignore next 3 -- Defensive: nodes are expected to have a parent */
   if (!parent) {
     return astNode;
   }
   const grandparent = parent.parent;
-  /* v8 ignore next 3 */
+  /* v8 ignore next 3 -- Defensive: parent is expected to have a parent */
   if (!grandparent) {
     return astNode;
   }
@@ -662,10 +677,10 @@ const getTSFunctionComment = function (astNode) {
       grandparent.type === 'ExportNamedDeclaration'
     ) {
       return grandparent;
-    /* v8 ignore start */
+    /* v8 ignore start -- Defensive: other node types not expected here */
     }
     return astNode;
-    /* v8 ignore stop */
+    /* v8 ignore stop -- End of defensive fallback */
   }
 
   const greatGrandparent = grandparent.parent;
@@ -679,7 +694,8 @@ const getTSFunctionComment = function (astNode) {
   case 'TSPropertySignature':
     return grandparent;
   case 'ArrowFunctionExpression':
-    /* v8 ignore next 3 */
+    // eslint-disable-next-line @stylistic/max-len -- Long
+    /* v8 ignore next 3 -- Defensive: arrow functions are expected to be nested */
     if (!greatGrandparent) {
       return astNode;
     }
@@ -689,17 +705,17 @@ const getTSFunctionComment = function (astNode) {
 
     // && greatGreatGrandparent.parent.type === 'VariableDeclaration'
     ) {
-      /* v8 ignore next 3 */
-      if (!greatGreatGrandparent || !greatGreatGrandparent.parent) {
-        return astNode;
-      }
-      return greatGreatGrandparent.parent;
-    /* v8 ignore start */
+      /* v8 ignore next 3 -- Defensive: missing ancestors are not expected */
+      return !greatGreatGrandparent || !greatGreatGrandparent.parent
+        ? astNode
+        : greatGreatGrandparent.parent;
+    /* v8 ignore start -- Defensive: other parent types not expected here */
     }
     return astNode;
-    /* v8 ignore stop */
+    /* v8 ignore stop -- End of defensive fallback */
   case 'FunctionExpression':
-    /* v8 ignore next 3 */
+    // eslint-disable-next-line @stylistic/max-len -- Long
+    /* v8 ignore next 3 -- Defensive: function expressions are expected to be nested */
     if (!greatGreatGrandparent) {
       return astNode;
     }
@@ -709,38 +725,36 @@ const getTSFunctionComment = function (astNode) {
 
   // Fallthrough
   default:
-    /* v8 ignore next 3 */
+    // eslint-disable-next-line @stylistic/max-len -- Long
+    /* v8 ignore next 3 -- Defensive: other grandparent types not expected here */
     if (grandparent.type !== 'Identifier') {
       return astNode;
     }
   }
 
-  /* v8 ignore next 3 */
+  /* v8 ignore next 3 -- Defensive: ancestor is expected to exist */
   if (!greatGreatGrandparent) {
     return astNode;
   }
 
   switch (greatGrandparent.type) {
   case 'ArrowFunctionExpression':
-    if (
-      greatGreatGrandparent.type === 'VariableDeclarator' &&
+    return greatGreatGrandparent.type === 'VariableDeclarator' &&
       greatGreatGrandparent.parent.type === 'VariableDeclaration'
-    ) {
-      return greatGreatGrandparent.parent;
-    }
-
-    return astNode;
+      ? greatGreatGrandparent.parent
+      : astNode;
   case 'FunctionDeclaration':
     return greatGrandparent;
   case 'VariableDeclarator':
-    /* v8 ignore next */
+    // eslint-disable-next-line @stylistic/max-len -- Long
+    /* v8 ignore next -- Else branch (non-declaration) not expected for variable declarators */
     if (greatGreatGrandparent.type === 'VariableDeclaration') {
       return greatGreatGrandparent;
     }
-    /* v8 ignore next 2 */
+    /* v8 ignore next 2 -- Defensive fallthrough to default */
     // Fallthrough
   default:
-    /* v8 ignore next 3 */
+    /* v8 ignore next 3 -- Defensive default; unreachable in practice */
     return astNode;
   }
 };
@@ -774,15 +788,16 @@ const allowableCommentNode = new Set([
  * Reduces the provided node to the appropriate node for evaluating
  * JSDoc comment status.
  *
- * @param {ESLintOrTSNode} node An AST node.
+ * @param {ESLintOrTSNodeInput} nodeInput An AST node.
  * @param {import('eslint').SourceCode} sourceCode The ESLint SourceCode.
  * @param {Settings} [settings]
  * @returns {ESLintOrTSNode} The AST node that
  *   can be evaluated for appropriate JSDoc comments.
  */
-const getReducedASTNode = function (node, sourceCode, settings) {
+const getReducedASTNode = function (nodeInput, sourceCode, settings) {
+  const node = /** @type {ESLintOrTSNode} */ (nodeInput);
   let {parent} = node;
-  switch (/** @type {ESLintOrTSNode} */ (node).type) {
+  switch (node.type) {
   case 'TSFunctionType':
     return getTSFunctionComment(node);
   case 'TSInterfaceDeclaration':
@@ -790,7 +805,8 @@ const getReducedASTNode = function (node, sourceCode, settings) {
   case 'TSEnumDeclaration':
   case 'ClassDeclaration':
   case 'FunctionDeclaration':
-    /* v8 ignore next 3 */
+    // eslint-disable-next-line @stylistic/max-len -- Long
+    /* v8 ignore next 3 -- Defensive: declarations are expected to have a parent */
     if (!parent) {
       return node;
     }
@@ -802,7 +818,8 @@ const getReducedASTNode = function (node, sourceCode, settings) {
   case 'ArrowFunctionExpression':
   case 'TSEmptyBodyFunctionExpression':
   case 'FunctionExpression':
-    /* v8 ignore next 3 */
+    // eslint-disable-next-line @stylistic/max-len -- Long
+    /* v8 ignore next 3 -- Defensive: function expressions are expected to have a parent */
     if (!parent) {
       return node;
     }
@@ -850,11 +867,10 @@ const getReducedASTNode = function (node, sourceCode, settings) {
       if (parent && parent.type !== 'FunctionDeclaration' &&
         parent.type !== 'Program'
       ) {
-        if (parent.parent && parent.parent.type === 'ExportNamedDeclaration') {
-          return parent.parent;
-        }
-
-        return parent;
+        return parent.parent &&
+          parent.parent.type === 'ExportNamedDeclaration'
+          ? parent.parent
+          : parent;
       }
     }
 
@@ -868,7 +884,7 @@ const getReducedASTNode = function (node, sourceCode, settings) {
 /**
  * Checks for the presence of a JSDoc comment for the given node and returns it.
  *
- * @param {ESLintOrTSNode} astNode The AST node to get
+ * @param {ESLintOrTSNodeInput} astNode The AST node to get
  *   the comment for.
  * @param {import('eslint').SourceCode} sourceCode
  * @param {{maxLines: int, minLines: int, [name: string]: any}} settings
@@ -881,7 +897,7 @@ const findJSDocComment = (astNode, sourceCode, settings, opts = {}) => {
   const {minLines, maxLines} = settings;
 
   /** @type {ESLintOrTSNode|import('estree').Comment} */
-  let currentNode = astNode;
+  let currentNode = /** @type {ESLintOrTSNode} */ (astNode);
   let tokenBefore = null;
   let parenthesisToken = null;
 
@@ -920,7 +936,8 @@ const findJSDocComment = (astNode, sourceCode, settings, opts = {}) => {
     break;
   }
 
-  /* v8 ignore next 3 */
+  // eslint-disable-next-line @stylistic/max-len -- Long
+  /* v8 ignore next 3 -- Defensive: tokens and locations are expected to exist */
   if (!tokenBefore || !currentNode.loc || !tokenBefore.loc) {
     return null;
   }
@@ -1129,7 +1146,7 @@ const getPreviousOverloadSibling = (node) => {
  * Retrieves the JSDoc comment for a given node.
  *
  * @param {import('eslint').SourceCode} sourceCode The ESLint SourceCode
- * @param {ESLintOrTSNode} node The AST node to get
+ * @param {ESLintOrTSNodeInput} node The AST node to get
  *   the comment for.
  * @param {Settings} settings The settings in context
  * @param {{checkOverloads?: boolean}} [opts]
@@ -1181,10 +1198,7 @@ function determineFormat (match) {
   if (separator === '|') {
     return 'pipe';
   }
-  if (textEnd < tagStart) {
-    return 'prefix';
-  }
-  return 'space';
+  return textEnd < tagStart ? 'prefix' : 'space';
 }
 
 /**
@@ -1212,19 +1226,21 @@ function parseDescription (description) {
 
   for (const mtch of matches) {
     const match = /**
-      * @type {RegExpMatchArray & {
-      *   indices: {
-      *     groups: {
-      *       [key: string]: [number, number]
-      *     }
-      *   }
-      *   groups: {[key: string]: string}
-      * }}
-      */ (
+                   * @type {RegExpMatchArray & {
+                   *   indices: {
+                   *     groups: {
+                   *       [key: string]: [number, number]
+                   *     }
+                   *   }
+                   *   groups: {[key: string]: string}
+                   * }}
+                   */ (
         mtch
       );
     const {tag, namepathOrURL, text} = match.groups;
-    const [start, end] = match.indices[0];
+    // `indices[0]` (the whole-match span) is always present for a successful
+    // match under the `d` flag, though the type includes `undefined`.
+    const [start, end] = /** @type {[number, number]} */ (match.indices[0]);
     const format = determineFormat(match);
     const decodedText = decodeInlineTagText(text, format);
 
@@ -1342,11 +1358,7 @@ const getTokenizers = ({
      * @returns {import('comment-parser').Spec}
      */
     (spec) => {
-      if (noTypes.includes(spec.tag)) {
-        return spec;
-      }
-
-      return preserveTypeTokenizer(spec);
+      return noTypes.includes(spec.tag) ? spec : preserveTypeTokenizer(spec);
     },
 
     /**
@@ -1396,11 +1408,9 @@ const getTokenizers = ({
         return spec;
       }
 
-      if (noNames.includes(spec.tag) || hasSeeWithLink(spec)) {
-        return spec;
-      }
-
-      return plainNameTokenizer(spec);
+      return noNames.includes(spec.tag) || hasSeeWithLink(spec)
+        ? spec
+        : plainNameTokenizer(spec);
     },
 
     /**
@@ -1550,19 +1560,13 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
       // ranges: true
     });
 
-    const modifiedVisitorKeys = JSON.parse(JSON.stringify(visitorKeys));
+    const modifiedVisitorKeys = /** @type {SourceCode.VisitorKeys} */ (
+      JSON.parse(JSON.stringify(visitorKeys))
+    );
     Object.entries(modifiedVisitorKeys).forEach(([key, value]) => {
-      if (key === 'Program') {
-        modifiedVisitorKeys[key] = Array.isArray(value)
-          ? [jsdocBlocksProperty, ...value]
-          /* c8 ignore next 1 */
-          : [jsdocBlocksProperty];
-      } else {
-        modifiedVisitorKeys[key] = Array.isArray(value)
-          ? [jsdocCommentProperty, ...value]
-          /* c8 ignore next 1 */
-          : [jsdocCommentProperty];
-      }
+      modifiedVisitorKeys[key] = key === 'Program'
+        ? [jsdocBlocksProperty, ...value]
+        : [jsdocCommentProperty, ...value];
     });
 
     const newVisitorKeys = {
@@ -1629,7 +1633,6 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
              * }|null}
              */ (getJSDocComment(
               sourceCode,
-              // @ts-expect-error Ok
               node,
               {
                 minLines,
@@ -1649,7 +1652,6 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
             }
             const ancestorCommentToken = getJSDocComment(
               sourceCode,
-              // @ts-expect-error Ok
               ancestor,
               {
                 minLines,
@@ -1746,13 +1748,11 @@ const getJsdocEslintParser = (parser, bakedInOptions = {}) => {
         try {
           // Todo: detect leading whitespace for indent argument?
           jsdoc = parseComment({value: comment}, indent);
-          // No longer possible here?
-          /* c8 ignore next 3 */
+          /* c8 ignore next 3 -- No longer possible here? */
           if (!jsdoc) {
             return null;
           }
-        // Unreachable?
-        /* c8 ignore next 3 */
+        /* c8 ignore next 3 -- Guard */
         } catch (err) {
           return null;
         }
